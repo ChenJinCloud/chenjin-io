@@ -129,7 +129,7 @@ This site is where I share everything I learn along the way — the tools that w
       ],
     },
     trust: {
-      label: '05 — Trust',
+      label: '04 — Trust',
       testimonialsTitle: 'What others say.',
       testimonials: [
         {
@@ -152,9 +152,9 @@ This site is where I share everything I learn along the way — the tools that w
       partners: ['InsForge', 'Atoms.dev', 'YC-backed'],
     },
     contact: {
-      label: '06 — Connect',
-      title: 'Let\'s connect.',
-      description: 'I\'m always open to conversations about AI, building products, growth strategy, or anything you\'re trying to figure out.',
+      label: '05 — Work With Me',
+      title: 'Let\'s work together.',
+      description: 'Sponsor my continued work, or bring me into your project. I take on 1-on-1 consulting, growth engagements, and select collaborations.',
       email: 'hello@chenjin.io',
       socials: [
         { name: 'Twitter / X', link: '#' },
@@ -329,7 +329,7 @@ This site is where I share everything I learn along the way — the tools that w
       ],
     },
     trust: {
-      label: '05 — 信任',
+      label: '04 — 信任',
       testimonialsTitle: '别人怎么说。',
       testimonials: [
         {
@@ -352,9 +352,9 @@ This site is where I share everything I learn along the way — the tools that w
       partners: ['InsForge', 'Atoms.dev', 'YC-backed'],
     },
     contact: {
-      label: '06 — 连接',
-      title: '建立连接。',
-      description: '我随时欢迎关于AI、产品构建、增长策略或任何你正在摸索的事情的交流。',
+      label: '05 — 合作',
+      title: '一起做点事。',
+      description: '赞助我持续输出，或邀请我参与你的项目。我接 1v1 咨询、增长合作、和精选项目的联合创作。',
       email: 'hello@chenjin.io',
       socials: [
         { name: 'Twitter / X', link: '#' },
