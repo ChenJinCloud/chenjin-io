@@ -2,6 +2,29 @@
 
 All notable changes to chenjin.io are documented in this file.
 
+## [Unreleased] - 2026-04-15
+
+### Repo Migration & Brand Cleanup
+
+**Repository**
+- Migrated from `ChenJinCloud/chenjinai` to `ChenJinCloud/chenjin-io`
+- Fresh git history: prior Lovable auto-commits discarded
+- Full Phase 1+2A work (previously uncommitted on old remote) landed as initial commit
+- Rationale: decouple from Lovable two-way sync, resolve 3-month local/remote divergence, align repo name with domain
+
+**Favicon & Social**
+- NEW: `public/favicon.svg` — dark teal `#395F5F` background with white serif italic "CJ"
+- NEW: `public/og-image.svg` — 1200×630 placeholder card with "Turn chaos into clarity." tagline
+- `index.html` — added explicit `<link rel="icon" type="image/svg+xml">`; replaced `og:image` and `twitter:image` from Lovable default to local `/og-image.svg`
+- Replaces Lovable's default pink-heart favicon that browsers fell back to via `/favicon.ico`
+- `public/favicon.ico` retained as fallback (explicit SVG link takes precedence)
+
+**Docs**
+- NEW: `DISCUSSION.md` — decision log capturing repo migration rationale, brand cleanup trace, 10 decisions with reasons, and open follow-ups
+- `noindex, nofollow` meta tag kept intentionally (soft-launch mode, SEO gated until Phase 5)
+
+---
+
 ## [Unreleased] - 2026-04-09
 
 ### Roadmap Page & Login Modal
