@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Minimal Portfolio Design System - Clean, sophisticated, editorial */
+
+@layer base {
+  :root {
+    /* 月白 — 微带青绿的素白 */
+    --background: 150 38% 95%;
+    --foreground: 180 25% 18%;
+
+    /* 月白淡 — 卡片/区块 */
+    --card: 155 33% 92%;
+    --card-foreground: 180 25% 18%;
+
+    --popover: 150 38% 95%;
+    --popover-foreground: 180 25% 18%;
+
+    /* 青黛 — 深青近墨 */
+    --primary: 180 25% 30%;
+    --primary-foreground: 150 38% 95%;
+
+    /* 薄荷淡 — 次要背景 */
+    --secondary: 155 25% 90%;
+    --secondary-foreground: 180 25% 22%;
+
+    /* 碧山 — 次要文字 */
+    --muted: 153 18% 88%;
+    --muted-foreground: 180 12% 40%;
+
+    /* 翠涛 — 强调色 */
+    --accent: 170 50% 37%;
+    --accent-foreground: 150 38% 95%;
+
+    /* 胭脂 */
+    --destructive: 354 45% 56%;
+    --destructive-foreground: 150 38% 95%;
+
+    /* 松花淡 — 边框 */
+    --border: 150 18% 85%;
+    --input: 155 18% 88%;
+    --ring: 170 50% 37%;
+
+    /* 青黛深 — Headline */
+    --headline: 180 25% 18%;
+
+    --radius: 0.25rem;
+
+    --sidebar-background: 155 33% 92%;
+    --sidebar-foreground: 180 25% 22%;
+    --sidebar-primary: 180 25% 30%;
+    --sidebar-primary-foreground: 150 38% 95%;
+    --sidebar-accent: 155 25% 90%;
+    --sidebar-accent-foreground: 180 25% 22%;
+    --sidebar-border: 150 18% 85%;
+    --sidebar-ring: 170 50% 37%;
+  }
+
+  .dark {
+    /* 玄墨 — 天玄地黄 */
+    --background: 200 10% 10%;
+    --foreground: 150 15% 85%;
+
+    /* 深玄 — 卡片 */
+    --card: 180 10% 14%;
+    --card-foreground: 150 15% 85%;
+
+    --popover: 200 10% 12%;
+    --popover-foreground: 150 15% 85%;
+
+    /* 天水碧 — 主色 */
+    --primary: 170 42% 60%;
+    --primary-foreground: 200 10% 10%;
+
+    /* 黛绿暗 — 次要 */
+    --secondary: 180 15% 18%;
+    --secondary-foreground: 150 15% 82%;
+
+    /* 烟青 — 次要文字 */
+    --muted: 180 10% 18%;
+    --muted-foreground: 160 8% 58%;
+
+    /* 天水碧 — 强调色 */
+    --accent: 170 42% 60%;
+    --accent-foreground: 200 10% 10%;
+
+    /* 暗胭脂 */
+    --destructive: 354 40% 50%;
+    --destructive-foreground: 150 15% 85%;
+
+    /* 素月 — Headline */
+    --headline: 150 15% 85%;
+
+    /* 暗黛 — 边框 */
+    --border: 180 12% 22%;
+    --input: 180 10% 20%;
+    --ring: 170 42% 60%;
+
+    --sidebar-background: 180 10% 14%;
+    --sidebar-foreground: 150 15% 82%;
+    --sidebar-primary: 170 42% 60%;
+    --sidebar-primary-foreground: 200 10% 10%;
+    --sidebar-accent: 180 15% 18%;
+    --sidebar-accent-foreground: 150 15% 82%;
+    --sidebar-border: 180 12% 22%;
+    --sidebar-ring: 170 42% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-sans {
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Subtle line reveal animation */
+  .line-reveal {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0% 1px no-repeat;
+    transition: background-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .line-reveal:hover {
+    background-size: 100% 1px;
+  }
+}

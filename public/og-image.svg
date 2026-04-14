@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#395F5F"/>
+  <circle cx="1050" cy="120" r="260" fill="#4A7A76" opacity="0.35"/>
+  <circle cx="1180" cy="540" r="180" fill="#2A4545" opacity="0.5"/>
+  <text x="80" y="290" font-family="Georgia, 'Playfair Display', serif" font-size="128" font-weight="700" fill="#EDF7F2">ChenJin</text>
+  <text x="80" y="390" font-family="Georgia, serif" font-size="56" font-style="italic" fill="#EDF7F2" opacity="0.9">Turn chaos into clarity.</text>
+  <line x1="80" y1="480" x2="260" y2="480" stroke="#EDF7F2" stroke-width="3" opacity="0.6"/>
+  <text x="80" y="540" font-family="'Helvetica Neue', Arial, sans-serif" font-size="32" fill="#EDF7F2" opacity="0.75">chenjin.io</text>
+  <text x="80" y="580" font-family="'Helvetica Neue', Arial, sans-serif" font-size="28" fill="#EDF7F2" opacity="0.6">AI Native · Growth · Build Process</text>
+</svg>
