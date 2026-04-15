@@ -20,12 +20,10 @@ const Navigation = () => {
   ];
 
   const pageNavItems = [
-    { href: '/tools', label: isZh ? '工具' : 'Tools' },
-    { href: '/sources', label: isZh ? '信息源' : 'Sources' },
-    { href: '/tutorials', label: isZh ? '教程' : 'Tutorials' },
+    { href: '/playbooks', label: isZh ? '方法手册' : 'Playbooks' },
     { href: '/blog', label: isZh ? '博客' : 'Blog' },
-    { href: '/social', label: isZh ? '社媒' : 'Social' },
-    { href: '/support', label: isZh ? '支持' : 'Support' },
+    { href: '/stack', label: isZh ? '技术栈' : 'Stack' },
+    { href: '/work-with-me', label: isZh ? '合作' : 'Work with me' },
     { href: '/roadmap', label: isZh ? '路线图' : 'Roadmap' },
   ];
 

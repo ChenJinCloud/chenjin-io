@@ -6,13 +6,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
-import Tools from "./pages/Tools";
-import Sources from "./pages/Sources";
-import Tutorials from "./pages/Tutorials";
+import Playbooks from "./pages/Playbooks";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
-import SocialMedia from "./pages/SocialMedia";
-import Support from "./pages/Support";
+import Stack from "./pages/Stack";
+import WorkWithMe from "./pages/WorkWithMe";
+import Experience from "./pages/Experience";
 import ExperienceDetail from "./pages/ExperienceDetail";
 import Roadmap from "./pages/Roadmap";
 import NotFound from "./pages/NotFound";
@@ -30,14 +29,13 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/experience/:id" element={<ExperienceDetail />} />
-              <Route path="/tools" element={<Tools />} />
-              <Route path="/sources" element={<Sources />} />
-              <Route path="/tutorials" element={<Tutorials />} />
+              <Route path="/playbooks" element={<Playbooks />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogPost />} />
-              <Route path="/social" element={<SocialMedia />} />
-              <Route path="/support" element={<Support />} />
+              <Route path="/stack" element={<Stack />} />
+              <Route path="/work-with-me" element={<WorkWithMe />} />
+              <Route path="/experience" element={<Experience />} />
+              <Route path="/experience/:id" element={<ExperienceDetail />} />
               <Route path="/roadmap" element={<Roadmap />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
