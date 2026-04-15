@@ -6,7 +6,6 @@ export const translations = {
       about: 'About',
       works: 'Works',
       journey: 'Journey',
-      explore: 'Explore',
       contact: 'Contact',
     },
     hero: {
@@ -98,36 +97,6 @@ This site is where I share everything I learn along the way — the tools that w
         },
       ],
     },
-    explore: {
-      label: '04 — Explore',
-      title: 'What you\'ll find here.',
-      items: [
-        {
-          icon: '📝',
-          title: 'Blog',
-          description: 'Perspectives on AI, growth, building from scratch, and the lessons in between.',
-          link: '/blog',
-        },
-        {
-          icon: '🛠️',
-          title: 'Tools',
-          description: 'The AI tools and resources I actually use — curated and annotated.',
-          link: '/tools',
-        },
-        {
-          icon: '📡',
-          title: 'Sources',
-          description: 'Where I get my information — newsletters, sites, and people worth following.',
-          link: '/sources',
-        },
-        {
-          icon: '🎯',
-          title: 'Tutorials',
-          description: 'Step-by-step guides from my build process — written as I learn.',
-          link: '/tutorials',
-        },
-      ],
-    },
     trust: {
       label: '04 — Trust',
       testimonialsTitle: 'What others say.',
@@ -206,7 +175,6 @@ This site is where I share everything I learn along the way — the tools that w
       about: '关于',
       works: '作品',
       journey: '旅程',
-      explore: '探索',
       contact: '联系',
     },
     hero: {
@@ -295,36 +263,6 @@ This site is where I share everything I learn along the way — the tools that w
           role: '大学 + 早期职业',
           company: '多家',
           description: '内容创作、心理咨询、旅行策划、B2B运营——构建通才基础。',
-        },
-      ],
-    },
-    explore: {
-      label: '04 — 探索',
-      title: '你能在这里找到什么。',
-      items: [
-        {
-          icon: '📝',
-          title: '博客',
-          description: '关于AI、增长、从零构建以及其中经验教训的观点。',
-          link: '/blog',
-        },
-        {
-          icon: '🛠️',
-          title: '工具',
-          description: '我实际在用的AI工具和资源——精选并附注。',
-          link: '/tools',
-        },
-        {
-          icon: '📡',
-          title: '信息源',
-          description: '我获取信息的地方——值得关注的新闻通讯、网站和人。',
-          link: '/sources',
-        },
-        {
-          icon: '🎯',
-          title: '教程',
-          description: '来自我构建过程的分步指南——边学边写。',
-          link: '/tutorials',
         },
       ],
     },

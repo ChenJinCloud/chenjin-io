@@ -12,9 +12,15 @@ const FloatingChat = () => {
   const fileRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const chatEnabledPaths = ['/work-with-me', '/roadmap'];
+  const isChatEnabled = isHome || chatEnabledPaths.includes(location.pathname);
 
   // Hide button when Hero chat input is visible on home page
   useEffect(() => {
+    if (!isChatEnabled) {
+      setShowButton(false);
+      return;
+    }
     if (!isHome) {
       setShowButton(true);
       return;
@@ -28,7 +34,9 @@ const FloatingChat = () => {
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHome]);
+  }, [isHome, isChatEnabled]);
+
+  if (!isChatEnabled) return null;
 
   return (
     <>
