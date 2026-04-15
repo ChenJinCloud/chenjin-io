@@ -1,73 +1,47 @@
-# Welcome to your Lovable project
+# chenjin.io
 
-## Project info
+Personal website for Chen Jin — growth lead, independent builder, and someone mapping the path from chaos to clarity in public.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Positioned as **self-as-SaaS**: the site is the product surface for my writing, playbooks, stack, and collaboration offers.
 
-## How can I edit this code?
+## Tech stack
 
-There are several ways of editing your application.
+- **Vite 5** + **React 18** + **TypeScript**
+- **Tailwind CSS** + **shadcn/ui** + custom Chinese-traditional-color design system
+- **Framer Motion** for animations
+- **React Router** for client-side routing
+- **i18n**: runtime EN / ZH switching via React Context
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## Local development
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Dev server runs on `http://localhost:8080` (falls back to 8081+ if occupied).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Routes
 
-**Use GitHub Codespaces**
+| URL | Purpose |
+|-----|---------|
+| `/` | Landing — Hero / About / Works / Journey / Trust / Work With Me |
+| `/playbooks` | Structured thematic playbooks (AI Coding 101, AI Growth 101, …) |
+| `/blog` | Standalone essays and insight posts |
+| `/stack` | Tools I build, tools I use, sources I follow |
+| `/work-with-me` | Sponsor / 1v1 consulting / growth engagement / speaking |
+| `/roadmap` | Public roadmap with feature voting |
+| `/experience` | Career timeline list |
+| `/experience/:id` | Single-stop detail page |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project docs
 
-## What technologies are used for this project?
+- [`SPEC.md`](./SPEC.md) — full specification
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md) — component and file layout
+- [`ROADMAP.md`](./ROADMAP.md) — sprint plan and phases
+- [`CHANGELOG.md`](./CHANGELOG.md) — release notes
+- [`DISCUSSION.md`](./DISCUSSION.md) — decision log and session notes
 
-This project is built with:
+## License
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+All rights reserved. Content and source may not be copied without permission.
