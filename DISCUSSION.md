@@ -43,13 +43,78 @@
 - **网络代理是隐性依赖**：Windows 下 `gh` / `git` 需要显式 env `HTTPS_PROXY=http://127.0.0.1:7897`，否则 GitHub API 调用会 TLS 超时。可考虑 `git config --global http.proxy` 一次性配置
 
 ### 未完成 / 下次起点
+- [x] 清理源码残留（sprint A 落地）
+- [x] ROADMAP.md 重排（sprint A 落地）
 - [ ] 用户手动：删除旧仓 `ChenJinCloud/chenjinai`
 - [ ] 用户手动：lovable.dev 解绑并删除项目
-- [ ] 清理源码残留：`vite.config.ts` 去掉 `lovable-tagger`、`package.json` 移除依赖、重写 `README.md`
-- [ ] `src/pages/Tools.tsx:147-153` 的 Lovable 推荐保留还是删（当前是主动推荐工具，非 Lovable 残留，需用户判断）
-- [ ] ROADMAP.md 重排：删除 4/9-4/15 冲刺计划，改为 4/15-5/1 打磨节奏
-- [ ] Phase 2B 视觉打磨：挑 Hero/Journey/Explore 中一个作为视觉基调锚点开始迭代
-- [ ] Phase 3 内容填充：About 照片、真实社交链接、Works 真实项目、至少 1 篇教程
-- [ ] Phase 4 对话系统方案选型（Claude API / 邮箱收件 / Crisp 第三方）待排期
+- [ ] Phase 2B 视觉打磨
+- [ ] Phase 3 内容填充
+- [ ] Phase 4 对话系统方案选型
+
+---
+
+## 2026-04-15 (下午) — IA 重构 + Sprint A 清理
+
+### 会话节奏
+本来是来"继续开发"的，检查后发现两件事：(1) 网页标签栏的 Lovable 爱心 logo 是因为 `index.html` 没显式 `<link rel="icon">` 回落到 `public/favicon.ico` 的 Lovable 原版；(2) 上午刚迁完仓库，下午用户就问"网站结构是否足够清晰"——审查后发现 IA 有内在冲突。会话主轴从"修 logo"滑到"定位重构+结构重排+清理"，一次性走完。
+
+### 关键定位决策：self-as-SaaS
+用户回答网站定位问题时说"构建个人 IP，把自己做成一个 SaaS/网站"。这个答案把整个 IA 批评框架翻转了一半：
+- **原本要批评的**：Roadmap 投票板、Support 定价页、Social channels 页——"个人站不应该有这些 SaaS 惯例"
+- **翻转后的解读**：这些页面恰恰是 self-as-SaaS 的核心资产——public roadmap 是定位锚，Support 是 pricing 页的个人化变体，Stack 是 "integrations" 页
+- **但仍然成立的批评**：首页"单页叙事"和"子页矩阵"两套 IA 打架、Blog 和 Tutorials 边界不清、Tools 和 Sources 同质
+
+### IA 新框架：产品化重排
+
+| SaaS 模块 | 对应到 chenjin.io |
+|-----------|------------------|
+| Landing (Hero + Value Prop) | 首页 Hero + 5 段叙事（从 7 段压缩） |
+| Features | Works section（未来转 Featured Playbooks）|
+| Pricing / Support | `/work-with-me` |
+| Roadmap | `/roadmap` |
+| Changelog / Blog | `/blog` |
+| Docs / Courses | `/playbooks`（原 /tutorials，重命名强化产品感）|
+| Integrations | `/stack`（原 /tools + /sources 合并）|
+| About / Team | About section + `/experience/:id` + `/experience` 列表 |
+| Contact | `/work-with-me` 和 Footer channels 共同承载 |
+
+### Blog 和 Tutorials 的边界（重要）
+用户明确区分：
+- **Blog** = thinking in public，单篇成文的 insight/story
+- **Tutorials → Playbooks** = 主题式、成体系、可编号的学习路径（AI 编程 101 / AI 增长 101）
+
+两者定位彻底不同：Blog 是 "thinking"，Playbooks 是 "product"。我一开始建议合并是错的，收回。应该**放大**差异而不是模糊它。
+
+### 执行：三刀重构
+
+**Cut 1 — 首页结构**（`382abb5`）
+首页从 7 段压到 5 段，删 Explore，Trust 05→04，Contact 06→05 + 升级为 Work With Me CTA。两套 IA 冲突消灭在此。
+
+**Cut 2 — 新 URL**（`5c1f180`）
+四个新页面：Playbooks / Stack / WorkWithMe / Experience。路由切换，Navigation pageNavItems 从 7 项缩到 5 项。Stack 完整继承 Tools 的 Dialog 交互 + 所有分类数据。
+
+**Cut 3 — 清理**（`4984b81`）
+删 5 个旧页面 + ExploreSection 组件。FloatingChat 改条件挂载（只在 /, /work-with-me, /roadmap 出现），阅读型页面不再打扰。i18n 清掉 nav.explore 和 explore 块。净减 1211 行。
+
+### 额外：Sprint A 低垂果实（`819691a`）
+- README.md Lovable 模板全量替换
+- ROADMAP.md 冲刺表重排到 4/15-5/1 节奏
+- vite.config.ts 删 lovable-tagger
+- package.json 包名 + 依赖清理
+- public/favicon.ico 删除
+
+### 工作流心得
+- **"三刀连坐"的价值**：单次大改爆炸风险高，但刻意拆成 3 个 commit + 每刀 tsc 验证，回滚颗粒度刚好；cut 1 纯首页零风险，cut 2 新建文件不删旧，cut 3 才做删除——风险递进、可控
+- **定位一个单词改变所有判断**：self-as-SaaS 这四个字让我几乎 180° 翻转了对 Roadmap/Support 页的评价。**定位问题不问清楚就动结构是危险的**——审查时先问"这是什么"再批评"这不对"
+- **别急着合并相似的东西**：我一开始要合并 Blog + Tutorials，用户一个反问（"你能说出两者差别吗？"）就暴露了我只看表面标题。定位清晰的东西即使表面相似也不该合并
+- **旧页面的内容保真要事先规划**：Tools.tsx 500 行内容、Sources.tsx 75 行、Support.tsx 208 行——动刀前必须想好迁移路径。这次选的是 cut 2 创建新文件内容内联、cut 3 删旧，干净但有临时冗余
+
+### 未完成 / 下次起点
+- [ ] Phase 2B 视觉打磨（B 路线）
+- [ ] Phase 3 内容填充（C 路线）：About bio / Works Featured Playbooks / Trust 真实推荐语 / Journey 公司日期核对
+- [ ] Phase 4 对话系统方案选型
+- [ ] `/experience/:id` 路由参数格式核对（当前用 `company.toLowerCase()`，不确定和 ExperienceDetail 期待的 id 是否匹配）
+- [ ] ARCHITECTURE.md / SPEC.md 是否还有 Lovable 残留文案（未查）
+- [ ] 用户手动：lovable.dev 解绑 + 删除旧仓 ChenJinCloud/chenjinai
 
 ---

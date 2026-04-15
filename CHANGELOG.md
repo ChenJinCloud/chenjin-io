@@ -2,6 +2,51 @@
 
 All notable changes to chenjin.io are documented in this file.
 
+## [Unreleased] - 2026-04-15 (afternoon)
+
+### IA Refactor (self-as-SaaS) — three-cut landing
+
+**Cut 1 — Homepage trim** (`382abb5`)
+- Removed ExploreSection from homepage (subpage discovery moves to top nav only)
+- Removed #explore anchor from Navigation homeNavItems
+- Renumbered section labels: Trust 05 to 04, Contact 06 to 05
+- Upgraded Contact section copy from "Let's connect" to "Let's work together",
+  reframed as sponsor/collaboration CTA (EN + ZH)
+- Homepage runs 5 sections: Hero, About(01), Works(02), Journey(03), Trust(04), Work With Me(05)
+
+**Cut 2 — New URL structure** (`5c1f180`)
+- NEW: `src/pages/Playbooks.tsx` — thematic structured output
+  (AI Coding 101, AI Growth 101, Vibe Coding log)
+- NEW: `src/pages/Stack.tsx` — merged Tools + Sources
+  (Tools I Build / Tools I Use / Sources I Follow) with Dialog preserved
+- NEW: `src/pages/WorkWithMe.tsx` — sponsor + engagement hub
+  (1v1 consulting, growth engagement, content licensing, speaking)
+- NEW: `src/pages/Experience.tsx` — career timeline list page
+  backed by journey data
+- `src/App.tsx` — replaced /tools, /sources, /tutorials, /support, /social
+  with /playbooks, /stack, /work-with-me, /experience
+- `src/components/Navigation.tsx` — pageNavItems trimmed 7 to 5:
+  Playbooks / Blog / Stack / Work with me / Roadmap
+
+**Cut 3 — Cleanup** (`4984b81`)
+- Deleted orphaned files: Tools.tsx, Sources.tsx, Tutorials.tsx, Support.tsx,
+  SocialMedia.tsx, ExploreSection.tsx
+- `src/components/FloatingChat.tsx` — conditional mount on /, /work-with-me,
+  /roadmap only; reading pages (blog, playbooks, stack, experience) no
+  longer show the floating chat to avoid reader interruption
+- `src/lib/i18n.ts` — removed stale nav.explore key and explore block (EN + ZH)
+
+### Sprint A — Cleanup pass (`819691a`)
+- `README.md` — replaced Lovable template with real project documentation
+- `ROADMAP.md` — rescheduled sprint from missed 4/9-4/15 to 4/15-5/1
+  polish cadence; added four 2026-04-15 decision entries
+- `vite.config.ts` — removed lovable-tagger plugin
+- `package.json` — removed lovable-tagger devDependency; renamed package
+  from `vite_react_shadcn_ts` to `chenjin-io`
+- `public/favicon.ico` — deleted (Lovable's pink heart fallback)
+
+---
+
 ## [Unreleased] - 2026-04-15
 
 ### Repo Migration & Brand Cleanup
