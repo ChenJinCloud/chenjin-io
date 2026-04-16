@@ -38,7 +38,7 @@ const HeroSection = () => {
   }, [words.length, measureWord]);
 
   return (
-    <section className="min-h-screen flex flex-col items-center px-6 md:px-12 pt-[clamp(7rem,18vh,15rem)] pb-[clamp(4rem,12vh,12rem)] relative overflow-hidden">
+    <section className="min-h-screen flex flex-col items-center justify-center px-6 md:px-12 pt-28 pb-20 2xl:pt-36 2xl:pb-24 relative overflow-hidden">
       {/* Background gradient mesh — light: jade-cyan noise (v1) / dark: jade-on-dark glow (v2) */}
       {/* Mask fades the bottom 28% into background, eliminating Hero/About hard cut */}
       <div
@@ -149,7 +149,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.3 }}
-          className="w-full max-w-2xl 2xl:max-w-3xl mx-auto"
+          className="w-full max-w-2xl 2xl:max-w-4xl [@media(min-width:2400px)]:max-w-[70rem] mx-auto"
         >
           {/* Guide text */}
           <p className="text-base md:text-lg 2xl:text-xl font-display italic text-accent mb-5 2xl:mb-7 text-center">
