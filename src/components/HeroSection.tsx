@@ -38,7 +38,7 @@ const HeroSection = () => {
   }, [words.length, measureWord]);
 
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center px-6 md:px-12 pt-24 relative overflow-hidden">
+    <section className="min-h-screen flex flex-col items-center px-6 md:px-12 pt-[clamp(7rem,18vh,15rem)] pb-[clamp(4rem,12vh,12rem)] relative overflow-hidden">
       {/* Background gradient mesh — light: jade-cyan noise (v1) / dark: jade-on-dark glow (v2) */}
       {/* Mask fades the bottom 28% into background, eliminating Hero/About hard cut */}
       <div
@@ -78,13 +78,13 @@ const HeroSection = () => {
         </svg>
       </div>
 
-      <div className="max-w-5xl mx-auto w-full text-center relative z-10">
+      <div className="max-w-5xl 2xl:max-w-[88rem] [@media(min-width:2400px)]:max-w-[110rem] mx-auto w-full text-center relative z-10">
         {/* H1 Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-5xl md:text-6xl lg:text-[5.5rem] font-display font-medium leading-[0.95] tracking-tight mb-6 md:mb-8"
+          className="text-5xl md:text-6xl lg:text-[5.5rem] 2xl:text-[6.5rem] [@media(min-width:2400px)]:text-[8rem] font-display font-medium leading-[0.95] tracking-tight mb-6 md:mb-8 2xl:mb-10"
           style={{ color: 'hsl(var(--headline))' }}
         >
           {t.hero.headline}
@@ -95,13 +95,13 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-2xl md:text-4xl lg:text-5xl font-display font-light text-foreground/80 leading-tight mb-10 md:mb-14 flex items-baseline justify-center flex-wrap gap-x-[0.3em]"
+          className="text-2xl md:text-4xl lg:text-5xl 2xl:text-[3.5rem] [@media(min-width:2400px)]:text-[4.5rem] font-display font-light text-foreground/80 leading-tight mb-10 md:mb-14 2xl:mb-16 flex items-baseline justify-center flex-wrap gap-x-[0.3em]"
         >
           <span>{t.hero.rotatingPrefix}</span>
 
           <span
             aria-hidden="true"
-            className="absolute invisible pointer-events-none text-2xl md:text-4xl lg:text-5xl italic font-bold"
+            className="absolute invisible pointer-events-none text-2xl md:text-4xl lg:text-5xl 2xl:text-[3.5rem] [@media(min-width:2400px)]:text-[4.5rem] italic font-bold"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             {words.map((word, i) => (
@@ -149,10 +149,10 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.3 }}
-          className="w-full max-w-2xl mx-auto"
+          className="w-full max-w-2xl 2xl:max-w-3xl mx-auto"
         >
           {/* Guide text */}
-          <p className="text-base md:text-lg font-display italic text-accent mb-5 text-center">
+          <p className="text-base md:text-lg 2xl:text-xl font-display italic text-accent mb-5 2xl:mb-7 text-center">
             {t.hero.chatGuide}
           </p>
 
