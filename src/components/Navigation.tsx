@@ -35,24 +35,25 @@ const Navigation = () => {
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 bg-background/70 backdrop-blur-xl border-b border-border/40"
+        className="fixed top-4 left-0 right-0 z-50 px-4 md:px-8"
       >
-        <nav className="max-w-7xl mx-auto flex items-center justify-between">
+        <nav className="max-w-7xl mx-auto grid grid-cols-[auto_1fr_auto] items-center gap-4">
+          {/* Left — logo (outside capsule) */}
           <Link
             to="/"
-            className="text-sm font-sans font-semibold tracking-[0.18em] uppercase text-foreground hover:text-accent transition-colors duration-200"
+            className="text-sm font-sans font-medium tracking-[0.16em] uppercase text-foreground/80 hover:text-foreground transition-colors duration-200"
           >
             ChenJin
           </Link>
 
-          <div className="flex items-center gap-6">
-            {/* Desktop nav */}
-            <ul className="hidden md:flex items-center gap-1">
+          {/* Center — floating capsule with nav links */}
+          <div className="hidden md:flex justify-center">
+            <ul className="flex items-center gap-0.5 px-2 py-1.5 rounded-full bg-background/60 backdrop-blur-xl border border-border/50 shadow-[0_2px_24px_-8px_hsl(var(--foreground)/0.12)]">
               {isHome && homeNavItems.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="relative px-3 py-1.5 rounded-full text-sm font-light text-muted-foreground hover:text-foreground hover:bg-accent/8 transition-all duration-200"
+                    className="block px-3.5 py-1.5 rounded-full text-[13px] font-light text-muted-foreground hover:text-foreground transition-colors duration-200"
                   >
                     {item.label}
                   </a>
@@ -61,30 +62,31 @@ const Navigation = () => {
               {pageNavItems.map((item) => {
                 const active = location.pathname === item.href;
                 return (
-                  <li key={item.href}>
+                  <li key={item.href} className="relative">
+                    {active && (
+                      <motion.span
+                        layoutId="nav-active-pill"
+                        className="absolute inset-0 rounded-full bg-accent/12"
+                        transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                      />
+                    )}
                     <Link
                       to={item.href}
-                      className={`relative px-3 py-1.5 rounded-full text-sm font-light transition-all duration-200 ${
-                        active
-                          ? 'text-foreground bg-accent/10'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-accent/8'
+                      className={`relative block px-3.5 py-1.5 rounded-full text-[13px] font-light transition-colors duration-200 ${
+                        active ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
                       }`}
                     >
                       {item.label}
-                      {active && (
-                        <motion.span
-                          layoutId="nav-active-underline"
-                          className="absolute left-3 right-3 -bottom-0.5 h-px bg-accent"
-                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                        />
-                      )}
                     </Link>
                   </li>
                 );
               })}
             </ul>
+          </div>
 
-            <div className="flex items-center gap-2">
+          {/* Right — toggles (outside capsule) + mobile hamburger */}
+          <div className="flex items-center gap-1 justify-end">
+            <div className="hidden md:flex items-center gap-0.5 px-1.5 py-1 rounded-full bg-background/60 backdrop-blur-xl border border-border/50 shadow-[0_2px_24px_-8px_hsl(var(--foreground)/0.12)]">
               <ThemeToggle />
               <LanguageToggle />
             </div>
@@ -92,7 +94,7 @@ const Navigation = () => {
             {/* Hamburger button — mobile only */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden flex flex-col gap-1.5 p-2"
+              className="md:hidden flex flex-col gap-1.5 p-2 rounded-full bg-background/60 backdrop-blur-xl border border-border/50"
               aria-label="Toggle menu"
             >
               <motion.span
