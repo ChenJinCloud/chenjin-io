@@ -39,10 +39,43 @@ const HeroSection = () => {
 
   return (
     <section className="min-h-screen flex flex-col justify-center items-center px-6 md:px-12 pt-24 relative overflow-hidden">
-      {/* Subtle background gradient mesh */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-accent/20 blur-[120px]" />
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full bg-accent/10 blur-[100px]" />
+      {/* Background gradient mesh — light: jade-cyan noise (v1) / dark: jade-on-dark glow (v2) */}
+      {/* Mask fades the bottom 28% into background, eliminating Hero/About hard cut */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 72%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 72%, transparent 100%)',
+        }}
+      >
+        <div
+          className="absolute inset-0 opacity-70 dark:hidden"
+          style={{
+            background: `
+              radial-gradient(ellipse 70% 55% at 22% 28%, hsl(170 55% 55% / 0.32), transparent 60%),
+              radial-gradient(ellipse 60% 50% at 78% 32%, hsl(155 45% 65% / 0.26), transparent 60%),
+              radial-gradient(ellipse 80% 50% at 50% 78%, hsl(28 45% 70% / 0.22), transparent 65%),
+              radial-gradient(ellipse 45% 40% at 88% 82%, hsl(180 35% 55% / 0.20), transparent 60%)
+            `,
+          }}
+        />
+        <div
+          className="absolute inset-0 hidden dark:block"
+          style={{
+            background: `
+              radial-gradient(ellipse 65% 50% at 28% 32%, hsl(170 60% 50% / 0.34), transparent 60%),
+              radial-gradient(ellipse 55% 45% at 76% 70%, hsl(190 55% 45% / 0.26), transparent 60%),
+              radial-gradient(ellipse 90% 60% at 50% 100%, hsl(155 35% 35% / 0.20), transparent 70%)
+            `,
+          }}
+        />
+        <svg className="absolute inset-0 w-full h-full opacity-[0.045] mix-blend-overlay dark:opacity-[0.06] dark:mix-blend-screen" aria-hidden="true">
+          <filter id="heroNoise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#heroNoise)" />
+        </svg>
       </div>
 
       <div className="max-w-5xl mx-auto w-full text-center relative z-10">

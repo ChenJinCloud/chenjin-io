@@ -32,41 +32,56 @@ const Navigation = () => {
   return (
     <>
       <motion.header
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 bg-background/80 backdrop-blur-md"
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 bg-background/70 backdrop-blur-xl border-b border-border/40"
       >
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link to="/" className="text-sm font-sans font-medium tracking-widest uppercase text-foreground">
+          <Link
+            to="/"
+            className="text-sm font-sans font-semibold tracking-[0.18em] uppercase text-foreground hover:text-accent transition-colors duration-200"
+          >
             ChenJin
           </Link>
 
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-6">
             {/* Desktop nav */}
-            <ul className="hidden md:flex items-center gap-8">
+            <ul className="hidden md:flex items-center gap-1">
               {isHome && homeNavItems.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-sm font-light text-muted-foreground hover:text-foreground transition-colors duration-300 line-reveal"
+                    className="relative px-3 py-1.5 rounded-full text-sm font-light text-muted-foreground hover:text-foreground hover:bg-accent/8 transition-all duration-200"
                   >
                     {item.label}
                   </a>
                 </li>
               ))}
-              {pageNavItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    to={item.href}
-                    className={`text-sm font-light transition-colors duration-300 line-reveal ${
-                      location.pathname === item.href ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {pageNavItems.map((item) => {
+                const active = location.pathname === item.href;
+                return (
+                  <li key={item.href}>
+                    <Link
+                      to={item.href}
+                      className={`relative px-3 py-1.5 rounded-full text-sm font-light transition-all duration-200 ${
+                        active
+                          ? 'text-foreground bg-accent/10'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent/8'
+                      }`}
+                    >
+                      {item.label}
+                      {active && (
+                        <motion.span
+                          layoutId="nav-active-underline"
+                          className="absolute left-3 right-3 -bottom-0.5 h-px bg-accent"
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
 
             <div className="flex items-center gap-2">
