@@ -149,7 +149,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.3 }}
-          className="w-full max-w-2xl 2xl:max-w-4xl [@media(min-width:2400px)]:max-w-[70rem] mx-auto"
+          className="w-full max-w-2xl 2xl:max-w-3xl [@media(min-width:2400px)]:max-w-4xl mx-auto"
         >
           {/* Guide text */}
           <p className="text-base md:text-lg 2xl:text-xl font-display italic text-accent mb-5 2xl:mb-7 text-center">
