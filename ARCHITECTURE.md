@@ -1,10 +1,10 @@
 # chenjin.io — 网站架构文档
 
-> 最后更新：2026-04-08
+> 最后更新：2026-04-19
 
 ## 项目概览
 
-个人品牌网站，定位"Turn chaos into clarity"。React + TypeScript + Vite 构建，支持中英双语、明暗主题，包含博客、工具、教程等多个子页面。
+个人品牌网站，定位"Turn chaos into clarity"。React + TypeScript + Vite 构建，支持中英双语、明暗主题，包含博客、Playbooks、工具栈、合作、路线图等子页面。
 
 **技术栈：** Vite 5 + React 18 + TypeScript 5 + Tailwind CSS 3 + Framer Motion + shadcn/ui (Radix UI)
 
@@ -13,15 +13,15 @@
 ## 1. 路由结构
 
 ```
-/                    → Index          首页（8 个 section 组合）
-/experience/:id      → ExperienceDetail  经历详情页
-/tools               → Tools          工具推荐（分类卡片 + 弹窗详情）
-/sources             → Sources         信息源推荐
-/tutorials           → Tutorials       教程（Coming Soon）
+/                    → Index          首页（6 个 section 组合）
+/playbooks           → Playbooks      方法论/Playbook
 /blog                → Blog           博客列表
 /blog/:id            → BlogPost       博客文章（Markdown 渲染）
-/social              → SocialMedia    社交媒体矩阵
-/support             → Support        支持/合作页面
+/stack               → Stack          工具栈
+/work-with-me        → WorkWithMe     合作/咨询
+/experience          → Experience     经历列表
+/experience/:id      → ExperienceDetail  经历详情页
+/roadmap             → Roadmap        产品路线图（需求提交+投票）
 /*                   → NotFound       404
 ```
 
@@ -51,10 +51,9 @@ QueryClientProvider (React Query)
 | 2 | About (01) | `AboutSection` | 双栏：文字 + 照片占位，含 Hero description 引言 |
 | 3 | Works (02) | `WorksSection` | 2x2 作品卡片 + 邮箱订阅 CTA |
 | 4 | Journey (03) | `JourneySection` | 2x2 职业经历卡片，时间线风格 |
-| 5 | Explore (04) | `ExploreSection` | 2x2 站点导航卡片（Blog/Tools/Sources/Tutorials） |
-| 6 | Trust (05) | `TrustSection` | 3 列推荐语 + 合作伙伴 |
-| 7 | Contact (06) | `ContactSection` | 居中邮箱 + 6 个社交链接 |
-| 8 | Footer | `Footer` | 版权 + 品牌签名 |
+| 5 | Trust (04) | `TrustSection` | 3 列推荐语 + 合作伙伴 |
+| 6 | Contact (05) | `ContactSection` | 居中邮箱 + 6 个社交链接 |
+| - | Footer | `Footer` | 版权 + 品牌签名 |
 
 ---
 
@@ -69,7 +68,6 @@ QueryClientProvider (React Query)
 | `AboutSection.tsx` | - | whileInView fade-up | about.*, hero.description | 双栏 About，照片占位 |
 | `WorksSection.tsx` | email | whileInView stagger | works.* | 作品卡片网格 + 邮箱订阅 |
 | `JourneySection.tsx` | - | whileInView stagger, hover scale | journey.* | 职业经历卡片 |
-| `ExploreSection.tsx` | - | whileInView stagger, hover scale | explore.* | 站点导航卡片 |
 | `TrustSection.tsx` | - | whileInView stagger | trust.* | 推荐语 + 合作伙伴 |
 | `ContactSection.tsx` | - | whileInView fade-up | contact.* | 邮箱 + 社交链接 |
 | `FloatingChat.tsx` | open, message, fileName, showButton | 按钮缩放, 面板弹出 | hero.chat* | 全局悬浮对话，Hero 可见时隐藏 |
@@ -77,9 +75,7 @@ QueryClientProvider (React Query)
 | `ThemeToggle.tsx` | - | - | - | 太阳/月亮图标切换 |
 | `LanguageToggle.tsx` | - | - | - | EN/中 切换器 |
 | `NavLink.tsx` | - | - | - | React Router NavLink 封装 |
-| `AIChatButton.tsx` | - | - | - | 占位，未启用 |
-| `SkillsSection.tsx` | - | - | - | 旧组件，未在首页使用 |
-| `ExperienceSection.tsx` | - | - | - | 旧组件，被 JourneySection 取代 |
+| `LoginModal.tsx` | - | - | login.* | 登录弹窗（Roadmap 用） |
 
 ### UI 组件（src/components/ui/）
 
@@ -113,7 +109,7 @@ shadcn/ui 预构建组件，40+ 个：accordion, alert, avatar, badge, button, c
 
 ```
 translations.{en|zh}
-├── nav       { about, works, journey, explore, contact }
+├── nav       { about, works, journey, contact }
 ├── hero      { headline, rotatingPrefix, rotatingWords[5],
 │               rotatingSuffix, description, chatGuide,
 │               chatPlaceholder, chatSend, chatUpload, chatTopics[4] }
@@ -121,10 +117,14 @@ translations.{en|zh}
 ├── works     { label, title, items[4]{type,title,description,status,link},
 │               followCta, emailPlaceholder, subscribe }
 ├── journey   { label, title, items[4]{period,role,company,description} }
-├── explore   { label, title, items[4]{icon,title,description,link} }
 ├── trust     { label, testimonialsTitle, testimonials[3]{quote,name,context},
 │               partnersTitle, partners[3] }
 ├── contact   { label, title, description, email, socials[6]{name,link} }
+├── roadmap   { label, title, subtitle, submitTitle, titlePlaceholder,
+│               descriptionPlaceholder, categoryLabel, categories[4],
+│               submitButton, loginToSubmit, loginToVote, status*, votes, noItems }
+├── login     { title, subtitle, emailLabel, emailPlaceholder, emailButton,
+│               wechatButton, or, terms, comingSoon }
 └── footer    { rights, tagline }
 ```
 
@@ -172,22 +172,27 @@ translations.{en|zh}
 - `BlogPost.tsx`: 用 `react-markdown` 渲染 Markdown 内容
 - 文章数据内置于组件中（非 CMS）
 
-### Tools 页
-- 6 个工具分类：AI Chat, AI Coding, App Builders, Creative, Productivity, Channels
-- 15+ 工具，每个有名称、描述、外链
-- shadcn Dialog 弹窗展示详情
+### Playbooks 页
+- 方法论/Playbook 展示
+
+### Stack 页
+- 工具栈推荐
+
+### WorkWithMe 页
+- 合作/咨询入口
+
+### Experience 列表页
+- `/experience` 路由，展示所有经历
 
 ### Experience 详情页
 - `/experience/:id` 路由，8 个预设 ID（工作 + 教育）
 - 每个经历有 period, title, subtitle, description, highlights
 - 数据内置于组件
 
-### Social Media 页
-- 8 个平台卡片，自定义 SVG 图标
-- 平台级别色彩主题
-
-### Support 页
-- 打赏（QR 码）、服务（咨询/合作）、联系方式
+### Roadmap 页
+- 产品路线图，需求提交 + 投票系统
+- 包含登录弹窗（LoginModal）
+- 支持分类筛选和状态过滤
 
 ---
 
@@ -246,15 +251,15 @@ src/
 ├── index.css                   # 全局样式 + CSS 变量
 ├── vite-env.d.ts
 ├── pages/
-│   ├── Index.tsx               # 首页（8 section）
+│   ├── Index.tsx               # 首页（6 section）
+│   ├── Playbooks.tsx           # 方法论
 │   ├── Blog.tsx                # 博客列表
 │   ├── BlogPost.tsx            # 博客文章
-│   ├── Tools.tsx               # 工具推荐
-│   ├── Sources.tsx             # 信息源
-│   ├── Tutorials.tsx           # 教程
-│   ├── SocialMedia.tsx         # 社交矩阵
-│   ├── Support.tsx             # 支持页
+│   ├── Stack.tsx               # 工具栈
+│   ├── WorkWithMe.tsx          # 合作/咨询
+│   ├── Experience.tsx          # 经历列表
 │   ├── ExperienceDetail.tsx    # 经历详情
+│   ├── Roadmap.tsx             # 产品路线图
 │   └── NotFound.tsx            # 404
 ├── components/
 │   ├── Navigation.tsx          # 导航栏
@@ -262,17 +267,14 @@ src/
 │   ├── AboutSection.tsx        # 关于
 │   ├── WorksSection.tsx        # 作品
 │   ├── JourneySection.tsx      # 旅程
-│   ├── ExploreSection.tsx      # 探索
 │   ├── TrustSection.tsx        # 推荐/信任
 │   ├── ContactSection.tsx      # 联系
 │   ├── FloatingChat.tsx        # 悬浮对话
+│   ├── LoginModal.tsx          # 登录弹窗
 │   ├── Footer.tsx              # 页脚
 │   ├── ThemeToggle.tsx         # 主题切换
 │   ├── LanguageToggle.tsx      # 语言切换
 │   ├── NavLink.tsx             # 导航链接
-│   ├── AIChatButton.tsx        # (占位)
-│   ├── SkillsSection.tsx       # (旧，未使用)
-│   ├── ExperienceSection.tsx   # (旧，未使用)
 │   └── ui/                     # shadcn/ui 组件 (40+)
 ├── contexts/
 │   ├── ThemeContext.tsx         # 主题 Context
@@ -290,10 +292,8 @@ src/
 ## 12. 待完成项
 
 - [ ] 对话系统接入后端（Hero + FloatingChat）
-- [ ] Journey & Explore section 设计迭代（参考 atoms.dev / base44.com）
+- [ ] Journey section 设计迭代（参考 atoms.dev / base44.com）
 - [ ] About section 照片替换
 - [ ] 社交链接填入真实 URL
 - [ ] 博客内容扩充
-- [ ] 教程页面内容
 - [ ] SEO meta tags 完善
-- [ ] 清理未使用组件（SkillsSection, ExperienceSection, AIChatButton）

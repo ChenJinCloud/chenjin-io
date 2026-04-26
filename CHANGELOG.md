@@ -2,6 +2,51 @@
 
 All notable changes to chenjin.io are documented in this file.
 
+## [Unreleased] — feat/hero-merged (2026-04-22)
+
+### Hero — ChatGPT-style Capsule Input
+
+**Hero Input Box**
+- ChatGPT-like capsule textarea as primary CTA
+- Single line default, auto-grow on typing/pill focus
+- Replaced wide hero chat with narrower input matching subtitle width on big screens
+- Re-centered hero content vertically on 27" 2560 / 4K 3840 displays
+- Wider chat input on 2xl/3xl breakpoints
+
+### Navigation — Floating Capsule Layout
+
+**Nav Redesign**
+- Floating capsule layout: logo left / center pill nav / toggles right
+- Base44-style sizing with xl-only home anchors for breathing at 1024-1279px
+- Clean spacing and sizing for production polish
+
+### Phase 2B — Hero Merged
+
+**Hero Theme Merge**
+- Merged hero: light=v1 / dark=v2 with soft transition
+- Activated nav with final sizing and layout
+
+### Contact — Social Info Update
+
+**ContactSection Social Links**
+- Updated WeChat from generic to specific: `c13286566252`
+- WeChat 公众号 split into two: `陈今AI` + `MetaxisGrove`
+- 即刻 updated to specific name: `陈今`
+- EN + ZH both updated
+
+### Files Changed
+- `src/components/HeroSection.tsx` — capsule input, narrow width, 2xl/3xl responsive
+- `src/components/Navigation.tsx` — floating capsule layout, base44 sizing
+- `src/lib/i18n.ts` — contact social links updated (WeChat, 公众号, 即刻)
+- `ARCHITECTURE.md` — updated route structure, section list, component inventory
+
+### Deleted Components
+- `src/components/AIChatButton.tsx` — placeholder, never used
+- `src/components/ExperienceSection.tsx` — replaced by JourneySection + Experience page
+- `src/components/SkillsSection.tsx` — old component, not used on homepage
+
+---
+
 ## [Unreleased] - 2026-04-15 (afternoon)
 
 ### IA Refactor (self-as-SaaS) — three-cut landing
