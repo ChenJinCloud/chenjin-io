@@ -26,6 +26,23 @@ All notable changes to chenjin.io are documented in this file.
 - Merged hero: light=v1 / dark=v2 with soft transition
 - Activated nav with final sizing and layout
 
+### Works — Activate Cards Layout
+
+**WorksSection Rewrite**
+- Replaced static 2-column card grid with scroll-driven activate cards layout
+- IntersectionObserver-based card activation: cards scroll into a narrow viewport band to trigger the active state
+- Sticky preview panel (right side on desktop) with type-specific browser mockups:
+  - **Project**: dashboard-style mockup (stats cards + bar chart)
+  - **Blog**: article-style mockup (header image + title + body text)
+  - **Tutorial**: code editor mockup (tabs + syntax-highlighted code lines)
+  - **Resource**: map/grid mockup (toolbar + grid layout)
+- Trigger cards with exact Atoms design tokens: border-radius 32px, padding 20px 24px, type-colored accent pills
+- Browser mockups with Atoms-style title bar (traffic light dots), aspect-ratio 770/648, border-radius 16px
+- AnimatePresence mode="wait" for smooth crossfade between preview panels
+- Step dots indicator with type-colored active dot + counter (e.g. "01 / 04")
+- Mobile: single-column card list without sticky preview
+- Type → accent color mapping replaces Chinese classical color gradient system
+
 ### Contact — Social Info Update
 
 **ContactSection Social Links**
@@ -37,8 +54,8 @@ All notable changes to chenjin.io are documented in this file.
 ### Files Changed
 - `src/components/HeroSection.tsx` — capsule input, narrow width, 2xl/3xl responsive
 - `src/components/Navigation.tsx` — floating capsule layout, base44 sizing
-- `src/lib/i18n.ts` — contact social links updated (WeChat, 公众号, 即刻)
-- `ARCHITECTURE.md` — updated route structure, section list, component inventory
+- `src/components/WorksSection.tsx` — complete rewrite: scroll-driven activate cards + sticky preview panels + browser mockups
+- `src/lib/i18n.ts` — contact social links updated + works items structure changed
 
 ### Deleted Components
 - `src/components/AIChatButton.tsx` — placeholder, never used
