@@ -26,6 +26,39 @@ interface RoadmapItem {
 const initialItems: (lang: 'en' | 'zh') => RoadmapItem[] = (lang) => [
   {
     id: 1,
+    title: lang === 'en' ? 'Game Hub — Puzzle Game Aggregator' : 'Game Hub — 益智游戏聚合器',
+    description: lang === 'en'
+      ? 'A collection of classic puzzle games with login, leaderboards, and social sharing. Keep it on the roadmap until the product direction is clearer.'
+      : '经典益智游戏合集，计划支持登录、排行榜和社交分享。先放在路线图中，等产品方向更清晰后再公开展示。',
+    category: lang === 'en' ? 'Project' : '项目',
+    status: 'in_progress',
+    votes: 31,
+    voted: false,
+  },
+  {
+    id: 2,
+    title: lang === 'en' ? 'Vibe Coding Learning Log' : 'Vibe Coding 学习日志',
+    description: lang === 'en'
+      ? 'A build-in-public tutorial series documenting the path from product operator to independent developer with AI coding tools.'
+      : '一个公开构建的教程系列，记录我如何用 AI 编程工具从产品运营走向独立开发。',
+    category: lang === 'en' ? 'Content' : '内容',
+    status: 'in_progress',
+    votes: 27,
+    voted: false,
+  },
+  {
+    id: 3,
+    title: lang === 'en' ? 'Developer Growth Channel Map' : '开发者增长渠道地图',
+    description: lang === 'en'
+      ? 'An interactive map of channels that work for developer-facing products, combining research, real data, and personal notes.'
+      : '面向开发者产品的增长渠道地图，整合调研、真实数据和个人笔记。',
+    category: lang === 'en' ? 'Resource' : '资源',
+    status: 'planned',
+    votes: 22,
+    voted: false,
+  },
+  {
+    id: 4,
     title: lang === 'en' ? 'AI Chat Backend Integration' : 'AI 对话后端接入',
     description: lang === 'en'
       ? 'Connect the Hero and floating chat to a real AI backend for live conversations.'
@@ -36,7 +69,7 @@ const initialItems: (lang: 'en' | 'zh') => RoadmapItem[] = (lang) => [
     voted: false,
   },
   {
-    id: 2,
+    id: 5,
     title: lang === 'en' ? 'Dark Mode Color Refinement' : '暗色模式配色优化',
     description: lang === 'en'
       ? 'Improve contrast and readability in dark mode across all pages.'
@@ -47,18 +80,7 @@ const initialItems: (lang: 'en' | 'zh') => RoadmapItem[] = (lang) => [
     voted: false,
   },
   {
-    id: 3,
-    title: lang === 'en' ? 'Tutorial Series: Vibe Coding' : '教程系列：Vibe Coding',
-    description: lang === 'en'
-      ? 'Complete the step-by-step tutorial series on AI-assisted coding.'
-      : '完成 AI 辅助编程的分步教程系列。',
-    category: lang === 'en' ? 'Content' : '内容',
-    status: 'open',
-    votes: 31,
-    voted: false,
-  },
-  {
-    id: 4,
+    id: 6,
     title: lang === 'en' ? 'RSS Feed for Blog' : '博客 RSS 订阅',
     description: lang === 'en'
       ? 'Add RSS feed support so readers can subscribe via their preferred reader.'
@@ -69,7 +91,7 @@ const initialItems: (lang: 'en' | 'zh') => RoadmapItem[] = (lang) => [
     voted: false,
   },
   {
-    id: 5,
+    id: 7,
     title: lang === 'en' ? 'Newsletter Archive Page' : '邮件通讯归档页',
     description: lang === 'en'
       ? 'A page to browse past newsletter issues with search functionality.'

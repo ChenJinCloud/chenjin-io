@@ -58,15 +58,24 @@ const ContactSection = () => {
           className="flex items-center justify-center gap-6 flex-wrap"
         >
           {t.contact.socials.map((social, i) => (
-            <a
-              key={i}
-              href={social.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-light text-muted-foreground hover:text-accent hover:scale-110 transition-all"
-            >
-              {social.name}
-            </a>
+            social.link && social.link !== '#' ? (
+              <a
+                key={i}
+                href={social.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-light text-muted-foreground hover:text-accent hover:scale-110 transition-all"
+              >
+                {social.name}
+              </a>
+            ) : (
+              <span
+                key={i}
+                className="text-sm font-light text-muted-foreground/70"
+              >
+                {social.name}
+              </span>
+            )
           ))}
         </motion.div>
       </div>

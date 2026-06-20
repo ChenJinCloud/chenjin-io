@@ -2,6 +2,14 @@
 
 All notable changes to chenjin.io are documented in this file.
 
+## [Unreleased] - 2026-05-22
+
+### Jike Best in 2025 Report Closeout
+
+- Added `chenjin-io-jike-report-mvp__codex-process-asset__2026-05-22.md` to preserve the website implementation trail for the Jike report MVP.
+- Recorded the current source-boundary decision: 356 source posts, 355 valid dates, 1436 bulletin references, 1402 readable references, 1392 deduplicated readable original posts, and 34 unavailable references.
+- Linked the website implementation record to the existing Life OS research-side process asset under `D:\chenjin-life-os\20_projects\jike-best-in-2025`.
+
 ## [Unreleased] — feat/hero-merged (2026-04-22)
 
 ### Hero — ChatGPT-style Capsule Input

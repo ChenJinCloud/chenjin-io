@@ -48,7 +48,7 @@ QueryClientProvider (React Query)
 |---|---------|------|------|
 | - | Header | `Navigation` | 固定顶部导航，毛玻璃背景，移动端汉堡菜单 |
 | 1 | Hero | `HeroSection` | H1 + 旋转词动画 + 对话输入框 + 话题快捷键 |
-| 2 | About (01) | `AboutSection` | 双栏：文字 + 照片占位，含 Hero description 引言 |
+| 2 | About (01) | `AboutSection` | 双栏：文字 + 工作模型卡，含 About subtitle 引言 |
 | 3 | Works (02) | `WorksSection` | 2x2 作品卡片 + 邮箱订阅 CTA |
 | 4 | Journey (03) | `JourneySection` | 2x2 职业经历卡片，时间线风格 |
 | 5 | Trust (04) | `TrustSection` | 3 列推荐语 + 合作伙伴 |
@@ -65,7 +65,7 @@ QueryClientProvider (React Query)
 |------|------|------|------|------|
 | `Navigation.tsx` | mobileOpen | 汉堡线→X | nav.* | 响应式导航，首页锚点 + 页面路由 |
 | `HeroSection.tsx` | currentIndex, chatMessage, chatFileName | 旋转词(2.5s), 入场序列 | hero.* | 核心 Hero，含对话输入框 |
-| `AboutSection.tsx` | - | whileInView fade-up | about.*, hero.description | 双栏 About，照片占位 |
+| `AboutSection.tsx` | - | whileInView fade-up | about.* | 双栏 About，工作模型卡 |
 | `WorksSection.tsx` | email | whileInView stagger | works.* | 作品卡片网格 + 邮箱订阅 |
 | `JourneySection.tsx` | - | whileInView stagger, hover scale | journey.* | 职业经历卡片 |
 | `TrustSection.tsx` | - | whileInView stagger | trust.* | 推荐语 + 合作伙伴 |
@@ -113,7 +113,7 @@ translations.{en|zh}
 ├── hero      { headline, rotatingPrefix, rotatingWords[5],
 │               rotatingSuffix, description, chatGuide,
 │               chatPlaceholder, chatSend, chatUpload, chatTopics[4] }
-├── about     { label, title, description(多段), photoAlt }
+├── about     { label, title, subtitle, description(多段) }
 ├── works     { label, title, items[4]{type,title,description,status,link},
 │               followCta, emailPlaceholder, subscribe }
 ├── journey   { label, title, items[4]{period,role,company,description} }
@@ -293,7 +293,7 @@ src/
 
 - [ ] 对话系统接入后端（Hero + FloatingChat）
 - [ ] Journey section 设计迭代（参考 atoms.dev / base44.com）
-- [ ] About section 照片替换
+- [x] About section 移除个人照片，替换为工作模型卡
 - [ ] 社交链接填入真实 URL
 - [ ] 博客内容扩充
 - [ ] SEO meta tags 完善

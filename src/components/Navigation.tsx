@@ -13,8 +13,8 @@ const Navigation = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const homeNavItems = [
+    { href: '#featured-projects', label: isZh ? '项目' : 'Projects' },
     { href: '#about', label: t.nav.about },
-    { href: '#works', label: t.nav.works },
     { href: '#journey', label: t.nav.journey },
     { href: '#contact', label: t.nav.contact },
   ];

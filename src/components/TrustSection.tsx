@@ -31,20 +31,26 @@ const TrustSection = () => {
         <div className="grid md:grid-cols-3 gap-6 mb-20">
           {t.trust.testimonials.map((item, i) => (
             <motion.div
-              key={i}
+              key={item.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.6, delay: 0.1 * i }}
-              className="p-6 md:p-8 rounded-2xl border border-border bg-card"
+              className="p-6 md:p-8 rounded-2xl border border-border bg-card min-h-[17rem] flex flex-col"
             >
               <span className="text-4xl font-display text-accent/40 leading-none block mb-4">"</span>
-              <p className="text-base font-display italic text-foreground/90 leading-relaxed mb-6">
-                {item.quote}
-              </p>
-              <div>
+              {item.quote.trim() ? (
+                <p className="text-base font-display italic text-foreground/90 leading-relaxed mb-6">
+                  {item.quote}
+                </p>
+              ) : (
+                <div className="min-h-[7.5rem] mb-6" aria-hidden="true" />
+              )}
+              <div className="mt-auto">
                 <span className="text-sm font-medium text-foreground block">{item.name}</span>
-                <span className="text-xs text-muted-foreground">{item.context}</span>
+                {item.context ? (
+                  <span className="text-xs text-muted-foreground">{item.context}</span>
+                ) : null}
               </div>
             </motion.div>
           ))}

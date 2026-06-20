@@ -22,13 +22,13 @@ export const translations = {
     },
     about: {
       label: '01 — About',
-      title: 'The person behind this site.',
-      description: `I'm Chen Jin — a growth lead at an AI startup, an independent builder, and someone who believes the best way to understand something is to build it.
+      title: 'How I build across AI, growth, and systems.',
+      subtitle: 'I turn ambiguous ideas into working systems — especially where AI tools, growth workflows, writing, and lightweight code meet.',
+      description: `I'm Chen Jin, a growth lead at an AI startup and an independent builder. This site is my public workspace: I document how ideas become real — from researching a problem and running small experiments to building with AI, writing through uncertainty, and compressing what I learn into reusable frameworks. The output isn't content. It's systems.
 
-I've spent the past two years working at the intersection of AI products, growth strategy, and content creation. Before that, I navigated a career transition, a mental health recovery, and a complete rethinking of what I want my life to look like.
+Over the past two years, I've worked across 0→1 growth, launch planning, content systems, and AI-assisted operations. I'm drawn to the gap between insight and execution — not just thinking clearly, but building, testing, and iterating in the open.
 
-This site is where I share everything I learn along the way — the tools that work, the frameworks I build, the mistakes I make, and the path I'm mapping from idea to reality.`,
-      photoAlt: 'Photo',
+Before this came a career transition, a stretch of mental health recovery, and a full reset on how I want to work and live. That shaped how I build today: less performance, more process; visible thinking over polished takes; honest iteration over clean narratives — and why I document not only outcomes, but the systems, tradeoffs, and messy middle behind them.`,
     },
     works: {
       label: '02 — Featured Work',
@@ -97,8 +97,45 @@ This site is where I share everything I learn along the way — the tools that w
         },
       ],
     },
+    recommendations: {
+      label: '04 — Recommendations',
+      title: 'People I would seriously recommend.',
+      subtitle: 'Some are services I have used myself. Some are communities or professional support that shaped how I think and work. The longer stories and links will be added as this section becomes ready.',
+      items: [
+        {
+          name: 'Fanhan',
+          type: 'Career',
+          service: 'AI career consulting',
+          story: '',
+        },
+        {
+          name: 'Gefei',
+          type: 'Community',
+          service: 'Global products and indie maker community',
+          story: '',
+        },
+        {
+          name: 'Iris',
+          type: 'Growth',
+          service: 'Growth consulting',
+          story: '',
+        },
+        {
+          name: 'Dayu',
+          type: 'Strengths',
+          service: 'Gallup strengths interpretation and commercialization consulting',
+          story: '',
+        },
+        {
+          name: 'Tianxiang',
+          type: 'Support',
+          service: 'Psychological counseling',
+          story: '',
+        },
+      ],
+    },
     trust: {
-      label: '04 — Trust',
+      label: '05 — Trust',
       testimonialsTitle: 'What others say.',
       testimonials: [
         {
@@ -121,14 +158,14 @@ This site is where I share everything I learn along the way — the tools that w
       partners: ['InsForge', 'Atoms.dev', 'YC-backed'],
     },
     contact: {
-      label: '05 — Work With Me',
+      label: '06 — Work With Me',
       title: 'Let\'s work together.',
       description: 'Sponsor my continued work, or bring me into your project. I take on 1-on-1 consulting, growth engagements, and select collaborations.',
       email: 'hello@chenjin.io',
       socials: [
-        { name: 'Twitter / X', link: '#' },
-        { name: 'LinkedIn', link: '#' },
-        { name: 'GitHub', link: '#' },
+        { name: 'Twitter / X', link: 'https://x.com/jinchen_ai' },
+        { name: 'LinkedIn', link: 'https://www.linkedin.com/in/jiaqi-chen-b414582aa/' },
+        { name: 'GitHub', link: 'https://github.com/ChenJinCloud' },
         { name: '微信: c13286566252', link: '#' },
         { name: '公众号: 陈今AI', link: '#' },
         { name: '公众号: MetaxisGrove', link: '#' },
@@ -138,8 +175,8 @@ This site is where I share everything I learn along the way — the tools that w
     },
     roadmap: {
       label: '07 — Roadmap',
-      title: 'What should I build next?',
-      subtitle: 'Submit feature requests and vote for what matters most to you.',
+      title: 'What I\'m building next.',
+      subtitle: 'Unfinished projects, content ideas, and site improvements live here until they are ready to become public work.',
       submitTitle: 'Submit a Request',
       titlePlaceholder: 'Feature title',
       descriptionPlaceholder: 'Describe what you\'d like to see...',
@@ -193,13 +230,13 @@ This site is where I share everything I learn along the way — the tools that w
     },
     about: {
       label: '01 — 关于',
-      title: '这个网站背后的人。',
-      description: `我是陈今——一家AI初创公司的增长负责人、独立构建者，也是一个相信"做出来才算懂了"的人。
+      title: '我如何在 AI、增长与系统之间构建。',
+      subtitle: '我把模糊想法变成可运行的系统，尤其是在 AI 工具、增长工作流、写作和轻量代码交汇的地方。',
+      description: `我是陈今，一家 AI 初创公司的增长负责人，也是一个独立构建者。这个网站是我的公开工作台：我在这里记录想法如何变成现实——从研究一个问题、跑小实验，到用 AI 构建、在不确定中写作，并把学到的东西压缩成可复用框架。最终产出不是内容，而是系统。
 
-过去两年，我一直在AI产品、增长策略和内容创作的交叉点上工作。在此之前，我经历了职业转型、心理健康恢复，以及对"我想要什么样的人生"的彻底重新思考。
+过去两年，我的工作横跨 0→1 增长、发布规划、内容系统和 AI 辅助运营。我被洞察和执行之间的距离吸引——不只是想清楚，而是构建、测试，并在公开中持续迭代。
 
-这个网站是我分享一切所学的地方——好用的工具、我搭建的框架、犯过的错误，以及从想法到现实的路径。`,
-      photoAlt: '照片',
+在这之前，是一次职业转型、一段心理健康恢复期，以及对自己想如何工作和生活的完整重置。这塑造了我今天的构建方式：少一点表演，多一点过程；让思考可见，而不是只留下漂亮观点；接受诚实的迭代，而不是追求干净的叙事——也因此，我记录的不只是结果，也包括结果背后的系统、取舍和混乱中段。`,
     },
     works: {
       label: '02 — 精选作品',
@@ -268,38 +305,90 @@ This site is where I share everything I learn along the way — the tools that w
         },
       ],
     },
+    recommendations: {
+      label: '04 — 推荐',
+      title: '我想认真推荐的人。',
+      subtitle: '有些是我亲自使用过的服务，有些是社群、专业支持或关键关系。这里会逐步补上我自己的 story、推荐理由和服务入口。',
+      items: [
+        {
+          name: '泛函',
+          type: '求职',
+          service: '求职咨询',
+          story: '',
+        },
+        {
+          name: '哥飞',
+          type: '社群',
+          service: '出海社群',
+          story: '',
+        },
+        {
+          name: '生姜Iris',
+          type: '增长',
+          service: '增长咨询',
+          story: '',
+        },
+        {
+          name: '自由的大鱼',
+          type: '优势',
+          service: '盖洛普优势解读 / 商业化咨询',
+          story: '',
+        },
+        {
+          name: '天翔',
+          type: '心理',
+          service: '心理咨询',
+          story: '',
+        },
+      ],
+    },
     trust: {
-      label: '04 — 信任',
+      label: '05 — 信任',
       testimonialsTitle: '别人怎么说。',
       testimonials: [
         {
-          quote: '她有一种不可思议的能力，能把混乱的局面变得完全清晰。每次交谈都会让我带着一个具体的下一步离开。',
-          name: '资深行业人士',
-          context: '关于竞争研究咨询',
+          quote: '',
+          name: 'Eva悦悦在生长',
+          context: '',
         },
         {
-          quote: '她的职业咨询帮我在完全不知从何开始时，顺利转型进入了AI领域。她不只是给建议——她给你一张地图。',
-          name: '初级同事',
-          context: '关于职业转型指导',
+          quote: '',
+          name: '生姜Iris',
+          context: '',
         },
         {
-          quote: '我关注她的小说推荐很多年了。她不只是告诉你什么好——她替你从几百本中筛选。',
-          name: '长期读者',
-          context: '关于内容策展',
+          quote: '',
+          name: '泛函',
+          context: '',
+        },
+        {
+          quote: '',
+          name: '自由的大鱼',
+          context: '',
+        },
+        {
+          quote: '',
+          name: '哥飞',
+          context: '',
+        },
+        {
+          quote: '',
+          name: '田飞FeiTT',
+          context: '',
         },
       ],
       partnersTitle: '合作伙伴',
       partners: ['InsForge', 'Atoms.dev', 'YC-backed'],
     },
     contact: {
-      label: '05 — 合作',
+      label: '06 — 合作',
       title: '一起做点事。',
       description: '赞助我持续输出，或邀请我参与你的项目。我接 1v1 咨询、增长合作、和精选项目的联合创作。',
       email: 'hello@chenjin.io',
       socials: [
-        { name: 'Twitter / X', link: '#' },
-        { name: 'LinkedIn', link: '#' },
-        { name: 'GitHub', link: '#' },
+        { name: 'Twitter / X', link: 'https://x.com/jinchen_ai' },
+        { name: 'LinkedIn', link: 'https://www.linkedin.com/in/jiaqi-chen-b414582aa/' },
+        { name: 'GitHub', link: 'https://github.com/ChenJinCloud' },
         { name: '微信: c13286566252', link: '#' },
         { name: '公众号: 陈今AI', link: '#' },
         { name: '公众号: MetaxisGrove', link: '#' },
@@ -309,8 +398,8 @@ This site is where I share everything I learn along the way — the tools that w
     },
     roadmap: {
       label: '07 — 路线图',
-      title: '下一步该做什么？',
-      subtitle: '提交你的需求，为最重要的功能投票。',
+      title: '接下来我会建设什么？',
+      subtitle: '未完成的项目、内容想法和网站改进先放在这里，等它们准备好后再成为正式展示。',
       submitTitle: '提交需求',
       titlePlaceholder: '功能标题',
       descriptionPlaceholder: '描述你想要的功能...',

@@ -1,0 +1,174 @@
+// form submit event handler
+function ssCMtrack(data) {
+    sstrack._chq(sscmtrackingId, data);
+    console.log("SS submit method called");
+}
+// form submit event handler End
+
+// thank you page event handler
+function ssCMthankyoutrack() {
+    sstrack._thankyou(sscmtrackingId);
+    console.log("SS thank you method called");
+}
+// thank you page event handler End
+
+// form data handler
+sstrack = {
+    _init: function(e) {
+        let initurl = window.location.href;
+        let lsitm = localStorage.getItem('visitedlinks');
+        if (lsitm === null) {
+            localStorage.setItem('visitedlinks', initurl);
+        } else {
+            lsitm = lsitm+",";
+            var res = lsitm.split(',');
+            var foundurl=0;
+            res.forEach(function(element) {
+                if (initurl==element){
+                    foundurl = 1;
+                }
+            });
+            if (foundurl==0) {
+                localStorage.setItem('visitedlinks', lsitm + initurl);
+            }
+        }
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = today.getFullYear();
+        today = dd + '-' + mm + '-' + yyyy;
+        if (!localStorage.getItem('firstvisit')) {
+            localStorage.setItem('firstvisit', today);
+        }
+        localStorage.setItem('lastvisit', today);
+    },
+    _getOSCapture: function(e) {
+        var n = "Unknown OS";
+        return navigator.appVersion.indexOf("Win") != -1 && (n = "Windows"), navigator.appVersion.indexOf("Mac") != -1 && (n = "MacOS"), navigator.appVersion.indexOf("X11") != -1 && (n = "UNIX"), navigator.appVersion.indexOf("Linux") != -1 && (n = "Linux"), n
+    },
+    _getUserAgentCapture: function(e) {
+        var i = navigator.userAgent, t, n = i.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+        return /trident/i.test(n[1]) ? (t = /\brv[ :]+(\d+)/g.exec(i) || [], "IE " + (t[1] || "")) : n[1] === "Chrome" && (t = i.match(/\b(OPR|Edge)\/(\d+)/), t != null) ? t.slice(1).join(" ").replace("OPR", "Opera") : (n = n[2] ? [n[1], n[2]] : [navigator.appName, navigator.appVersion, "-?"], (t = i.match(/version\/(\d+)/i)) != null && n.splice(1, 1, t[1]), n.join(" "))
+    },
+    _chq: function(sscm_Id, otformdata) {
+        var pageInputs,  inptIndex; var formData = "{";
+        if (typeof otformdata == 'object') {
+            for (var otinptIndex = 0; otinptIndex < otformdata.length; ++otinptIndex) {
+                if ('name' in otformdata[otinptIndex] && 'value' in otformdata[otinptIndex]) {
+                    var keyc = otformdata[otinptIndex].name;
+                    var valuec =  encodeURIComponent(otformdata[otinptIndex].value);
+                    formData += '"'+keyc+'":"'+valuec+'",';
+                }
+            }
+        }
+        pageInputs = document.getElementsByTagName('input');
+        for (inptIndex = 0; inptIndex < pageInputs.length; ++inptIndex) {
+            if(pageInputs[inptIndex].type!='' && pageInputs[inptIndex].id != 'g-recaptcha-response' 
+            && pageInputs[inptIndex].type!='password' && pageInputs[inptIndex].type!='hidden' 
+            && pageInputs[inptIndex].type!='checkbox' && pageInputs[inptIndex].type!='button' 
+            && pageInputs[inptIndex].type!='submit' && pageInputs[inptIndex].type!='radio'){
+                if(pageInputs[inptIndex].value!=''){
+                    var keyc = (pageInputs[inptIndex].name) ? pageInputs[inptIndex].name : pageInputs[inptIndex].id;
+                    var valuec =  encodeURIComponent(pageInputs[inptIndex].value);
+                    formData += '"'+keyc+'":"'+valuec+'",';
+                }
+            }
+        }
+        formData += '"":""}';
+        localStorage.setItem('formdata', formData);
+        let dataToPost = {
+            ss_unique_id: sscm_Id,
+            formdata:encodeURIComponent(formData),
+            visited_urls: encodeURIComponent(localStorage.getItem('visitedlinks')),
+            referrer: document.referrer,
+            os: sstrack._getOSCapture(),
+            userAgent: sstrack._getUserAgentCapture(),
+        }
+        // this._postData(dataToPost);
+        // let formtrack = document.querySelector("#trkssiframe"); formtrack.src = "https://trk.softwaresuggest.com/trackingss_new.php?"+queryParamsCapture(dataToPost);
+        dataToPost = JSON.stringify(dataToPost);
+        let formtrack = document.createElement("iframe"); formtrack.style.display = "none", formtrack.id = "trkssiframe",
+        formtrack.src = "https://trk.softwaresuggest.com/trackingss_new.php?data="+encodeURIComponent(dataToPost),document.body.appendChild(formtrack);
+    },
+    _init_el: function(e) {
+        var trackss = document.createElement("iframe"); trackss.style.display = "none", trackss.id = "trkssiframe", trackss.src = "https://trk.softwaresuggest.com/trackingss_new.php?visited_urls="+encodeURIComponent(localStorage.getItem('visitedlinks'))+'&useragent='+this._getUserAgentCapture()+'&ss_unique_id='+sscmtrackingId, document.body.appendChild(trackss);
+    },
+    _getUserAgentCapture: function(e) {
+        var i = navigator.userAgent,
+            t, n = i.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+        return /trident/i.test(n[1]) ? (t = /\brv[ :]+(\d+)/g.exec(i) || [], "IE " + (t[1] || "")) : n[1] === "Chrome" && (t = i.match(/\b(OPR|Edge)\/(\d+)/), t != null) ? t.slice(1).join(" ").replace("OPR", "Opera") : (n = n[2] ? [n[1], n[2]] : [navigator.appName, navigator.appVersion, "-?"], (t = i.match(/version\/(\d+)/i)) != null && n.splice(1, 1, t[1]), n.join(" "))
+    },
+    _postData: function(data) {
+        data = { form_value: data, first_visit: localStorage.getItem('firstvisit'), last_visit: localStorage.getItem('lastvisit') };
+        const data1 = { getcookie: 'getcookie'};
+        
+        const url = 'https://trk.zensuggest.com/ajax_post.php';
+        const url1 = 'https://trk.softwaresuggest.com/trackingss_new.php?getcookie=getcookie';
+        fetch(url1, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data1)
+        })
+        .then(response => {
+            // console.log('===RVaa===>',response);
+        })
+        .then(result => {
+            console.log('Response:', result);
+            if (result != '') {
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(result => {
+                    console.log('Response:', result);
+                })
+                .catch(error => {
+                    // console.error('Error:', error);
+                });
+            }
+        })
+        .catch(error => {
+            // console.error('Error:', error);
+        });
+    },
+    _thankyou: function(sscm_Id) {
+        const formData = `{"thankyoupage":"true","createdAt": "${new Date().toISOString()}"}`;
+        localStorage.setItem('formdata', formData);
+        let dataToPost = {
+            ss_unique_id: sscm_Id,
+            formdata:encodeURIComponent(formData),
+            visited_urls: encodeURIComponent(localStorage.getItem('visitedlinks')),
+            referrer: document.referrer,
+            os: sstrack._getOSCapture(),
+            userAgent: sstrack._getUserAgentCapture(),
+        }
+        dataToPost = JSON.stringify(dataToPost);
+        let formtrack = document.createElement("iframe"); formtrack.style.display = "none", formtrack.id = "trkssiframe",
+        formtrack.src = "https://trk.softwaresuggest.com/trackingss_new.php?data="+encodeURIComponent(dataToPost),document.body.appendChild(formtrack);
+    }
+}
+sstrack._init();
+sstrack._init_el();
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return '';
+}
+
+console.log('init SS ClickMagic ✅');
