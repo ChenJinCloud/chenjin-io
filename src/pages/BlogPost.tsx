@@ -15,7 +15,7 @@ const BlogPostContent = () => {
   const post = getBlogPost(id);
 
   if (!post) {
-    return <Navigate to="/blog" replace />;
+    return <Navigate to="/writing" replace />;
   }
 
   return (
@@ -23,9 +23,9 @@ const BlogPostContent = () => {
       <Navigation />
       <main className="pt-32 pb-20 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
-          <Link to="/blog" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8">
+          <Link to="/writing" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8">
             <ArrowLeft className="w-4 h-4" />
-            {isZh ? '返回博客' : 'Back to Blog'}
+            {isZh ? '返回写作' : 'Back to Writing'}
           </Link>
           
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,680px)_320px] justify-center gap-12">

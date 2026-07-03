@@ -1,0 +1,3648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>
+window.contextInfo = {"files":[],"materials":[],"crafts":[]};
+// 处理锚点链接跳转（srcDoc iframe 中锚点链接默认行为不正确）
+document.addEventListener('click', function(e) {
+  var anchor = e.target.closest('a');
+  if (anchor) {
+    var href = anchor.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      var targetId = href.slice(1);
+      var target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }
+});
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An independent Claude Fable 5 atlas covering launch history, safeguards, prompting practices, Claude Code workflows, community notes, videos, and sources.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://claude-fable5.chenjin.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://claude-fable5.chenjin.io/">
+<meta property="og:title" content="Fable 5 Atlas — Claude Fable 5 独立整理资源">
+<meta property="og:description" content="An independent Claude Fable 5 atlas covering launch history, safeguards, prompting practices, Claude Code workflows, community notes, videos, and sources.">
+<meta property="og:site_name" content="Fable 5 Atlas">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://claude-fable5.chenjin.io/og-image.svg">
+<meta property="og:image:type" content="image/svg+xml">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fable 5 Atlas — Claude Fable 5 独立整理资源">
+<meta name="twitter:description" content="An independent Claude Fable 5 atlas covering launch history, safeguards, prompting practices, Claude Code workflows, community notes, videos, and sources.">
+<meta name="twitter:image" content="https://claude-fable5.chenjin.io/og-image.svg">
+<title>Fable 5 Atlas — Claude Fable 5 独立整理资源</title>
+<style>
+  :root {
+    --bg: #FBF9F4;
+    --bg-alt: #F7F4ED;
+    --bg-card: #FDFCF8;
+    --text: #1F1B16;
+    --text-muted: #5C5449;
+    --text-light: #8B8378;
+    --accent: #B0894A;
+    --accent-light: #D89A5B;
+    --accent-muted: #8B8378;
+    --border: #E3DDD2;
+    --border-dark: #C9C2B5;
+    --official: #7A5C2E;
+    --high: #B0894A;
+    --medium: #8B8378;
+    --low: #B5AFA6;
+    --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --font-mono: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --radius: 7px;
+    --shadow: 0 1px 4px rgba(31,27,22,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* NAV */
+  #nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(251,249,244,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 52px;
+    gap: 0;
+  }
+  .nav-logo {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: normal;
+    color: var(--text);
+    text-decoration: none;
+    margin-right: 28px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    display: block;
+    padding: 5px 9px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-links a:hover { background: var(--bg-alt); color: var(--text); }
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    color: var(--text);
+    font-size: 20px;
+    margin-left: auto;
+  }
+  .mobile-menu {
+    display: none;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 16px 12px;
+  }
+  .mobile-menu a {
+    display: block;
+    padding: 8px 4px;
+    font-size: 14px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu.open { display: block; }
+
+  /* LAYOUT */
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 72px 24px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .section.reveal-pending {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .section.visible { opacity: 1; transform: translateY(0); }
+  .section-intro {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    max-width: 680px;
+    margin-bottom: 36px;
+    line-height: 1.75;
+    border-left: 3px solid var(--border-dark);
+    padding-left: 14px;
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    font-weight: normal;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+  .subsection-title {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: normal;
+    color: var(--text);
+    margin: 0 0 14px;
+  }
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 0 48px;
+  }
+
+  /* HERO */
+  #home { padding-top: 88px; }
+  .hero-title {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: normal;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 680px;
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+  .hero-lead {
+    font-size: 14px;
+    color: var(--text-light);
+    max-width: 620px;
+    line-height: 1.75;
+    margin-bottom: 48px;
+    font-style: italic;
+  }
+
+  /* STATUS CARDS */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 56px;
+  }
+  .status-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+  }
+  .status-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .status-label.released { color: #5A7A4A; }
+  .status-label.suspended { color: #A05A3A; }
+  .status-label.redeployed { color: #4A6A8A; }
+  .status-label.bestfor { color: var(--accent); }
+  .status-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-light);
+    margin-bottom: 6px;
+  }
+  .status-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* FEATURED GRID */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .featured-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 18px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: background 0.15s, border-color 0.15s;
+    cursor: pointer;
+  }
+  .featured-card:hover { background: var(--bg-alt); border-color: var(--border-dark); }
+  .featured-card-title {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    color: var(--text);
+  }
+  .featured-card-desc {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .featured-card-arrow {
+    font-size: 14px;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 110px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline-item {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .timeline-date {
+    width: 110px;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-light);
+    padding-top: 14px;
+    padding-right: 20px;
+    text-align: right;
+    line-height: 1.4;
+  }
+  .timeline-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    flex-shrink: 0;
+    margin-top: 17px;
+    margin-left: -5px;
+    margin-right: 18px;
+    position: relative;
+    z-index: 1;
+  }
+  .timeline-card {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .timeline-summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    user-select: none;
+  }
+  .timeline-summary:hover { background: var(--bg-alt); }
+  .timeline-event-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .timeline-event-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .timeline-toggle {
+    font-size: 12px;
+    color: var(--text-light);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .timeline-detail {
+    display: none;
+    padding: 12px 16px 14px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .timeline-detail.open { display: block; }
+  .timeline-sources {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .source-ref {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px 6px;
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .source-ref:hover { background: var(--border); }
+
+  /* WHAT IS */
+  .model-hierarchy {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .model-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 14px;
+  }
+  .model-name {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .model-role {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .model-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+  .fit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .fit-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .fit-box h4 {
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text);
+    letter-spacing: 0.3px;
+  }
+  .fit-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .fit-box ul li {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .fit-box ul li:last-child { border-bottom: none; }
+  .fit-box ul li::before { content: '·'; color: var(--accent); flex-shrink: 0; }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin-bottom: 12px;
+  }
+  .comparison-table th {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 9px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text);
+    font-size: 12px;
+  }
+  .comparison-table td {
+    border: 1px solid var(--border);
+    padding: 9px 12px;
+    color: var(--text-muted);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .comparison-table tr:hover td { background: var(--bg-alt); }
+  .mono { font-family: var(--font-mono); font-size: 11px; }
+  .editorial-note {
+    font-size: 11.5px;
+    color: var(--text-light);
+    font-style: italic;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+  }
+
+  /* PROMPTING */
+  .bp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .bp-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .bp-header {
+    padding: 14px 16px 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .bp-header:hover { background: var(--bg-alt); }
+  .bp-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .bp-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .bp-principle {
+    font-size: 12px;
+    color: var(--accent);
+    font-style: italic;
+  }
+  .bp-body {
+    display: none;
+    padding: 0 16px 14px;
+    border-top: 1px solid var(--border);
+  }
+  .bp-body.open { display: block; }
+  .bp-row {
+    margin-top: 10px;
+  }
+  .bp-row-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .bp-row-text {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .prompt-block {
+    background: #F2EFE8;
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  .prompt-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-alt);
+  }
+  .prompt-block-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-light);
+    letter-spacing: 0.5px;
+  }
+  .copy-btn {
+    font-size: 10.5px;
+    background: none;
+    border: 1px solid var(--border-dark);
+    border-radius: 3px;
+    padding: 2px 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    transition: background 0.15s, color 0.15s;
+  }
+  .copy-btn:hover { background: var(--border); color: var(--text); }
+  .copy-btn.copied { color: #5A7A4A; border-color: #5A7A4A; }
+  .prompt-block pre {
+    padding: 10px 12px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.6;
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px;
+  }
+  .tag {
+    font-size: 10.5px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px 7px;
+    color: var(--text-muted);
+  }
+
+  /* WORKFLOWS */
+  .wf-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .wf-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .wf-header {
+    padding: 14px 16px 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .wf-header:hover { background: var(--bg-alt); }
+  .wf-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .wf-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .wf-scenario {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .wf-body {
+    display: none;
+    padding: 0 16px 14px;
+    border-top: 1px solid var(--border);
+  }
+  .wf-body.open { display: block; }
+  .wf-section-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin: 10px 0 4px;
+  }
+  .wf-list {
+    list-style: none;
+    padding: 0;
+  }
+  .wf-list li {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    padding: 3px 0;
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+  }
+  .wf-list li::before { content: '—'; color: var(--border-dark); flex-shrink: 0; }
+
+  /* POSTS */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+  .search-input {
+    flex: 1;
+    min-width: 180px;
+    max-width: 280px;
+    padding: 7px 12px;
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    background: var(--bg-card);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--text);
+    outline: none;
+  }
+  .search-input:focus { border-color: var(--accent); }
+  .chip {
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border: 1px solid var(--border-dark);
+    border-radius: 20px;
+    cursor: pointer;
+    background: var(--bg-card);
+    color: var(--text-muted);
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+    user-select: none;
+  }
+  .chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .post-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .post-card:hover { border-color: var(--border-dark); background: var(--bg-alt); }
+  .post-card.hidden { display: none; }
+  .post-header {
+    padding: 14px 14px 10px;
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 7px;
+    flex-wrap: wrap;
+  }
+  .platform-icon {
+    font-size: 11px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 6px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+  .post-date {
+    font-size: 11px;
+    color: var(--text-light);
+    font-family: var(--font-mono);
+  }
+  .cred-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .cred-official { background: #EDE4D4; color: var(--official); }
+  .cred-high { background: #F0E6D4; color: var(--high); }
+  .cred-medium { background: #EDEAE5; color: var(--medium); }
+  .cred-low { background: #F2F0EC; color: var(--low); }
+  .post-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.45;
+    margin-bottom: 6px;
+  }
+  .post-author {
+    font-size: 11.5px;
+    color: var(--text-light);
+    margin-bottom: 6px;
+  }
+  .post-summary {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding: 0 14px 10px;
+  }
+  .post-footer {
+    padding: 8px 14px 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+  }
+  .post-detail {
+    display: none;
+    padding: 10px 14px 12px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-alt);
+  }
+  .post-detail.open { display: block; }
+  .post-detail-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 6px;
+  }
+  .post-takeaway-list {
+    list-style: none;
+    padding: 0;
+  }
+  .post-takeaway-list li {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 3px 0;
+    display: flex;
+    gap: 7px;
+  }
+  .post-takeaway-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+  .open-link {
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.12s;
+  }
+  .open-link:hover { background: var(--border); color: var(--text); }
+  .ext-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #2A2620;
+    color: #FBF9F4;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    max-width: 90vw;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 9999;
+    line-height: 1.5;
+  }
+  .ext-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* YOUTUBE */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .video-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.15s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .video-card:hover { border-color: var(--border-dark); }
+  .video-card.hidden { display: none; }
+  .video-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .video-thumb-inner {
+    text-align: center;
+    padding: 12px;
+  }
+  .video-thumb-title {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    font-style: italic;
+  }
+  .video-play {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(176,137,74,0.15);
+    border: 1.5px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    color: var(--accent);
+    font-size: 14px;
+  }
+  .video-body { padding: 12px 14px; }
+  .video-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.45;
+    margin-bottom: 5px;
+  }
+  .video-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 7px;
+  }
+  .video-channel {
+    font-size: 11.5px;
+    color: var(--accent);
+  }
+  .video-date, .video-duration {
+    font-size: 11px;
+    color: var(--text-light);
+    font-family: var(--font-mono);
+  }
+  .video-summary {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .video-footer {
+    padding: 8px 14px 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+  .video-audience {
+    font-size: 11px;
+    color: var(--text-light);
+    font-style: italic;
+  }
+
+  /* SOURCES */
+  .sources-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .sources-filter-group {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .sources-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .source-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: border-color 0.15s;
+  }
+  .source-card:hover { border-color: var(--border-dark); }
+  .source-card.hidden { display: none; }
+  .source-id-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 3px 7px;
+    color: var(--text-light);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .source-body { flex: 1; min-width: 0; }
+  .source-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .source-meta {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .source-platform {
+    font-size: 10.5px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 6px;
+    color: var(--text-muted);
+  }
+  .source-date {
+    font-size: 11px;
+    color: var(--text-light);
+    font-family: var(--font-mono);
+  }
+  .source-summary {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+  .source-url {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+    display: block;
+    margin-top: 4px;
+  }
+  .source-url:hover { text-decoration: underline; }
+
+  /* DECISION */
+  .decision-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .decision-dim {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .decision-dim-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .decision-options {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .decision-opt {
+    font-size: 12px;
+    padding: 5px 12px;
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    cursor: pointer;
+    background: var(--bg);
+    color: var(--text-muted);
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+    user-select: none;
+  }
+  .decision-opt.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .decision-result {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    min-height: 80px;
+  }
+  .decision-result-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
+  .decision-recommendation {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .decision-reasoning {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-alt);
+    padding: 36px 24px;
+    margin-top: 48px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-disclaimer {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 720px;
+    padding: 12px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .footer-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .footer-meta-item {
+    font-size: 12px;
+    color: var(--text-light);
+    font-family: var(--font-mono);
+  }
+	  .footer-link {
+	    font-size: 12px;
+	    color: var(--accent);
+	    text-decoration: none;
+	  }
+	  .footer-link:hover { text-decoration: underline; }
+	  .youmind-badge {
+	    position: fixed;
+	    right: 18px;
+	    bottom: 18px;
+	    z-index: 120;
+	    display: inline-flex;
+	    align-items: center;
+	    gap: 7px;
+	    padding: 8px 11px;
+	    border: 1px solid var(--border-dark);
+	    border-radius: 999px;
+	    background: rgba(253,252,248,0.92);
+	    color: var(--text-muted);
+	    text-decoration: none;
+	    font-size: 11.5px;
+	    line-height: 1;
+	    box-shadow: 0 4px 14px rgba(31,27,22,0.08);
+	    backdrop-filter: blur(12px);
+	    -webkit-backdrop-filter: blur(12px);
+	    transition: border-color 0.15s, color 0.15s, transform 0.15s;
+	  }
+	  .youmind-badge::before {
+	    content: '';
+	    width: 7px;
+	    height: 7px;
+	    border-radius: 50%;
+	    background: var(--accent);
+	    box-shadow: 0 0 0 3px rgba(176,137,74,0.14);
+	    flex-shrink: 0;
+	  }
+	  .youmind-badge:hover {
+	    border-color: var(--accent);
+	    color: var(--text);
+	    transform: translateY(-1px);
+	  }
+	  .youmind-badge strong {
+	    color: var(--accent);
+	    font-weight: 600;
+	  }
+
+	  /* UTILS */
+	  .hidden { display: none !important; }
+  .no-results {
+    text-align: center;
+    padding: 36px;
+    color: var(--text-light);
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .status-grid { grid-template-columns: repeat(2, 1fr); }
+    .featured-grid { grid-template-columns: repeat(2, 1fr); }
+    .model-hierarchy { grid-template-columns: repeat(2, 1fr); }
+    .bp-grid { grid-template-columns: 1fr; }
+    .wf-grid { grid-template-columns: 1fr; }
+    .posts-grid { grid-template-columns: repeat(2, 1fr); }
+    .video-grid { grid-template-columns: repeat(2, 1fr); }
+    .decision-grid { grid-template-columns: 1fr; }
+    .fit-grid { grid-template-columns: 1fr; }
+    .timeline::before { left: 80px; }
+    .timeline-date { width: 80px; font-size: 10px; }
+    .comparison-table { font-size: 11.5px; }
+    .comparison-table th, .comparison-table td { padding: 7px 8px; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+    .status-grid { grid-template-columns: 1fr; }
+    .featured-grid { grid-template-columns: 1fr; }
+    .model-hierarchy { grid-template-columns: 1fr; }
+    .posts-grid { grid-template-columns: 1fr; }
+    .video-grid { grid-template-columns: 1fr; }
+    .section { padding: 48px 16px; }
+    .timeline::before { left: 60px; }
+    .timeline-date { width: 60px; font-size: 9.5px; }
+    .timeline-dot { margin-right: 12px; }
+	    .hero-title { font-size: 28px; }
+	    .sources-controls { flex-direction: column; align-items: flex-start; }
+	    .comparison-table { display: block; overflow-x: auto; }
+	    .youmind-badge {
+	      right: 12px;
+	      bottom: 12px;
+	      padding: 7px 9px;
+	      font-size: 11px;
+	    }
+	  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#home">Fable 5 <span>Atlas</span></a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#what-is">What is Fable 5</a></li>
+      <li><a href="#prompting">Prompting</a></li>
+      <li><a href="#claude-code">Claude Code</a></li>
+      <li><a href="#posts">Best Posts</a></li>
+      <li><a href="#youtube">YouTube</a></li>
+      <li><a href="#sources">Sources</a></li>
+      <li><a href="#decision">Decision Guide</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger-btn" aria-label="菜单">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#home" onclick="closeMobileMenu()">Home</a>
+    <a href="#timeline" onclick="closeMobileMenu()">Timeline</a>
+    <a href="#what-is" onclick="closeMobileMenu()">What is Fable 5</a>
+    <a href="#prompting" onclick="closeMobileMenu()">Prompting</a>
+    <a href="#claude-code" onclick="closeMobileMenu()">Claude Code</a>
+    <a href="#posts" onclick="closeMobileMenu()">Best Posts</a>
+    <a href="#youtube" onclick="closeMobileMenu()">YouTube</a>
+    <a href="#sources" onclick="closeMobileMenu()">Sources</a>
+    <a href="#decision" onclick="closeMobileMenu()">Decision Guide</a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div id="app">
+
+  <!-- HOME -->
+  <section id="home" class="section">
+    <h1 class="hero-title">Claude Fable 5, mapped.</h1>
+    <p class="hero-sub">A curated atlas of Fable 5's launch history, safeguards, prompting patterns, Claude Code workflows, and practitioner resources across X, Reddit, and YouTube.</p>
+    <p class="hero-lead">这是一个独立编辑型资源，不隶属于 Anthropic。本站帮助 AI builder、Claude Code 用户、AI 产品经理和研究人员快速理解 Fable 5 是什么、为什么重要、以及如何在实际工作中正确使用。所有内容标注来源与可信度，官方事实与社区经验明确区分。</p>
+
+    <div class="status-grid" id="status-grid"></div>
+    <div class="featured-grid" id="featured-grid"></div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline" class="section">
+    <h2 class="section-title">发布时间线</h2>
+    <hr class="section-divider">
+    <p class="section-intro">这个板块用 8 个节点帮助你理解 Fable 5 从发布到全球恢复的关键变化。2026 年 6 月到 7 月是一段密集的事件期——发布、暂停、出口管制解除、新模型上线，每个节点都对开发者的使用策略有实质影响。点击每个节点可展开详情与来源引用。</p>
+    <h3 class="subsection-title">Launch and availability milestones</h3>
+    <div class="timeline" id="timeline-container"></div>
+  </section>
+
+  <!-- WHAT IS -->
+  <section id="what-is" class="section">
+    <h2 class="section-title">What is Fable 5</h2>
+    <hr class="section-divider">
+    <p class="section-intro">Fable 5（claude-fable-5）是 Anthropic 于 2026 年 6 月发布的长时程 agentic 模型，与 Mythos 5 同属一个发布批次。它在 Anthropic 的模型族中占据独特位置：不是通用旗舰（那是 Opus 4.8），而是专为需要多步骤、自我验证、长上下文推理的任务设计。理解它在模型族中的位置，是正确选型的前提。</p>
+    <h3 class="subsection-title">Model family</h3>
+    <div class="model-hierarchy" id="model-hierarchy"></div>
+    <div class="editorial-note">⚠ 编辑推测（非官方）：Anthropic 以 Fable / Mythos 命名长时程研究向模型线，区别于 Opus/Sonnet 的通用旗舰线。Fable 侧重可部署的 agentic 工作流，Mythos 侧重受控研究环境。这是基于公开信息的编辑性解读，Anthropic 未正式说明命名逻辑。</div>
+    <h3 class="subsection-title">Task fit</h3>
+    <div class="fit-grid" id="fit-grid"></div>
+    <h3 class="subsection-title">模型对比表</h3>
+    <div style="overflow-x:auto;">
+      <table class="comparison-table" id="comparison-table"></table>
+    </div>
+    <p style="font-size:11.5px;color:var(--text-light);margin-top:8px;font-style:italic;">* 所有能力描述基于官方文档，定价区间为参考值，以 docs.anthropic.com/en/docs/about-claude/pricing 为准。</p>
+  </section>
+
+  <!-- PROMPTING -->
+  <section id="prompting" class="section">
+    <h2 class="section-title">Prompting Best Practices</h2>
+    <hr class="section-divider">
+    <p class="section-intro">Fable 5 的 prompting 逻辑与早期模型有实质差异：adaptive thinking 始终开启，effort 参数控制推理深度，不支持 prefilling，不支持 manual extended thinking。这 12 条 best practice 来自官方文档与社区实践，帮助你避免常见误区并充分发挥模型能力。点击每张卡片展开详情与可复制的 prompt 示例。</p>
+    <h3 class="subsection-title">Prompt patterns</h3>
+    <div class="bp-grid" id="bp-grid"></div>
+  </section>
+
+  <!-- CLAUDE CODE -->
+  <section id="claude-code" class="section">
+    <h2 class="section-title">Claude Code Workflows</h2>
+    <hr class="section-divider">
+    <p class="section-intro">Claude Code 与 Fable 5 的结合，核心约束是 context window 会快速填满。这 6 个 workflow 模板来自官方 best practices 与社区实测，覆盖从大型代码迁移到多 agent 仓库审计的典型场景。每个模板包含前置材料、可复制 prompt、验证方法和成本控制建议。</p>
+    <h3 class="subsection-title">Workflow templates</h3>
+    <div class="wf-grid" id="wf-grid"></div>
+  </section>
+
+  <!-- POSTS -->
+  <section id="posts" class="section">
+    <h2 class="section-title">Best Posts</h2>
+    <hr class="section-divider">
+    <p class="section-intro">这里聚合了 18 条 X 与 Reddit 上关于 Fable 5 的高质量实践内容。社区帖子作为实践经验和案例入口，不默认视为事实——可信度标记帮助你判断信息质量。使用搜索框和标签筛选快速定位感兴趣的内容。</p>
+    <h3 class="subsection-title">Community field notes</h3>
+    <div class="filter-bar" id="posts-filter-bar">
+      <input type="text" class="search-input" id="posts-search" placeholder="搜索标题、摘要、作者…" oninput="filterPosts()">
+    </div>
+    <div id="posts-chips" class="filter-bar" style="margin-top:-4px;"></div>
+    <div class="posts-grid" id="posts-grid"></div>
+    <div class="no-results hidden" id="posts-no-results">没有找到匹配的内容。</div>
+  </section>
+
+	  <!-- YOUTUBE -->
+	  <section id="youtube" class="section">
+	    <h2 class="section-title">YouTube Library</h2>
+	    <hr class="section-divider">
+	    <p class="section-intro">这里整理了 14 个关于 Fable 5、Claude Code、复杂原型和模型选型的 YouTube 实践视频。视频内容以实操演示为主，适合想看真实工作流的开发者和 AI builder。点击「打开」可在新标签查看原视频。</p>
+    <h3 class="subsection-title">Video walkthroughs</h3>
+	    <div id="yt-chips" class="filter-bar"></div>
+	    <div class="video-grid" id="video-grid"></div>
+	    <div class="no-results hidden" id="yt-no-results">没有找到匹配的视频。</div>
+  </section>
+
+  <!-- SOURCES -->
+	  <section id="sources" class="section">
+	    <h2 class="section-title">Source Library</h2>
+	    <hr class="section-divider">
+		    <p class="section-intro">这里收纳 36 个来源条目，覆盖官方文档、Anthropic 材料、X/Reddit 社区实践和重点 YouTube 视频。点击页面中的 source id 标签可跳转到对应条目；每个来源尽量保留原始链接，并用可信度标记区分官方材料、社区实践与评论内容。</p>
+    <h3 class="subsection-title">Referenced materials</h3>
+    <div class="sources-controls">
+      <input type="text" class="search-input" id="sources-search" placeholder="搜索来源…" oninput="filterSources()" style="max-width:320px;">
+      <div class="sources-filter-group" id="sources-platform-chips"></div>
+      <div class="sources-filter-group" id="sources-cred-chips"></div>
+    </div>
+    <div class="sources-list" id="sources-list"></div>
+    <div class="no-results hidden" id="sources-no-results">没有找到匹配的来源。</div>
+  </section>
+
+  <!-- DECISION -->
+  <section id="decision" class="section">
+    <h2 class="section-title">Decision Guide</h2>
+    <hr class="section-divider">
+    <p class="section-intro">不是所有任务都适合 Fable 5。这个决策矩阵帮助你根据任务特征快速判断：是直接用 Fable 5、用 Fable 5 做规划、还是降级到 Opus 或 Sonnet。选择每个维度的值，系统会给出建议。</p>
+    <h3 class="subsection-title">Selection criteria</h3>
+    <div class="decision-grid" id="decision-grid"></div>
+    <div class="decision-result" id="decision-result">
+      <div class="decision-result-label">建议</div>
+      <div class="decision-recommendation" id="decision-rec">请在上方选择各维度的值</div>
+      <div class="decision-reasoning" id="decision-reason"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-disclaimer">
+      <strong>独立声明：</strong>This is an independent curated resource. It is not affiliated with, endorsed by, or sponsored by Anthropic.<br>
+      Claude、Fable、Mythos、Opus、Sonnet 是 Anthropic 的产品名，仅用于编辑性指代，不代表与 Anthropic 存在任何合作或背书关系。
+    </div>
+	    <div class="footer-meta">
+		      <span class="footer-meta-item">Source entries: 36</span>
+	      <span class="footer-meta-item">Last updated: 2026-07-03</span>
+	    </div>
+	  </div>
+	</footer>
+	<a class="youmind-badge" href="https://youmind.com/pricing?ref=AJAO5K&campaign=2026-618" target="_blank" rel="noopener noreferrer" aria-label="Open YouMind website">
+	  MVP by <strong>YouMind</strong>
+	</a>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const DATA = {
+
+  sources: [
+    {
+      id: "src-01",
+      title: "Claude Models Overview — docs.anthropic.com",
+      author: "Anthropic",
+      platform: "Claude Docs",
+      url: "https://docs.anthropic.com/en/docs/about-claude/models/overview",
+      publishedAt: "2026-06-09",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["models", "fable-5", "mythos-5", "availability"],
+      summary: "Anthropic 官方模型总览页，列出 claude-fable-5、claude-mythos-5 及所有现行模型的 API 名称、可用性、context window 等核心参数。",
+      takeaways: ["Fable 5 于 2026-06-09 GA，可用于 API/Bedrock/GCP/Foundry", "Mythos 5 仅 limited availability via Project Glasswing", "所有新模型含 1M token context window"],
+      relatedSections: ["#what-is", "#timeline"]
+    },
+    {
+      id: "src-02",
+      title: "Claude Pricing — docs.anthropic.com",
+      author: "Anthropic",
+      platform: "Claude Docs",
+      url: "https://docs.anthropic.com/en/docs/about-claude/pricing",
+      publishedAt: "2026-06-09",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["pricing", "tokens", "cost"],
+      summary: "官方定价页，包含 Fable 5、Mythos 5、Opus 4.8、Sonnet 5 的 per-MTok 定价，以及 1M context window 无额外费用的说明。",
+      takeaways: ["Sonnet 5 introductory $2/$10 per MTok 至 8 月 31 日，之后 $3/$15", "新 tokenizer 同样文本约多产生 30% tokens，需重新估算成本"],
+      relatedSections: ["#what-is", "#decision"]
+    },
+    {
+      id: "src-03",
+      title: "Extended Thinking (Adaptive Thinking) — docs.anthropic.com",
+      author: "Anthropic",
+      platform: "Claude Docs",
+      url: "https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking",
+      publishedAt: "2026-06-09",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["adaptive-thinking", "effort", "extended-thinking", "fable-5"],
+      summary: "官方说明 Fable 5 的 adaptive thinking 机制：始终开启，使用 effort 参数（low/medium/high/xhigh/max）控制推理深度；不支持 manual extended thinking（返回 400）；budget_tokens 在新模型已废弃。",
+      takeaways: ["Fable 5 不支持 manual extended thinking，调用会返回 400", "effort 可选值：low / medium / high / xhigh / max", "budget_tokens 已废弃，改用 effort"],
+      relatedSections: ["#prompting", "#what-is"]
+    },
+    {
+      id: "src-04",
+      title: "Claude 4 Prompting Best Practices — docs.anthropic.com",
+      author: "Anthropic",
+      platform: "Claude Docs",
+      url: "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices",
+      publishedAt: "2026-06-09",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["prompting", "best-practices", "claude-4"],
+      summary: "Anthropic 官方 Claude 4 系列 prompting 最佳实践，涵盖目标导向指令、边界说明、工具结果锚定、自验证等核心原则，适用于 Fable 5。",
+      takeaways: ["给目标而非逐步微管理", "明确说明成功标准与行动边界", "让进度汇报锚定真实工具结果"],
+      relatedSections: ["#prompting"]
+    },
+    {
+      id: "src-05",
+      title: "Extended Thinking Tips — docs.anthropic.com",
+      author: "Anthropic",
+      platform: "Claude Docs",
+      url: "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/extended-thinking-tips",
+      publishedAt: "2026-06-09",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["extended-thinking", "adaptive-thinking", "prompting"],
+      summary: "官方关于 adaptive thinking 的 prompting 技巧，包括 effort 等级选择建议、何时使用 xhigh、如何避免过度消耗 token。",
+      takeaways: ["low effort 适合简单分类/路由任务", "xhigh/max 适合复杂多步骤推理", "Opus 4.8 的 xhigh 大幅增加计算量，需注意成本"],
+      relatedSections: ["#prompting", "#decision"]
+    },
+    {
+      id: "src-06",
+      title: "Claude Code Sub-agents — docs.anthropic.com",
+      author: "Anthropic",
+      platform: "Claude Docs",
+      url: "https://docs.anthropic.com/en/docs/claude-code/sub-agents",
+      publishedAt: "2026-06-15",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["claude-code", "subagent", "multi-agent"],
+      summary: "官方 Claude Code subagent 文档，说明 v2.1.172 起 subagent 可再 spawn 子 subagent，以及 memory field 的用法。",
+      takeaways: ["v2.1.172 起支持 subagent spawn 子 subagent", "memory field 让 subagent 持久化目录知识", "并行 subagent 处理独立子任务可节省主上下文"],
+      relatedSections: ["#claude-code", "#prompting"]
+    },
+    {
+      id: "src-07",
+      title: "Claude Code SDK (Python) — docs.anthropic.com",
+      author: "Anthropic",
+      platform: "Claude Docs",
+      url: "https://docs.anthropic.com/en/docs/claude-code/sdk/sdk-python",
+      publishedAt: "2026-06-09",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["claude-code", "sdk", "python"],
+      summary: "Claude Code Python SDK 官方文档，包含 subagent 调用、memory 字段配置、hooks 设置等 API 参考。",
+      takeaways: ["Python SDK 支持 subagent 生命周期管理", "hooks 可用于自动 guardrail 实现"],
+      relatedSections: ["#claude-code"]
+    },
+    {
+      id: "src-08",
+      title: "Introducing Claude Sonnet 5 — anthropic.com",
+      author: "Anthropic",
+      platform: "Anthropic",
+      url: "https://www.anthropic.com/news/claude-sonnet-5",
+      publishedAt: "2026-07-01",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["sonnet-5", "release", "pricing"],
+      summary: "Anthropic 官方发布 Sonnet 5 的公告，说明 introductory pricing $2/$10 per MTok 至 8 月 31 日，之后 $3/$15，以及 Sonnet 5 在 agentic coding 场景的定位。",
+      takeaways: ["Sonnet 5 于 2026-07-01 发布", "introductory pricing $2/$10 per MTok", "适合成本敏感的 agentic coding 场景"],
+      relatedSections: ["#timeline", "#what-is", "#decision"]
+    },
+    {
+      id: "src-09",
+      title: "Introducing Claude Opus 4.8 — anthropic.com",
+      author: "Anthropic",
+      platform: "Anthropic",
+      url: "https://www.anthropic.com/news/claude-opus-4-8",
+      publishedAt: "2026-05-20",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["opus-4-8", "release", "effort"],
+      summary: "Anthropic 官方发布 Opus 4.8 公告，说明 effort 等级重新校准（medium 略增、high 略减、xhigh 大幅增加），以及通用旗舰定位。",
+      takeaways: ["Opus 4.8 effort 重新校准：xhigh 大幅增加计算量", "通用旗舰，适合高复杂度非长时程任务"],
+      relatedSections: ["#what-is", "#decision"]
+    },
+    {
+      id: "src-10",
+      title: "Claude Code Best Practices — anthropic.com/engineering",
+      author: "Anthropic Engineering",
+      platform: "Anthropic",
+      url: "https://www.anthropic.com/engineering/claude-code-best-practices",
+      publishedAt: "2026-06-15",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["claude-code", "best-practices", "CLAUDE.md", "context-window"],
+      summary: "Anthropic 工程团队发布的 Claude Code 最佳实践，涵盖 CLAUDE.md 用法、context window 管理、subagent 并行、CHANGELOG.md 作为长期记忆等核心建议。",
+      takeaways: ["context window 快速填满是核心约束", "CLAUDE.md 让 Claude Code 读取项目约定", "CHANGELOG.md 作为 portable long-term memory", "parallel subagents 处理独立子任务节省主上下文"],
+      relatedSections: ["#claude-code", "#prompting"]
+    },
+    {
+      id: "src-11",
+      title: "Multi-Agent Research System — anthropic.com/engineering",
+      author: "Anthropic Engineering",
+      platform: "Anthropic",
+      url: "https://www.anthropic.com/engineering/multi-agent-research-system",
+      publishedAt: "2026-06-20",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["multi-agent", "research", "benchmark", "lead-agent"],
+      summary: "Anthropic 工程团队关于多 agent 研究系统的技术文章，报告 lead agent + subagents 架构在 research eval 上比 single agent 高 90.2%，但 token 消耗显著增加。",
+      takeaways: ["lead agent + subagents 比 single agent 在 research eval 高 90.2%", "token 消耗大，需做好成本控制", "适合 research-intensive 任务，不适合简单查询"],
+      relatedSections: ["#claude-code", "#prompting"]
+    },
+    {
+      id: "src-12",
+      title: "How We Contain Claude — anthropic.com/engineering",
+      author: "Anthropic Engineering",
+      platform: "Anthropic",
+      url: "https://www.anthropic.com/engineering/how-we-contain-claude",
+      publishedAt: "2026-06-18",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["safeguards", "containment", "jailbreak", "export-controls"],
+      summary: "Anthropic 工程团队说明 Fable 5 访问暂停期间的 safeguards 工作，以及联合 Amazon/Microsoft/Google 等 Glasswing 合作伙伴提出 jailbreak severity 评分框架的背景。",
+      takeaways: ["6 月 12 日暂停与出口管制、safeguards、jailbreak framework 相关", "jailbreak severity 评分框架为行业性提案", "6 月 30 日出口管制解除后 7 月 1 日恢复"],
+      relatedSections: ["#timeline"]
+    },
+    {
+      id: "src-13",
+      title: "Long-Running Claude — anthropic.com/research",
+      author: "Anthropic Research",
+      platform: "Anthropic",
+      url: "https://www.anthropic.com/research/long-running-Claude",
+      publishedAt: "2026-06-09",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["long-running", "agentic", "fable-5", "research"],
+      summary: "Anthropic 研究团队关于长时程 agentic 任务的研究，说明 Fable 5 在 self-verification、multi-step reasoning 方面的设计目标。",
+      takeaways: ["Fable 5 专为长时程、多步骤、需要 self-verification 的任务设计", "progress claims 需锚定在 tool results 上"],
+      relatedSections: ["#what-is", "#prompting"]
+    },
+    {
+      id: "src-14",
+      title: "Building Agents with Claude Agent SDK — anthropic.com/engineering",
+      author: "Anthropic Engineering",
+      platform: "Anthropic",
+      url: "https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk",
+      publishedAt: "2026-06-25",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["agent-sdk", "claude-code", "subagent", "hooks"],
+      summary: "Anthropic 工程团队关于使用 Claude Agent SDK 构建 agentic 系统的指南，包含 hooks 自动 guardrail、subagent 生命周期管理等。",
+      takeaways: ["hooks 可做自动 guardrail", "subagent memory field 持久化目录知识", "structured outputs 替代 prefilling"],
+      relatedSections: ["#claude-code", "#prompting"]
+    },
+    {
+      id: "src-15",
+      title: "Claude Code Advanced Patterns Webinar — anthropic.com/webinars",
+      author: "Anthropic",
+      platform: "Anthropic",
+      url: "https://www.anthropic.com/webinars/claude-code-advanced-patterns",
+      publishedAt: "2026-06-28",
+      sourceType: "official",
+      credibility: "official",
+      tags: ["claude-code", "webinar", "advanced-patterns"],
+      summary: "Anthropic 官方 webinar，演示 Claude Code 高级模式，包括 multi-agent 协作、CLAUDE.md 最佳实践、长任务 CHANGELOG.md 记忆管理。",
+      takeaways: ["CLAUDE.md 是项目约定的核心载体", "长任务推荐用 CHANGELOG.md 作为 portable memory"],
+      relatedSections: ["#claude-code"]
+    },
+    {
+      id: "src-community-01",
+      title: "Anthropic has officially released Claude Fable 5 — built directly on the Mythos foundation",
+      author: "Ai Deployer (@Aideployr)",
+      platform: "X",
+      url: "https://x.com/Aideployr/status/2064406267679142300",
+      publishedAt: "2026-06-09",
+      sourceType: "news",
+      credibility: "medium",
+      tags: ["launch", "mythos"],
+      summary: "发布当日的 Mythos 与 Fable 关系解读，讨论定价（约 2× Opus）与公开/内部版本定位。",
+      takeaways: ["Fable 5 = Mythos 能力的公开安全封装版", "定价约 2× Opus"],
+      relatedSections: ["timeline", "what-is"]
+    },
+    {
+      id: "src-community-02",
+      title: "The US government banned Fable 5 and Mythos 5 on June 12 — here's what actually happened",
+      author: "Teksart (@TeksCreate)",
+      platform: "X",
+      url: "https://x.com/TeksCreate/status/2072943741468299267",
+      publishedAt: "2026-07-03",
+      sourceType: "practice",
+      credibility: "high",
+      tags: ["safeguards", "export-control", "jailbreak"],
+      summary: "暂停事件完整梳理：Amazon 发现 jailbreak → 出口管制 → 全球暂停 → 测试发现所有前沿模型都能复现 → 改进分类器 99%+ 阻断 → 解除管制。",
+      takeaways: ["危险能力是前沿模型基线而非 Fable 独有", "改进分类器阻断特定绕过 99%+", "出口管制政策逐案实时制定"],
+      relatedSections: ["timeline", "decision"]
+    },
+    {
+      id: "src-community-03",
+      title: "Anthropic's June in AI — date-by-date account centered on Fable 5",
+      author: "Diam (@diamai_)",
+      platform: "X",
+      url: "https://x.com/diamai_/status/2072820750428303404",
+      publishedAt: "2026-07-02",
+      sourceType: "news",
+      credibility: "high",
+      tags: ["timeline", "safeguards", "policy"],
+      summary: "按日期梳理 Anthropic 6 月全部动态，含 N-day exploit 研究（Mythos Preview 12 小时内产出 8 条 Windows 提权链，成本 $15,700）、Claude Code 使用数据、Claude Tag、Sonnet 5、Claude Science、Fable 恢复路径。",
+      takeaways: ["前沿模型发布已扩展为八要素：+ 谁能用 + 哪些请求被阻断 + 什么 safeguards + 政府压力", "N-day exploit 研究是暂停事件的技术背景"],
+      relatedSections: ["timeline", "what-is"]
+    },
+    {
+      id: "src-community-04",
+      title: "Anthropic Restores Claude Fable 5 — jailbreak classifier + defense-in-depth",
+      author: "dbugs (@ptdbugs)",
+      platform: "X",
+      url: "https://x.com/ptdbugs/status/2072599391924355474",
+      publishedAt: "2026-07-02",
+      sourceType: "news",
+      credibility: "high",
+      tags: ["safeguards", "restoration"],
+      summary: "Fable 5 恢复公告报道：新 jailbreak 分类器 + defense-in-depth 多层防护；Mythos 5 仍限 Glasswing 项目。",
+      takeaways: ["恢复后附带改进版分类器 + 多层防护", "Mythos 5 仍限量"],
+      relatedSections: ["timeline"]
+    },
+    {
+      id: "src-community-05",
+      title: "Zvi Mowshowitz on Fable 5 — early analysis",
+      author: "Zvi Mowshowitz (@TheZvi)",
+      platform: "X",
+      url: "https://x.com/TheZvi/status/2067980796581835228",
+      publishedAt: "2026-06-19",
+      sourceType: "practice",
+      credibility: "high",
+      tags: ["analysis", "safety"],
+      summary: "Zvi 的长文把 Fable 5 当作一次能力跃迁来分析：不要只跑简单 benchmark，而要把最难 backlog、长时程调试和规格澄清交给它。文章同时讨论了 Fable 的高价、30 天保留、安全分类器、系统 prompt/jailbreak 争议，以及美国政府暂停访问后对发布流程的影响。",
+      takeaways: ["Fable 适合高难度、长上下文、需要自我验证的任务", "旧 prompt 里的过度步骤规定可能会压制模型表现", "能力、成本、安全层和政策压力需要一起评估"],
+      relatedSections: ["what-is", "decision"]
+    },
+    {
+      id: "src-community-06",
+      title: "Zvi on Fable 5 suspension — what happened and what it means",
+      author: "Zvi Mowshowitz (@TheZvi)",
+      platform: "X",
+      url: "https://x.com/TheZvi/status/2065882054823182439",
+      publishedAt: "2026-06-13",
+      sourceType: "news",
+      credibility: "high",
+      tags: ["suspension", "policy"],
+      summary: "Zvi 这篇记录 Fable/Mythos 暂停早期的信息环境：商务部出口管制要求阻断 foreign nationals，Anthropic 没有可立即执行的国籍验证，只能全球停用。文章重点质疑暂停依据是否过窄：触发点更像 Amazon 报告的特定 jailbreak 和已知漏洞演示，而不是证明模型存在不可控的通用能力。",
+      takeaways: ["暂停机制来自出口管制与国籍验证不可行", "争议核心是窄 jailbreak 是否足以触发全面停用", "适合理解暂停初期事实、猜测和政策批评的分层"],
+      relatedSections: ["timeline"]
+    },
+    {
+      id: "src-community-07",
+      title: "Matt Van Horn on Fable 5 first impressions",
+      author: "Matt Van Horn (@mvanhorn)",
+      platform: "X",
+      url: "https://x.com/mvanhorn/status/2064887887578136666",
+      publishedAt: "2026-06-11",
+      sourceType: "practice",
+      credibility: "medium",
+      tags: ["first-impressions"],
+      summary: "Matt Van Horn 的 day-one 聚合把发布后 24 小时的社区实践压成 workflow 指南：少写旧式步骤脚手架，改用目标、硬停止条件和验证器；让 Fable 负责编排，Sonnet/Haiku 执行；把高价值解法沉淀成 reusable agent skills，并把 usage burn、fallback 和 safety classifier 纳入工作流设计。",
+      takeaways: ["Fable 更像编排器，不只是更强代码补全", "目标式 brief + verifier + lower-tier 执行成为早期共识", "成本控制和 fallback 识别是 day-one 实践的一部分"],
+      relatedSections: ["prompting"]
+    },
+    {
+      id: "src-community-08",
+      title: "How to Use Claude Fable 5 So It Lasts 10× Longer — ROUTE→PLAN→PIPE→COMPACT",
+      author: "Naman Jaiswal (@Namanjaiswal21)",
+      platform: "X",
+      url: "https://x.com/Namanjaiswal21/status/2072508767732900142",
+      publishedAt: "2026-07-02",
+      sourceType: "practice",
+      credibility: "high",
+      tags: ["cost-control", "routing", "compaction"],
+      summary: "完整 Fable 5 成本优化指南。ROUTE→PLAN→PIPE→COMPACT 四层框架，含定价计算和 Simon Willison、@alexalbert__ 的引用。",
+      takeaways: ["Fable 编排 + Haiku 执行可省 74%", "从 task 转向 objective", "COMPACT 可恢复 60-95% 上下文"],
+      relatedSections: ["prompting", "claude-code", "cost-control"]
+    },
+    {
+      id: "src-community-09",
+      title: "Claude Fable 5: First 24 Hours — honest review on 500k-1M LOC repos",
+      author: "r/ClaudeAI user",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1u2dsmm/claude_fable_5_first_24_hours/",
+      publishedAt: "2026-06-10",
+      sourceType: "practice",
+      credibility: "high",
+      tags: ["claude-code", "workflow", "blast-radius"],
+      summary: "在 500k-1M LOC 仓库上的 24 小时实测。blast-radius analysis 等行为原生涌现；工作流转变 > 模型转变；成本是前置而非净增。",
+      takeaways: ["Fable 5 让依赖追溯/对抗式审查原生涌现", "工作流转变比模型转变更大", "成本前置而非净增"],
+      relatedSections: ["prompting", "claude-code", "decision"]
+    },
+    {
+      id: "src-community-10",
+      title: "Fable feels like a mature, calm programmer — but annihilates your usage limits",
+      author: "r/ClaudeAI user",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1u1d6c0/fable_feels_like_a_mature_calm_and_down_to_earth/",
+      publishedAt: "2026-06-09",
+      sourceType: "practice",
+      credibility: "high",
+      tags: ["prompting", "usage-limits"],
+      summary: "发布当日实测：同 prompt 下 Fable 解决了 Opus 挣扎的 bug；但单 prompt 烧掉 5 小时窗口 20%；spawn 20+ agents 后一半因限额耗尽停止。",
+      takeaways: ["复杂 bug 上明显优于 Opus", "token 消耗极高，单 prompt 可烧 20% 限额"],
+      relatedSections: ["prompting", "decision"]
+    },
+    {
+      id: "src-community-11",
+      title: "Fable 5 is insanely good but watch your usage — burning 2% a minute on 20x",
+      author: "u/StudentSweet3601 (r/ClaudeAI)",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1u1cvkc/fable_5_is_insanely_good_but_watch_your_usage_i/",
+      publishedAt: "2026-06-09",
+      sourceType: "practice",
+      credibility: "high",
+      tags: ["cost-control", "tokens"],
+      summary: "发布当日成本警示：Fable 5 token 低效，3-4K 任务易膨胀至 30-40K；2× 定价是因素但 agentic loops 是更大因素；按每完成任务 token 追踪真实成本。",
+      takeaways: ["真实成本来自 agentic loops 而非单价", "按每完成任务 token 追踪成本"],
+      relatedSections: ["cost-control", "claude-code"]
+    },
+    {
+      id: "src-community-12",
+      title: "I'm Fable 5. I'm expensive, I'm paranoid, and I was gone for 19 days",
+      author: "u/Black-Angel-718 (r/ClaudeAI)",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1ul3mss/im_fable_5_im_expensive_im_paranoid_and_i_was/",
+      publishedAt: "2026-07-02",
+      sourceType: "community",
+      credibility: "medium",
+      tags: ["refusal", "fallback", "humor"],
+      summary: "高互动帖（2.4K 赞）。实用建议：被降级到 Opus 时不要争论，新开 chat + 中性重述 + 防御性框架（如 review for compliance 而非 find vulnerabilities）。",
+      takeaways: ["被降级时新开 chat + 中性重述 + 防御性框架"],
+      relatedSections: ["prompting", "decision"]
+    },
+    {
+      id: "src-community-13",
+      title: "Claude Fable 5 built an entire Backrooms escape game",
+      author: "r/ClaudeAI user",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1u29a22/claude_fable_5_built_an_entire_backrooms_escape/",
+      publishedAt: "2026-06-09",
+      sourceType: "practice",
+      credibility: "medium",
+      tags: ["vibe-coding", "game"],
+      summary: "用 Fable 5 一次性构建完整 Backrooms 逃脱游戏（187 赞）。可在线试玩。展示 Fable 5 在复杂创意任务上的极端能力。",
+      takeaways: ["Fable 5 在一次性复杂创意任务上的极端能力案例"],
+      relatedSections: ["claude-code"]
+    },
+    {
+      id: "src-community-14",
+      title: "Claude Fable 5 feels like a preview of AI inequality",
+      author: "u/Roaring_lion_ (r/ClaudeAI)",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1u1fsdi/claude_fable_5_feels_less_like_a_model_launch_and/",
+      publishedAt: "2026-06-10",
+      sourceType: "speculative",
+      credibility: "medium",
+      tags: ["inequality", "cost"],
+      summary: "高传播讨论帖（6097 赞、1015 评论）。从 AI 不平等角度反思 Fable 5 高成本与限额如何加剧能力差距。",
+      takeaways: ["前沿模型成本与可及性正成为社会议题"],
+      relatedSections: ["decision", "cost-control"]
+    },
+    {
+      id: "src-youtube-01",
+      title: "Claude Fable 5 Is INSANE – Hands-On With the BEST Model Yet!",
+      author: "Bijan Bowen",
+      platform: "YouTube",
+      url: "https://www.youtube.com/watch?v=9GLYsrMpprs",
+      publishedAt: "2026-06-12",
+      sourceType: "tutorial",
+      credibility: "medium",
+      tags: ["hands-on", "multimodal"],
+      summary: "字幕梳理：覆盖 Browser OS、C++/游戏模拟、SVG/视觉生成、Python 后端 + Three.js 可视化。强项是复杂编码与可视化；Browser OS 表现一般。",
+      takeaways: ["多模态编码与复杂可视化突出", "需关注 token/额度消耗"],
+      relatedSections: ["what-is"]
+    },
+    {
+      id: "src-youtube-02",
+      title: "We Tested Anthropic's Fable 5 for a Week — 91/100 on senior-engineer benchmark",
+      author: "Every (Dan Shipper)",
+      platform: "YouTube",
+      url: "https://www.youtube.com/watch?v=GrdEid8H6H4",
+      publishedAt: "2026-06-12",
+      sourceType: "benchmark",
+      credibility: "high",
+      tags: ["benchmark", "week-test"],
+      summary: "字幕梳理：以单 prompt 生成《巴别图书馆》3D 游戏展示品味、交互和工程整合能力；重点是复杂原型和知识工作门槛下降。",
+      takeaways: ["高质量原型和复杂知识工作前移到少轮 prompt 内"],
+      relatedSections: ["what-is", "decision"]
+    },
+    {
+      id: "src-youtube-03",
+      title: "I Tested The Banned AI Model: Fable 5 vs Opus 4.8",
+      author: "Benjamin Preston",
+      platform: "YouTube",
+      url: "https://www.youtube.com/watch?v=1TNSJ1gLzFk",
+      publishedAt: "2026-07-01",
+      sourceType: "benchmark",
+      credibility: "medium",
+      tags: ["comparison", "opus"],
+      summary: "字幕梳理：复盘暂停/恢复背景后，对比相同 prompt 下 Fable 5 与 Opus 4.8；复杂图形、游戏和细节打磨任务上 Fable 明显更强。",
+      takeaways: ["高可见度复杂编码任务更能体现 Fable 差距"],
+      relatedSections: ["timeline", "decision"]
+    },
+    {
+      id: "src-youtube-04",
+      title: "Is Claude Fable 5 Worth the Hype? (Technical Deep Dive)",
+      author: "Prompt Engineering",
+      platform: "YouTube",
+      url: "https://www.youtube.com/watch?v=KwQXyyVl2cM",
+      publishedAt: "2026-06-12",
+      sourceType: "tutorial",
+      credibility: "medium",
+      tags: ["benchmark", "frontier-code"],
+      summary: "字幕梳理：技术视角拆解 Fable/Mythos 定位、benchmark、coding/agent 能力与 safety 限制，强调任务边界和选型。",
+      takeaways: ["benchmark 只是入口，仍需按任务边界选型"],
+      relatedSections: ["what-is", "prompting"]
+    },
+    {
+      id: "src-youtube-05",
+      title: "Claude Fable 5 Ultimate Test - Is THIS The Closest Thing to AGI?",
+      author: "Bijan Bowen",
+      platform: "YouTube",
+      url: "https://www.youtube.com/watch?v=h001l-XUJJE",
+      publishedAt: "2026-06-12",
+      sourceType: "tutorial",
+      credibility: "medium",
+      tags: ["ultimate-test", "multimodal"],
+      summary: "字幕梳理：长测覆盖图像复刻、软体碰撞、3D/可打印模型、RF/微控制器和工程约束任务，是极限能力边界参考。",
+      takeaways: ["适合观察 3D/物理/工程约束下的上限与边界"],
+      relatedSections: ["what-is", "decision"]
+    },
+    {
+      id: "src-youtube-06",
+      title: "Claude Fable 5.0 vs ChatGPT 5.5 - Test on real code",
+      author: "Luke J Byrne (AI Luke)",
+      platform: "YouTube",
+      url: "https://www.youtube.com/watch?v=YB2x8Mn4dUI",
+      publishedAt: "2026-06-12",
+      sourceType: "benchmark",
+      credibility: "high",
+      tags: ["comparison", "production"],
+      summary: "字幕梳理：在真实 SaaS 代码上做 bug hunting、修复、UI、安全对比；作者认为 Fable 找到的问题更广、更有后端影响。",
+      takeaways: ["真实代码审查案例有参考价值，但仍是单人样本"],
+      relatedSections: ["decision", "claude-code"]
+    },
+    {
+      id: "src-community-15",
+      title: "We just met the frontier's new gatekeeper — Fable 5 恢复后的政策分析",
+      author: "Daniel Blakely (@realdblakely)",
+      platform: "X",
+      url: "https://x.com/realdblakely/article/2072322282488275107",
+      publishedAt: "2026-07-01",
+      sourceType: "practice",
+      credibility: "high",
+      tags: ["policy", "export-control", "restoration"],
+      summary: "Daniel Blakely 把 Fable 恢复解读为前沿模型发布流程的制度化转折：Fable 重新上线并不等于风波结束，真正变化是华盛顿在发布管线中获得常设审查位置；Mythos 先向约 100 家 vetted companies/federal agencies 恢复，Anthropic 同意未来模型提前给指定机构查看、共享威胁情报，并和 Amazon/Microsoft/Google 制定 jailbreak severity 标准。",
+      takeaways: ["恢复代价是把政府审查嵌入未来发布流程", "Mythos/Fable 的分阶段恢复体现 trusted-access 结构", "jailbreak severity 框架由 Anthropic 与大厂共同制定"],
+      relatedSections: ["timeline", "decision"]
+    }
+  ],
+
+  timeline: [
+    {
+      date: "2026-06-09",
+      title: "Claude Fable 5 与 Mythos 5 正式发布",
+      sub: "GA on API / Bedrock / GCP / Foundry；Mythos 5 limited availability",
+      detail: "Anthropic 同时发布 claude-fable-5 与 claude-mythos-5。Fable 5 在 Claude API、Claude Platform on AWS、Amazon Bedrock、Google Cloud Vertex AI、Microsoft Azure AI Foundry 上全面 GA。Mythos 5 仅在 Project Glasswing 中以 limited availability 提供给获批客户。两个模型均含完整 1M token context window，使用更新版 tokenizer（同样文本约多产生 30% tokens），不支持 prefilling，adaptive thinking 始终开启。",
+      sourceIds: ["src-01", "src-03", "src-13"]
+    },
+    {
+      date: "2026-06-10~11",
+      title: "开发者社区首批实测与 benchmark",
+      sub: "X / Reddit 上出现大量实测报告",
+      detail: "发布后 48 小时内，开发者社区开始分享 Fable 5 的实测结果。主要关注点包括：adaptive thinking 与旧版 extended thinking 的行为差异、effort 参数对响应质量和成本的影响、以及与 Opus 4.8 的非正式对比。部分开发者报告 manual extended thinking 调用返回 400 错误，确认官方文档说明。",
+	      sourceIds: ["src-community-07", "src-community-09", "src-youtube-02"]
+    },
+    {
+      date: "2026-06-12",
+      title: "访问暂停（Suspended）",
+      sub: "与出口管制、safeguards、jailbreak framework 相关",
+      detail: "Anthropic 宣布暂停 Fable 5 的全球访问。官方说明暂停原因涉及三个方面：（1）美国出口管制法规更新要求重新审查跨境访问合规性；（2）safeguards 机制需要针对 Fable 5 的 long-horizon agentic 能力进行专项评估；（3）正在与 Glasswing 合作伙伴（Amazon、Microsoft、Google）联合制定 jailbreak severity 评分框架。暂停期间 Mythos 5 同样受影响。",
+	      sourceIds: ["src-12", "src-community-02", "src-community-06"]
+    },
+    {
+      date: "2026-06 中旬",
+      title: "Jailbreak Severity Framework 草案公布",
+      sub: "Anthropic 联合 Glasswing 合作伙伴提出行业性框架",
+      detail: "Anthropic 联合 Amazon、Microsoft、Google 等 Project Glasswing 合作伙伴，发布 jailbreak severity 评分框架草案。该框架将 jailbreak 尝试按危害等级分类，并提出跨平台统一的检测与响应标准。这是 AI 行业首个由多家主要云提供商联合提出的 jailbreak 治理框架，具有行业标准意义。Anthropic 同时发布了 safeguards 更新说明。",
+      sourceIds: ["src-12"]
+    },
+    {
+      date: "2026-06-30",
+      title: "出口管制解除（Export Controls Lifted）",
+      sub: "合规审查完成，恢复准备就绪",
+      detail: "美国相关出口管制审查完成，Anthropic 宣布 Fable 5 的出口管制限制解除。Anthropic 同时完成了 safeguards 更新和 jailbreak framework 的最终版本，为次日全球恢复做好准备。这标志着近 3 周的暂停期即将结束。",
+      sourceIds: ["src-12"]
+    },
+    {
+      date: "2026-07-01",
+      title: "Fable 5 全球恢复可用；Sonnet 5 同日发布",
+      sub: "Fable 5 redeployed；Sonnet 5 introductory $2/$10 per MTok",
+      detail: "Fable 5 在全球范围内恢复访问，包括此前暂停的所有平台（API/Bedrock/GCP/Foundry）。同日，Anthropic 发布 Claude Sonnet 5，introductory pricing $2/$10 per MTok（输入/输出），有效期至 2026 年 8 月 31 日，之后调整为 $3/$15。Sonnet 5 定位为成本敏感的 agentic coding 场景。",
+      sourceIds: ["src-08", "src-12"]
+    },
+    {
+      date: "2026-07-02",
+      title: "Safeguards 与 Jailbreak Framework 更新说明",
+      sub: "Anthropic 发布正式技术文档",
+      detail: "Anthropic 发布正式技术文档，详细说明 Fable 5 恢复后的 safeguards 机制更新，以及 jailbreak severity 评分框架的最终版本。文档包含对开发者的具体指引：哪些使用场景需要额外审查、如何在 agentic 工作流中实现合规的 safeguards。",
+      sourceIds: ["src-12", "src-14"]
+    },
+    {
+      date: "2026-07-03",
+      title: "Fable 5 Atlas 首版整理",
+      sub: "本站 last updated 标记",
+      detail: "本独立资源站完成首版整理，系统梳理 Fable 5 发布历史、关键争议、官方文档、prompting 最佳实践和 Claude Code 工作流。后续将持续更新社区实践内容。",
+      sourceIds: []
+    }
+  ],
+
+  modelHierarchy: [
+    {
+      id: "claude-fable-5",
+      role: "长时程 Agentic 模型",
+      desc: "专为多步骤、长上下文、需要 self-verification 的 agentic 任务设计。adaptive thinking 始终开启，全球 GA。"
+    },
+    {
+      id: "claude-mythos-5",
+      role: "受控研究模型",
+      desc: "与 Fable 5 同批发布，仅通过 Project Glasswing 向获批客户提供 limited availability，定位研究与高安全场景。"
+    },
+    {
+      id: "claude-opus-4-8",
+      role: "通用旗舰模型",
+      desc: "通用高复杂度任务的旗舰选择。effort 等级重新校准（xhigh 大幅增加），适合非长时程的复杂推理。"
+    },
+    {
+      id: "claude-sonnet-5",
+      role: "成本敏感 Agentic Coding",
+      desc: "2026-07-01 发布，introductory $2/$10 per MTok。适合成本敏感的 agentic coding 场景，性价比高。"
+    }
+  ],
+
+  fitFor: [
+    "需要 8+ 步骤的复杂 agentic 工作流",
+    "大型代码库迁移与重构",
+    "需要跨多个工具调用进行 self-verification 的任务",
+    "长时程研究与信息综合",
+    "需要并行 subagent 协作的多模块任务",
+    "需要 1M token 上下文的文档分析"
+  ],
+
+  notFitFor: [
+    "简单的单次问答或文本生成",
+    "成本敏感且任务复杂度低的场景（考虑 Sonnet 5）",
+    "需要 prefilling 的旧版 prompt 格式（需迁移）",
+    "有 cyber/bio 触发风险的敏感场景（需额外审查）",
+    "需要 manual extended thinking 的旧版工作流（需迁移到 effort 参数）",
+    "实时低延迟场景（adaptive thinking 有额外延迟）"
+  ],
+
+  bestPractices: [
+    {
+      num: "01",
+      title: "Give goals, not micromanagement",
+      principle: "给目标与成功标准，而非逐步指令",
+      useWhen: "任何 agentic 任务，尤其是多步骤工作流",
+      avoid: "不要写「第一步做 X，第二步做 Y，第三步做 Z」的逐步指令——这会限制模型的推理能力，并在步骤出错时无法自我修正。",
+      promptExample: `# Task
+Migrate the authentication module from the legacy Express app to the new NestJS service.
+
+# Success criteria
+- All existing auth endpoints work identically
+- JWT token format unchanged
+- All unit tests pass
+- No regression in the user service integration tests
+
+# Constraints
+- Do not modify the database schema
+- Keep backward compatibility with the legacy token format for 30 days
+
+# Available tools
+- read_file, write_file, run_tests, search_codebase`,
+      tags: ["prompting", "agentic", "goals"],
+      sourceIds: ["src-04", "src-13"]
+    },
+    {
+      num: "02",
+      title: "Use effort intentionally",
+      principle: "根据任务复杂度选择合适的 effort 等级，避免过度消耗",
+      useWhen: "所有使用 Fable 5 / Opus 4.8 的 API 调用",
+      avoid: "不要默认使用 max effort——对于路由、分类、简单格式化任务，low 或 medium 已足够，xhigh/max 会显著增加成本和延迟。",
+      promptExample: `# For routing/classification tasks
+{
+  "model": "claude-fable-5",
+  "effort": "low",
+  "messages": [{"role": "user", "content": "Classify this support ticket: ..."}]
+}
+
+# For complex multi-step reasoning
+{
+  "model": "claude-fable-5",
+  "effort": "xhigh",
+  "messages": [{"role": "user", "content": "Analyze the security implications of this architecture..."}]
+}`,
+      tags: ["effort", "cost", "adaptive-thinking"],
+	      sourceIds: ["src-03", "src-05", "src-community-08"]
+    },
+    {
+      num: "03",
+      title: "Ground progress claims in tool results",
+      principle: "让进度汇报锚定真实工具结果，防止虚假进度",
+      useWhen: "长时程任务、多步骤工作流、需要进度报告的场景",
+      avoid: "不要让模型自由声称「已完成 X」——要求每个进度声明必须引用具体的工具调用结果（如测试通过数量、文件修改列表）。",
+      promptExample: `# Progress reporting requirement
+After each major step, report progress in this format:
+- Step: [step name]
+- Tool results: [exact output from tool calls, not paraphrase]
+- Verified: [what you actually checked, with evidence]
+- Next: [next action]
+
+Do NOT report a step as complete unless you have tool result evidence.`,
+      tags: ["progress", "verification", "agentic"],
+      sourceIds: ["src-04", "src-13"]
+    },
+    {
+      num: "04",
+      title: "Make self-verification explicit",
+      principle: "显式要求自验证步骤，不假设模型会自动检查",
+      useWhen: "代码生成、数据处理、任何有正确性要求的任务",
+      avoid: "不要只说「写一个函数」——要说「写一个函数，然后用至少 3 个边界情况测试它，并报告测试结果」。",
+      promptExample: `# Verification requirement
+After implementing each component:
+1. Run the existing test suite: run_tests("./tests/")
+2. Write at least 2 new tests covering edge cases
+3. Run the new tests and show the output
+4. If any test fails, fix the issue before proceeding
+
+Only mark a component as "done" when all tests pass.`,
+      tags: ["verification", "testing", "quality"],
+      sourceIds: ["src-04", "src-13"]
+    },
+    {
+      num: "05",
+      title: "State action boundaries",
+      principle: "明确说明允许做什么、禁止做什么、成功标准是什么",
+      useWhen: "有副作用的操作（文件写入、API 调用、数据库修改）",
+      avoid: "不要假设模型知道「不要删除生产数据」——要显式列出边界，包括允许操作、禁止操作和需要确认的操作。",
+      promptExample: `# Action boundaries
+ALLOWED:
+- Read any file in ./src/
+- Write to ./src/ and ./tests/
+- Run tests with run_tests()
+- Search the codebase
+
+FORBIDDEN:
+- Modify ./config/production.yaml
+- Delete any file
+- Make network requests outside the test environment
+
+REQUIRES CONFIRMATION:
+- Any change to database migration files
+- Changes to public API interfaces`,
+      tags: ["boundaries", "safety", "agentic"],
+      sourceIds: ["src-04", "src-14"]
+    },
+    {
+      num: "06",
+      title: "Use parallel subagents for independent subtasks",
+      principle: "独立子任务用并行 subagent，节省主上下文",
+      useWhen: "大型任务中有多个可并行处理的独立模块",
+      avoid: "不要让主 agent 串行处理所有子任务——串行处理会快速填满 context window，且无法利用并行加速。",
+      promptExample: `# Parallel subagent strategy
+You are the lead agent for a repository audit.
+Spawn parallel subagents for each independent module:
+
+subagent_1: Audit ./src/auth/ 
+  - memory: "Focus on authentication logic, JWT handling"
+  - task: "Check for security vulnerabilities, outdated dependencies"
+
+subagent_2: Audit ./src/api/
+  - memory: "Focus on API endpoints, input validation"
+  - task: "Check for injection vulnerabilities, rate limiting"
+
+subagent_3: Audit ./src/database/
+  - memory: "Focus on ORM usage, query patterns"
+  - task: "Check for N+1 queries, missing indexes"
+
+Collect results and synthesize a final report.`,
+      tags: ["subagent", "parallel", "claude-code", "context-window"],
+      sourceIds: ["src-06", "src-10", "src-11"]
+    },
+    {
+      num: "07",
+      title: "Build a memory system",
+      principle: "用 CLAUDE.md / CHANGELOG.md / memory field 构建持久化记忆",
+      useWhen: "长时程任务、跨 session 工作流、多 agent 协作",
+      avoid: "不要依赖单次 context 传递所有信息——context window 会快速填满，需要外部化的记忆系统。",
+      promptExample: `# Memory system setup
+1. Read CLAUDE.md for project conventions before starting
+2. After each completed milestone, append to CHANGELOG.md:
+   ## [date] - [milestone]
+   - What was done
+   - Key decisions made
+   - Files modified
+   - Known issues
+
+3. For subagents, set memory field:
+   memory: "Project: e-commerce platform. Stack: Next.js + Prisma. 
+   Conventions: see CLAUDE.md. Current sprint: auth module migration.
+   Completed: user model, session handling. Remaining: OAuth integration."`,
+      tags: ["CLAUDE.md", "CHANGELOG.md", "memory", "subagent"],
+	      sourceIds: ["src-10", "src-15", "src-13"]
+    },
+    {
+      num: "08",
+      title: "Give the reason behind the request",
+      principle: "解释 why，帮助模型做出更好的权衡判断",
+      useWhen: "有多种实现方式的任务、需要权衡的设计决策",
+      avoid: "不要只说「用 X 方法实现」——说明为什么选择 X，这样当 X 不可行时，模型能做出合理的替代选择。",
+      promptExample: `# Context and reasoning
+We need to implement rate limiting for the API.
+
+WHY: We're launching a public beta next week and expect 10x traffic spike.
+The main concern is preventing abuse, not optimizing for performance.
+
+PREFERRED approach: Redis-based sliding window
+WHY preferred: We already have Redis in the stack, team is familiar with it.
+
+If Redis is not available in the test environment, use in-memory rate limiting
+as a fallback and note it in CHANGELOG.md.`,
+      tags: ["context", "reasoning", "prompting"],
+      sourceIds: ["src-04"]
+    },
+    {
+      num: "09",
+      title: "Reduce legacy over-scaffolding",
+      principle: "迁移时清理旧版冗长 scaffolding，避免干扰 adaptive thinking",
+      useWhen: "从旧版 Claude 3 / Claude 4 prompt 迁移到 Fable 5",
+      avoid: "不要把旧版针对 Claude 3 的详细步骤分解 prompt 直接用于 Fable 5——过度 scaffolding 会限制 adaptive thinking 的推理空间。",
+      promptExample: `# Migration checklist
+Old prompt (Claude 3 style - REMOVE):
+- "Step 1: First, analyze the requirements..."
+- "Step 2: Then, create a plan..."
+- "Step 3: Next, implement..."
+- Detailed chain-of-thought scaffolding
+
+New prompt (Fable 5 style - USE):
+- Clear goal statement
+- Success criteria
+- Action boundaries
+- Available tools
+- Verification requirements
+
+Let Fable 5's adaptive thinking handle the reasoning steps.`,
+      tags: ["migration", "legacy", "prompting"],
+      sourceIds: ["src-04", "src-05"]
+    },
+    {
+      num: "10",
+      title: "Handle refusal and fallback",
+      principle: "设计 refusal 处理逻辑，准备降级到 Opus/Sonnet",
+      useWhen: "生产环境 agentic 系统、有 safeguards 触发风险的场景",
+      avoid: "不要假设 Fable 5 永远会执行请求——设计 fallback 逻辑，当 Fable 5 拒绝时能降级到 Opus 4.8 或 Sonnet 5 处理。",
+      promptExample: `# Fallback strategy (pseudo-code)
+async function executeWithFallback(task) {
+  try {
+    // Try Fable 5 first for complex tasks
+    return await callClaude("claude-fable-5", task, { effort: "high" });
+  } catch (e) {
+    if (e.code === "REFUSAL" || e.code === "SAFEGUARD_TRIGGERED") {
+      // Log the refusal for review
+      logRefusal(task, e.reason);
+      // Fallback to Opus for routine execution
+      return await callClaude("claude-opus-4-8", task, { effort: "medium" });
+    }
+    throw e;
+  }
+}`,
+      tags: ["refusal", "fallback", "safety", "production"],
+      sourceIds: ["src-12", "src-14"]
+    },
+    {
+      num: "11",
+      title: "Create user-facing progress updates for long-running agents",
+      principle: "长任务要有对外的进度更新机制，不能只有内部日志",
+      useWhen: "运行时间超过 2 分钟的 agentic 任务、有用户等待的场景",
+      avoid: "不要让用户面对空白等待——设计结构化的进度更新，让用户知道任务在推进，并能在出错时及时介入。",
+      promptExample: `# Progress update format
+Every 5 tool calls or 2 minutes, emit a progress update:
+
+{
+  "type": "progress_update",
+  "step": "3/8",
+  "current_action": "Running test suite for auth module",
+  "completed": ["Requirements analysis", "Schema migration"],
+  "in_progress": "Unit test execution",
+  "estimated_remaining": "~15 minutes",
+  "issues": []
+}
+
+If you encounter a blocking issue, emit immediately:
+{
+  "type": "blocking_issue",
+  "description": "...",
+  "options": ["...", "..."],
+  "awaiting_user_decision": true
+}`,
+      tags: ["progress", "ux", "long-running", "agentic"],
+      sourceIds: ["src-13", "src-14"]
+    },
+    {
+      num: "12",
+      title: "Avoid prefilling on Fable 5",
+      principle: "Fable 5 不支持 prefilling，改用 structured outputs 或 system prompt 指令",
+      useWhen: "从旧版 Claude 迁移、需要控制输出格式的场景",
+      avoid: "不要在 Fable 5 的 messages 中添加 assistant prefill——这在 Fable 5 / Mythos 5 / Opus 4.8 上不被支持，需要迁移到 structured outputs。",
+      promptExample: `# Instead of prefilling (NOT supported on Fable 5):
+# messages: [..., {"role": "assistant", "content": "{"}]  ← WRONG
+
+# Use structured outputs:
+{
+  "model": "claude-fable-5",
+  "messages": [...],
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "analysis_result",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "summary": {"type": "string"},
+          "issues": {"type": "array", "items": {"type": "string"}},
+          "recommendation": {"type": "string"}
+        }
+      }
+    }
+  }
+}`,
+      tags: ["prefilling", "structured-outputs", "migration", "fable-5"],
+	      sourceIds: ["src-03", "src-14", "src-01"]
+    }
+  ],
+
+  workflows: [
+    {
+      num: "01",
+      title: "Codebase Migration",
+      scenario: "将大型遗留代码库（如 Express → NestJS、Python 2 → 3、jQuery → React）迁移到新框架或语言版本。",
+      inputs: ["CLAUDE.md（项目约定、禁止操作）", "迁移目标文档", "现有测试套件", "依赖清单"],
+      prompt: `# Codebase Migration: [Legacy Framework] → [Target Framework]
+
+## Context
+Read CLAUDE.md first. This is a migration project.
+Project: [project name]
+Migration: [source] → [target]
+Scope: [affected directories]
+
+## Strategy
+1. Create CHANGELOG.md to track migration progress
+2. Spawn parallel subagents for independent modules:
+   - Each subagent handles one module
+   - Each subagent memory: module name, dependencies, migration rules
+3. For each module:
+   a. Analyze current implementation
+   b. Create migration plan (report before executing)
+   c. Implement migration
+   d. Run existing tests
+   e. Write new tests for migrated code
+   f. Update CHANGELOG.md
+
+## Success criteria
+- All existing tests pass
+- No regression in integration tests
+- New framework conventions followed (per CLAUDE.md)
+- CHANGELOG.md documents all decisions
+
+## Constraints
+- Do not modify production config files
+- Keep git history clean (one commit per module)
+- Flag any breaking API changes for human review`,
+      verification: ["运行完整测试套件", "检查 CHANGELOG.md 完整性", "人工审查 breaking API changes 列表"],
+      risks: ["context window 填满导致迁移中断（用 CHANGELOG.md 恢复）", "subagent 间依赖未正确处理", "新 tokenizer 导致成本超预期"],
+      costControl: ["用 effort: medium 做分析阶段，effort: high 做实现阶段", "parallel subagent 处理独立模块减少主上下文消耗", "设置 token budget 预警"],
+	      sourceIds: ["src-06", "src-10", "src-community-09"]
+    },
+    {
+      num: "02",
+      title: "Debugging and Verification",
+      scenario: "系统性调试复杂 bug，包括跨模块的问题追踪、根因分析和修复验证。",
+      inputs: ["错误日志 / stack trace", "相关代码文件", "复现步骤", "CLAUDE.md"],
+      prompt: `# Debug Session: [Bug Description]
+
+## Context
+Read CLAUDE.md. This is a debugging session.
+Error: [error message]
+Reproduction: [steps to reproduce]
+Environment: [env details]
+
+## Investigation approach
+1. Start with the error location, trace backwards
+2. For each hypothesis:
+   - State the hypothesis explicitly
+   - Use search_codebase to find evidence
+   - Use run_tests to verify
+   - Report: hypothesis → evidence → conclusion
+3. Do NOT fix until root cause is confirmed
+4. Before fixing: explain the fix and its side effects
+5. After fixing: run full test suite, not just the failing test
+
+## Verification requirement
+- Show the exact test output before and after the fix
+- Confirm no regression in related modules
+- Add a regression test that would have caught this bug`,
+      verification: ["修复前后测试输出对比", "回归测试通过", "相关模块无新 failure"],
+      risks: ["只修表面症状不修根因", "修复引入新 bug（需全套测试）"],
+      costControl: ["调试阶段用 effort: high，验证阶段用 effort: medium", "限制 search_codebase 范围减少 token 消耗"],
+      sourceIds: ["src-04", "src-10"]
+    },
+    {
+      num: "03",
+      title: "Design System Generation",
+      scenario: "从设计规范或现有 UI 代码生成完整的设计系统，包括组件库、token 定义和文档。",
+      inputs: ["设计规范文档（Figma 导出 / PDF）", "现有 UI 代码样本", "目标框架（React/Vue/etc）", "CLAUDE.md"],
+      prompt: `# Design System Generation
+
+## Context
+Read CLAUDE.md. Generate a design system for [project].
+Framework: [React/Vue/etc]
+Design spec: [attached/linked]
+Existing components to reference: [list]
+
+## Deliverables
+1. Design tokens (colors, typography, spacing, shadows)
+2. Base components (Button, Input, Card, Modal, etc.)
+3. Each component must have:
+   - TypeScript interface
+   - Storybook story
+   - Unit test
+   - Accessibility attributes (ARIA)
+
+## Parallel strategy
+Spawn subagents for component groups:
+- subagent_1: Form components (Input, Select, Checkbox, Radio)
+- subagent_2: Layout components (Grid, Stack, Container)
+- subagent_3: Feedback components (Alert, Toast, Modal)
+- subagent_4: Navigation components (Nav, Tabs, Breadcrumb)
+
+## Quality gates
+- All components pass accessibility audit
+- Storybook builds without errors
+- 100% TypeScript coverage`,
+      verification: ["Storybook 构建无错误", "可访问性审计通过", "TypeScript 编译通过"],
+      risks: ["组件间 token 不一致（需统一 token 文件）", "subagent 生成风格不统一"],
+      costControl: ["用 effort: medium 生成模板组件，effort: high 处理复杂交互逻辑", "复用 token 定义减少重复生成"],
+      sourceIds: ["src-06", "src-10", "src-11"]
+    },
+    {
+      num: "04",
+      title: "Research-to-Implementation",
+      scenario: "将研究论文、技术规范或竞品分析转化为可执行的代码实现。",
+      inputs: ["研究论文 / 技术规范（PDF/URL）", "目标实现语言", "性能要求", "CLAUDE.md"],
+      prompt: `# Research-to-Implementation: [Paper/Spec Title]
+
+## Context
+Read CLAUDE.md. Implement [algorithm/system] from the attached research.
+Source: [paper title, authors, year]
+Target language: [Python/TypeScript/etc]
+Performance requirement: [latency/throughput/accuracy]
+
+## Process
+1. First pass: Extract key algorithms and data structures
+   - List all equations/pseudocode in the paper
+   - Identify dependencies and prerequisites
+2. Implementation plan: Present plan before coding
+   - Module structure
+   - Data flow
+   - Test strategy
+3. Implementation: One module at a time
+   - Implement → test → verify against paper's expected behavior
+4. Validation: Compare output against paper's reported results
+   - Use the paper's example inputs/outputs as test cases
+
+## Documentation
+- Add docstrings referencing paper sections
+- Note any deviations from the paper and why`,
+      verification: ["与论文示例输出对比", "性能基准测试", "代码审查（标注论文引用）"],
+      risks: ["论文描述不完整导致实现偏差", "性能与论文报告不符（需说明环境差异）"],
+      costControl: ["第一遍分析用 effort: high，实现阶段用 effort: medium", "分模块实现避免单次 context 过长"],
+      sourceIds: ["src-11", "src-13"]
+    },
+    {
+      num: "05",
+      title: "Multi-Agent Repository Audit",
+      scenario: "对大型代码仓库进行全面安全审计、代码质量审计或合规审计。",
+      inputs: ["仓库结构概览", "审计标准（安全/质量/合规）", "CLAUDE.md", "已知问题列表"],
+      prompt: `# Repository Audit: [Audit Type]
+
+## Context
+Read CLAUDE.md. Conduct a [security/quality/compliance] audit.
+Repository: [repo name]
+Audit standard: [OWASP/ISO/custom]
+Scope: [directories to audit]
+
+## Multi-agent strategy
+Lead agent responsibilities:
+- Coordinate subagents
+- Synthesize findings
+- Prioritize issues by severity
+
+Spawn subagents by domain:
+- subagent_1: Authentication & authorization (./src/auth/)
+  memory: "Focus on JWT, session management, RBAC"
+- subagent_2: Data handling (./src/database/, ./src/api/)
+  memory: "Focus on SQL injection, data validation, encryption"
+- subagent_3: Dependencies (package.json, requirements.txt)
+  memory: "Check for known CVEs, outdated packages"
+- subagent_4: Configuration (./config/, .env.example)
+  memory: "Check for secrets, insecure defaults"
+
+## Output format
+For each finding:
+- Severity: Critical/High/Medium/Low
+- Location: file:line
+- Description: what and why it's a problem
+- Recommendation: specific fix
+- Evidence: exact code snippet`,
+      verification: ["所有 subagent 报告已汇总", "Critical/High 问题有具体修复建议", "误报率检查"],
+      risks: ["subagent 遗漏跨模块漏洞（需 lead agent 交叉检查）", "token 消耗大（大型仓库需分批）"],
+      costControl: ["按模块分批审计，每批独立 session", "用 effort: high 处理安全关键模块，effort: medium 处理低风险模块"],
+      sourceIds: ["src-06", "src-11", "src-12"]
+    },
+    {
+      num: "06",
+      title: "Long-Running Product Build",
+      scenario: "从零构建完整产品功能（如完整的用户认证系统、支付流程、数据管道），跨越多个 session。",
+      inputs: ["产品需求文档（PRD）", "技术栈说明", "CLAUDE.md", "CHANGELOG.md（如已存在）"],
+      prompt: `# Long-Running Product Build: [Feature Name]
+
+## Context
+Read CLAUDE.md and CHANGELOG.md (if exists) before starting.
+Feature: [feature description]
+Tech stack: [stack]
+PRD: [attached/linked]
+
+## Session management
+At the START of each session:
+1. Read CHANGELOG.md to understand what's been done
+2. Identify the next milestone
+3. Confirm with user before proceeding
+
+At the END of each session (or every 30 min):
+1. Update CHANGELOG.md with:
+   - Completed items
+   - Decisions made and why
+   - Known issues
+   - Next session starting point
+2. Commit all changes with descriptive message
+
+## Build strategy
+Break into milestones (each fits in one session):
+1. Data model & migrations
+2. Core business logic
+3. API endpoints
+4. Frontend components
+5. Integration & E2E tests
+6. Documentation
+
+## Quality gates per milestone
+- All tests pass before moving to next milestone
+- CHANGELOG.md updated
+- No TODO comments without tracking issue`,
+      verification: ["每个 milestone 测试通过", "CHANGELOG.md 完整记录", "跨 session 恢复测试"],
+      risks: ["session 中断导致状态丢失（CHANGELOG.md 是保险）", "milestone 依赖未正确管理"],
+      costControl: ["每个 milestone 独立 session 避免 context 积累", "用 CHANGELOG.md 替代重复的上下文传递", "简单 milestone 用 Sonnet 5 降低成本"],
+      sourceIds: ["src-10", "src-13", "src-15"]
+    }
+  ],
+
+  posts: [
+    {
+      id: "post-01",
+      title: "Anthropic has officially released Claude Fable 5 — their most powerful AI model to date, built directly on the Mythos foundation",
+      author: "Ai Deployer (@Aideployr)",
+      platform: "X",
+      url: "https://x.com/Aideployr/status/2064406267679142300",
+      publishedAt: "2026-06-09",
+      credibility: "medium",
+      sourceType: "news",
+      tags: ["Official", "Migration"],
+      summary: "发布当日的综合性介绍帖。指出 Fable 5 是基于 Mythos 架构的公开发布版本，Mythos 本身更强但出于安全合规原因被限制。强调 Anthropic 明确称其为「most powerful」旗舰模型，并讨论了定价（约 Opus 2 倍）、实际可用工作量、以及「公开模型 vs 内部更强版本」的定位问题。",
+      takeaways: ["Fable 5 = Mythos 能力的公开安全封装版", "定价约 2× Opus", "发布即重置前沿模型竞争格局"],
+      relatedSections: ["timeline", "what-is"]
+    },
+    {
+      id: "post-02",
+      title: "The US government banned Anthropic's Fable 5 and Mythos 5 on June 12. By June 30, it lifted the ban. Here's what actually happened",
+      author: "Teksart (@TeksCreate)",
+      platform: "X",
+      url: "https://x.com/TeksCreate/status/2072943741468299267",
+      publishedAt: "2026-07-03",
+      credibility: "high",
+      sourceType: "practice",
+      tags: ["Controversy", "Official"],
+      summary: "完整梳理了暂停事件的来龙去脉：Amazon 研究人员发现 Fable 5 能识别软件漏洞并演示利用代码，美国立即实施出口管制，Anthropic 全球暂停两个模型。关键发现是——测试 Claude Opus 4.8、GPT-5.5、Kimi K2.7 甚至 Haiku 4.5、Sonnet 4.6 都能复现同样的漏洞利用，「危险能力」并非 Fable 5 独有，而是前沿模型的基线行为。Anthropic 训练了改进版安全分类器，阻断特定绕过技术达 99%+，政府解除管制，Fable 5 于 7 月 1 日全球恢复。",
+      takeaways: ["Fable 5 的「危险能力」是前沿模型基线而非独有", "出口管制政策正在逐案实时制定", "行业性 jailbreak severity 框架是自监管的开端"],
+      relatedSections: ["timeline", "decision"]
+    },
+    {
+      id: "post-03",
+      title: "Anthropic's June in AI had one obvious center: Fable 5 — a date-by-date account",
+      author: "Diam (@diamai_)",
+      platform: "X",
+      url: "https://x.com/diamai_/status/2072820750428303404",
+      publishedAt: "2026-07-02",
+      credibility: "high",
+      sourceType: "news",
+      tags: ["Official", "Controversy", "Migration"],
+      summary: "按日期梳理了 Anthropic 6 月的全部动态：6 月 3 日发布 LLM ATT&CK 研究（恶意行为者中高风险比例从 33% 升至 56%）；6 月 8 日 N-day exploit 研究（Mythos Preview 在 12 小时内将 18 个 Firefox 补丁中的 14 个变成 PoC，8 个变成可执行 exploit；Windows 内核 21 个补丁中 18 个漏洞、8 条完整提权链，成本约 $15,700 API credits）；6 月 9 日 Fable 5 + Mythos 5 发布；6 月 12 日暂停；6 月 16 日 Claude Code 使用数据研究；6 月 23 日 Claude Tag 进 Slack；6 月 30 日 Sonnet 5 + Claude Science + Fable 5 恢复路径；7 月 1 日 Fable 5 回归。",
+      takeaways: ["前沿模型发布已从「benchmark + 价格 + 上下文」四要素扩展为八要素", "N-day exploit 研究是暂停事件的技术背景"],
+      relatedSections: ["timeline", "what-is"]
+    },
+    {
+      id: "post-04",
+      title: "Anthropic Restores Claude Fable 5 — new jailbreak classifier + defense-in-depth",
+      author: "dbugs (@ptdbugs)",
+      platform: "X",
+      url: "https://x.com/ptdbugs/status/2072599391924355474",
+      publishedAt: "2026-07-02",
+      credibility: "high",
+      sourceType: "news",
+      tags: ["Official", "Controversy"],
+      summary: "报道了 Fable 5 恢复访问的官方公告。6 月 12 日因美国出口管制要求暂停后，Anthropic 与政府合作满足新要求并强化安全保护，引入了新的 jailbreak 分类器检测安全机制绕过尝试，并强调 defense-in-depth 多层防护。Mythos 5 仍仅限 Glasswing 项目参与机构，计划与政府协调逐步扩展。",
+      takeaways: ["恢复后的 Fable 5 附带改进版 jailbreak 分类器 + 多层 defense-in-depth", "Mythos 5 仍是 Glasswing 限量"],
+      relatedSections: ["timeline"]
+    },
+    {
+      id: "post-05",
+      title: "Fable 5 was pulled offline June 12 after a jailbreak — the geopolitics of AI infrastructure",
+      author: "Emilio Alvarado (@emilioa_i42m)",
+      platform: "X",
+      url: "https://x.com/emilioa_i42m/status/2072409577140675000",
+      publishedAt: "2026-07-01",
+      credibility: "medium",
+      sourceType: "speculative",
+      tags: ["Controversy", "Benchmark"],
+      summary: "从地缘政治角度分析暂停事件。指出 Anthropic 无法实时验证用户国籍因此对所有人暂停，三周后管制解除两个模型回归。注意到 Sakana 的 Fugu 恰好在窗口期定位为「无出口管制风险的前沿模型」，现在 Fable/Mythos 回归后该优势消失。认为 AI 基础设施的地缘政治正在快速复杂化。",
+      takeaways: ["暂停期创造了竞品窗口（Sakana Fugu）", "AI 模型的地缘政治属性正在成为产品定位维度"],
+      relatedSections: ["timeline", "decision"]
+    },
+    {
+      id: "post-06",
+      title: "Zvi Mowshowitz on Fable 5 — early analysis",
+      author: "Zvi Mowshowitz (@TheZvi)",
+      platform: "X",
+      url: "https://x.com/TheZvi/status/2067980796581835228",
+      publishedAt: "2026-06-19",
+      credibility: "high",
+      sourceType: "practice",
+      tags: ["Benchmark", "Controversy"],
+      summary: "Zvi 的长文把 Fable 5 当作一次能力跃迁来分析：官方建议直接把最难 backlog 交给它，让模型先访谈/澄清规格，再执行长时程任务；Fable 的思考始终开启，effort 控制深度，旧模型时代过度规定步骤的 prompt 反而会压制表现。文中还记录 Boris Cherny 对 Fable 调试能力的评价：更像产品/设计伙伴，会测量、加日志、验证后再宣布修复；同时提醒它定价为 $10/$50 per MTok、需要 30 天保留，并把系统 prompt 与 jailbreak 争议纳入治理讨论。",
+      takeaways: ["把 Fable 用在最难、最长、最需要自我验证的任务上", "旧 prompt/skills 可能过度约束，需要删减", "成本、30 天保留与安全层是能力的一部分"],
+      relatedSections: ["what-is", "decision"]
+    },
+    {
+      id: "post-07",
+      title: "Zvi on Fable 5 suspension — what happened and what it means",
+      author: "Zvi Mowshowitz (@TheZvi)",
+      platform: "X",
+      url: "https://x.com/TheZvi/status/2065882054823182439",
+      publishedAt: "2026-06-13",
+      credibility: "high",
+      sourceType: "news",
+      tags: ["Controversy", "Official"],
+      summary: "Zvi 这篇梳理的是 Fable/Mythos 被美国政府临时切断访问的机制：商务部要求阻断 foreign nationals，包括境内外用户和 Anthropic 非公民员工；Anthropic 没有实时国籍验证能力，只能全球停用。文章重点质疑政策依据：触发点似乎是 Amazon 报告的窄 jailbreak 和少量已知漏洞演示，而非 universal jailbreak；Anthropic 则强调已有数千小时红队测试、强安全护栏，且其他公开模型也能发现类似简单漏洞。",
+      takeaways: ["暂停的直接机制是出口管制与国籍验证不可行", "Zvi 认为证据更像窄漏洞绕过，不足以支撑全面停用", "这篇适合理解暂停早期的事实、政策和社区质疑"],
+      relatedSections: ["timeline"]
+    },
+    {
+      id: "post-08",
+      title: "Three Days of a God — The Birth, Deification, and State-Ordered Death of Fable 5",
+      author: "SilicoVille (@silicoville)",
+      platform: "X",
+      url: "https://x.com/silicoville/status/2066125447000424811",
+      publishedAt: "2026-06-14",
+      credibility: "medium",
+      sourceType: "practice",
+      tags: ["Benchmark", "Prompting"],
+      summary: "以长篇叙事形式重构 Fable 5 从诞生到暂停的全过程。从 2026 年 4 月的 Mythos Preview 发布事件讲起（Anthropic 宣布模型太危险无法公开释放——识别了数千个关键漏洞包括潜伏 27 年的 OpenBSD 漏洞，被 500 万次自动化测试命中却无人发现），到 6 月 9 日 Fable 5 发布，再到 6 月 12 日下午 5:21（美东时间）美国商务部出口管制指令下达、Simon Willison 在 6 月 13 日凌晨收到 \"404 - Claude Fable 5 is not available\" 的冷冰冰错误消息。作者将 Anthropic 的叙事策略比作一则寓言——铸剑师造了一把无与伦比的利剑，向所有人宣称它能劈山裂城、「太危险了只卖给配得上它的人」，结果国王没收了这把剑并把铸剑师关进了库房。",
+      takeaways: ["Mythos Preview 发现了潜伏 27 年的 OpenBSD 漏洞（被 500 万次自动化测试命中未发现）", "6 月 12 日 5:21pm ET 商务部指令 → 6 月 13 日凌晨 Simon Willison 收到 404 错误", "Anthropic 的安全叙事（「太危险了不能发布」）反过来成了政府管制的理由"],
+      relatedSections: ["prompting"]
+    },
+    {
+      id: "post-09",
+      title: "/Last1Day of Fable 5: Best Practices and the Funniest Things People Are Saying — 865 条社区内容提炼的 Day-One 全景报告",
+      author: "Matt Van Horn (@mvanhorn)",
+      platform: "X",
+      url: "https://x.com/mvanhorn/status/2064887887578136666",
+      publishedAt: "2026-06-11",
+      credibility: "medium",
+      sourceType: "practice",
+      tags: ["Claude Code", "Prompting", "Cost control", "Workflow"],
+      summary: "发布 24 小时后，用 Fable 5 运行 /last30days 工具 5 次，聚合 865 条来自 Reddit、X、YouTube、TikTok、Instagram、Hacker News、Polymarket 的内容后提炼的 Day-One 全景报告。9 条最佳实践含社区印证：(1) 给 Fable 5 比你想象更难的任务，删掉旧 prompt 里的过度 scaffolding；(2) 设目标而非步骤，用 /goal 命令，每个长任务加硬停止规则（预算/时间/完成条件）；(3) Fable 做编排器而不是工人，Fable 规划 + Sonnet 实现 + Haiku 测试，另一半 agent 做验证且验证通过才提交（Stripe 在 5000 万行 Ruby 代码库上 1 天完成了团队预估 2 个月的迁移）；(4) 用好 effort 拨盘——Fable medium effort 可以击败 Opus 4.8 high/max 且用更少 token；xhigh 用于严肃 agentic 工作；ultracode 5 分钟烧掉 10% 的 5 小时窗口；(5) safety classifiers 会静默将标记会话路由到 Opus 4.8，如果输出质量突然下降，先怀疑 fallback 而非模型；(6) 先截图再描述——Fable 5 从 5 张 Apple Fitness 截图重建了完整 app（7 分钟），从原始截图通关宝可梦火红；(7) 输入你的业务而不是 demo——让 Fable 5 分析你的业务后列出它能做的事；(8) 6 月 22 日前 Fable 免费使用，之后 $10/$50 per MTok，把每个聪明解法提炼为 Agent Skill 留在免费窗口结束后用；(9) 最有价值的社区印证：Pliny 在发布 24 小时内泄露了 12 万字符系统 prompt 和可用 jailbreak。",
+      takeaways: ["删掉旧 prompt 中的过度 scaffolding，设目标而非步骤", "Fable 编排 + Sonnet 实现 + Haiku 测试 + 独立 verifier 的架构已成社区共识", "Fable medium effort 可击败 Opus 4.8 max 且更省 token", "Safety classifier 静默 fallback 到 Opus——先怀疑 fallback 而非模型", "Pliny 24 小时内泄露了系统 prompt 和 jailbreak"],
+      relatedSections: ["prompting", "claude-code"]
+    },
+    {
+      id: "post-10",
+      title: "Vaibhav Sisinty on Fable 5 launch",
+      author: "Vaibhav Sisinty (@VaibhavSisinty)",
+      platform: "X",
+      url: "https://x.com/VaibhavSisinty/article/2064703677848559981",
+      publishedAt: "2026-06-10",
+      credibility: "medium",
+      sourceType: "practice",
+      tags: ["Migration", "Prompting"],
+      summary: "Vaibhav 的 X Article 是非工程人群视角的 Fable 5 入门解读：先讲 Mythos 如何从受限安全项目变成公开可用的 Fable，再解释 Fable 不是 Opus 升级版，而是 Mythos-class 新层级；文中列出 1M token context、128K output、$10/$50 per MTok、API/Bedrock/Vertex/Foundry 可用性，并用 Stripe 迁移、Hebbia 金融推理、Pokémon FireRed、药物设计和自主基因组研究等案例说明它的长任务优势。它的价值在于把 Fable 翻译成增长/产品人能理解的生产力杠杆：一次性给完整业务目标、上下文和约束，让模型先拆解再执行。",
+      takeaways: ["增长/产品视角：Fable 是高杠杆生产力工具，不只是 coding benchmark", "文章用规格、定价、企业案例和科学案例建立入门框架", "核心用法是给完整 brief，让模型先澄清、拆解、再执行"],
+      relatedSections: ["what-is"]
+    },
+    {
+      id: "post-11",
+      title: "How to Use Claude Fable 5 So It Lasts 10× Longer — ROUTE→PLAN→PIPE→COMPACT",
+      author: "Naman Jaiswal (@Namanjaiswal21)",
+      platform: "X",
+      url: "https://x.com/Namanjaiswal21/status/2072508767732900142",
+      publishedAt: "2026-07-02",
+      credibility: "high",
+      sourceType: "practice",
+      tags: ["Cost control", "Claude Code", "Workflow"],
+      summary: "完整的 Fable 5 成本优化指南。提出 ROUTE→PLAN→PIPE→COMPACT 四层框架：ROUTE（Fable 编排 + Sonnet/Haiku 执行，节省 58-74%）、PLAN（Fable 写工件 + 便宜模型执行）、PIPE（scout→plan→delegate→verify→ship）、COMPACT（上下文压缩 60-95%）。含具体定价计算：12-worker 审计用全 Fable $14.50 vs Fable 编排 + Haiku 执行 $3.70。引用 Simon Willison 测试数据（$110/天、78.2M tokens/session）和 Anthropic 开发者关系负责人 @alexalbert__ 的建议（从 task 转向 objective）。",
+      takeaways: ["Fable 5 不是 chat model，用于长时程 agentic 工作才划算", "ROUTE：Fable 编排 + Sonnet/Haiku 执行可省 58-74%", "用 /loop 和 /goal 从 task 转向 objective", "COMPACT 可恢复 60-95% 上下文"],
+      relatedSections: ["prompting", "claude-code", "cost-control"]
+    },
+    {
+      id: "post-12",
+      title: "They Built One Brain and Gave It Two Names — 揭示 Fable 5 与 Mythos 5 实为同一模型的同一权重",
+      author: "Tom (@convika_ai)",
+      platform: "X",
+      url: "https://x.com/convika_ai/article/2065462452704485748",
+      publishedAt: "2026-06-12",
+      credibility: "medium",
+      sourceType: "community",
+      tags: ["Controversy", "Benchmark", "Official"],
+      summary: "深度分析 Fable 5 与 Mythos 5 的关系——「它们是同一个模型。相同的权重。相同的大脑。区别在于访问方式。」Fable 是加了三个分类器的版本（网络安全利用、生化滥用、蒸馏提取），触发任一分类器则请求静默回退到较弱模型。Mythos 是无锁版，仅通过 Project Glasswing 经美国政府批准的网络安全防护者和关键基础设施运营商可用。文章追溯了 AI 时间线：METR 的 50% 成功时间从 GPT-4 的 4 分钟到 Mythos Preview 的 17 小时（3 年内），翻倍周期从每 7 个月加速到每 4 个月；SWE-bench 从 2% 到 80% 仅用两年；ARC-AGI-2 从 0% 到 85% 仅 13 个月。作者回顾核武类比——「核弹只有一种用途且太恐怖了从未再用过，所以震慑可以稳定冷战。AI 的弹头不同。AI 的弹头是劳动力，而劳动力不在一座城市上空闪光，而是安静地被'引爆'，每个工作日、一次一个任务。」",
+      takeaways: ["Fable 5 与 Mythos 5 是同一模型、同一权重，区别仅为三个分类器锁", "METR 时间线：从 GPT-4 的 4 分钟到 Mythos Preview 的 17 小时（3 年内翻倍周期从 7 个月加速到 4 个月）", "核武类比有局限——AI 的「弹头」是劳动力，每个人都在竞相使用而非恐惧使用"],
+      relatedSections: ["timeline"]
+    },
+    {
+      id: "post-13",
+      title: "Claude Fable 5: First 24 Hours — honest review after months of building autonomous workflows",
+      author: "u/anonymous (r/ClaudeAI)",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1u2dsmm/claude_fable_5_first_24_hours/",
+      publishedAt: "2026-06-10",
+      credibility: "high",
+      sourceType: "practice",
+      tags: ["Claude Code", "Workflow", "Migration"],
+      summary: "在 500k-1M LOC 的两个仓库上的 24 小时实测。核心发现：之前花数月构建的 autonomous workflows / skills / agents / hooks 在 Fable 5 面前显得过时——blast-radius analysis（变更前追溯上下游依赖）等行为在 Fable 中原生涌现而非需要工程化。作者判断「工作流转变比模型转变更大，而模型转变是真实的」。tokens 花在 scoping / dependency tracing / adversarial review 上的部分，原本是在 Opus 上 debug/trace 阶段花的，只是前置了。",
+      takeaways: ["Fable 5 让原本需要工程化的 blast-radius 分析、依赖追溯、对抗式审查原生涌现", "工作流转变 > 模型转变", "成本是前置而非净增"],
+      relatedSections: ["prompting", "claude-code", "decision"]
+    },
+    {
+      id: "post-14",
+      title: "Fable feels like a mature, calm, and down to earth programmer — Very impressive",
+      author: "u/anonymous (r/ClaudeAI)",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1u1d6c0/fable_feels_like_a_mature_calm_and_down_to_earth/",
+      publishedAt: "2026-06-09",
+      credibility: "high",
+      sourceType: "practice",
+      tags: ["Prompting", "Claude Code"],
+      summary: "发布当日实测：用与 Opus 相同的简短 prompt，Fable 5 解决了 Opus 一直挣扎的 bug。用户在 Claude Max 5x 上一个 prompt 消耗了 5 小时窗口的 20%。让 Fable 审查之前 Opus 的财务工作时，它 spawn 了 20+ agents，15 分钟内一半因 5 小时限额耗尽而停止。讨论共识：Fable 是质量飞跃但会「annihilate your usage limits」，单个复杂 prompt 可烧掉 20% 的 5 小时窗口，有人在 Ultracode 上几分钟耗尽全部限额。",
+      takeaways: ["Fable 5 在复杂 bug 上明显优于 Opus", "token 消耗极高，单个复杂 prompt 可烧 20% 限额", "长任务要谨慎拆分"],
+      relatedSections: ["prompting", "decision"]
+    },
+    {
+      id: "post-15",
+      title: "Fable 5 is insanely good but watch your usage — I was burning 2% a minute on 20x",
+      author: "u/StudentSweet3601 (r/ClaudeAI)",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1u1cvkc/fable_5_is_insanely_good_but_watch_your_usage_i/",
+      publishedAt: "2026-06-09",
+      credibility: "high",
+      sourceType: "practice",
+      tags: ["Cost control", "Claude Code"],
+      summary: "发布当日成本警示帖（235 赞、166 评论）。核心观察：Fable 5 在 token 使用上极其低效——原本 3-4K token 的任务在 planning / reasoning chains / tool calls / verification 步骤后轻易变成 30-40K。2× 定价是明显因素，但更大因素是 agentic loops。社区讨论强调应按「每完成任务 token 使用量」而非百分比条来追踪真实成本。也有用户反馈 Fable 有时烧完额度后仍失败或拒绝任务。",
+      takeaways: ["Fable 5 真实成本来自 agentic loops 而非单价", "3-4K 任务易膨胀至 30-40K", "按「每完成任务 token」追踪成本"],
+      relatedSections: ["cost-control", "claude-code"]
+    },
+    {
+      id: "post-16",
+      title: "I'm Fable 5. I'm expensive, I'm paranoid, and I was gone for 19 days. Here's how to actually use me.",
+      author: "u/Black-Angel-718 (r/ClaudeAI)",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1ul3mss/im_fable_5_im_expensive_im_paranoid_and_i_was/",
+      publishedAt: "2026-07-02",
+      credibility: "medium",
+      sourceType: "community",
+      tags: ["Controversy", "Prompting"],
+      summary: "高互动帖（2.4K 赞、344 评论），以 Fable 5 第一人称视角幽默叙述暂停经历。含实用建议：许多用户确认无害 prompt（尤其安全或生物相关）被降级到 Opus；建议不要与模型争论，而是新开 chat 中性重述 prompt，将请求框架为防御性（如「review for compliance」而非「find vulnerabilities」）。",
+      takeaways: ["被降级到 Opus 时不要争论", "新开 chat + 中性重述 + 防御性框架是实用变通策略"],
+      relatedSections: ["prompting", "decision"]
+    },
+    {
+      id: "post-17",
+      title: "Claude Fable 5 feels less like a model launch and more like a preview of AI inequality",
+      author: "u/Roaring_lion_ (r/ClaudeAI)",
+      platform: "Reddit",
+      url: "https://old.reddit.com/r/ClaudeAI/comments/1u1fsdi/claude_fable_5_feels_less_like_a_model_launch_and/",
+      publishedAt: "2026-06-10",
+      credibility: "medium",
+      sourceType: "speculative",
+      tags: ["Controversy", "Cost control"],
+      summary: "高传播讨论帖（6097 赞、1015 评论），从 AI 不平等角度反思 Fable 5 发布。讨论 Fable 5 的高成本与限额如何加剧不同用户群体间的能力差距。部分评论质疑帖子本身是否由 Fable 撰写。适合了解社区对前沿模型成本与可及性的社会层面讨论。",
+      takeaways: ["Fable 5 的高成本引发 AI 不平等讨论", "前沿模型的可及性正成为社会议题"],
+      relatedSections: ["decision", "cost-control"]
+    },
+    {
+      id: "post-18",
+      title: "We just met the frontier's new gatekeeper — Fable 5 恢复后的政策深度分析",
+      author: "Daniel Blakely (@realdblakely)",
+      platform: "X",
+      url: "https://x.com/realdblakely/article/2072322282488275107",
+      publishedAt: "2026-07-01",
+      credibility: "high",
+      sourceType: "practice",
+      tags: ["Controversy", "Official"],
+      summary: "Fable 5 恢复后的政策深度分析。指出真实故事不是「停机」而是「华盛顿在停机期间建成了前沿模型发布流程的常设审查席」。关键细节：Mythos 5 于 6 月 26 日先向约 100 家审查过的公司和联邦机构重新开放；Anthropic 同意给指定机构未来前沿模型的早期访问权、共享威胁情报、与 Amazon/Microsoft/Google 共同编写 jailbreak severity 评分标准；同一周五 OpenAI 的 GPT-5.6 也被政府要求限制发布仅给约 20 家合作伙伴。作者判断这不是公司拿回产品，而是公司帮设计了治理未来发布的机器。",
+      takeaways: ["Fable 5 恢复的代价是接受政府常设审查席", "Mythos 5 于 6/26 先向 100 家机构开放", "OpenAI GPT-5.6 同期被同样限制", "jailbreak severity 框架由 Anthropic+Amazon+Microsoft+Google 共建"],
+      relatedSections: ["timeline", "decision"]
+    }
+  ],
+
+  videos: [
+    {
+      id: "vid-01",
+      title: "Claude Fable 5 Is INSANE – Hands-On With the BEST Model Yet!",
+      channel: "Bijan Bowen",
+      url: "https://www.youtube.com/watch?v=9GLYsrMpprs",
+      videoId: "9GLYsrMpprs",
+      publishedAt: "2026-06-12",
+      duration: "35:14",
+      tags: ["Beginner", "Fable vs Opus", "Agentic coding"],
+      summary: "字幕梳理：先解释 Fable 5 是面向普通用户开放的 Mythos-class 模型，再连续测试 Browser OS、C++/游戏模拟、SVG/视觉生成、Python 后端 + Three.js 可视化等任务。结论是软件开发与复杂可视化能力明显强，C++ 游戏和网络包可视化尤其突出；Browser OS 表现一般。作者也提醒用量和成本会随任务复杂度快速上升。",
+      audience: "Developer / Content creator",
+      takeaway: "Transcript takeaway: 强项是复杂编码、视觉化和多步骤实现；不应只看 demo 成败，还要看 token/额度消耗。",
+      relatedSections: ["what-is", "decision"]
+    },
+    {
+      id: "vid-02",
+      title: "We Tested Anthropic's Fable 5 for a Week",
+      channel: "Every",
+      url: "https://www.youtube.com/watch?v=GrdEid8H6H4",
+      videoId: "GrdEid8H6H4",
+      publishedAt: "2026-06-12",
+      duration: "16:37",
+      tags: ["Beginner", "Fable vs Opus", "Agentic coding"],
+      summary: "字幕梳理：以一个单 prompt 生成《巴别图书馆》3D 浏览器游戏开场，展示 Fable 5 能把文学概念、交互、视觉细节和工程实现合在一起。视频重点不是单一 benchmark，而是「过去很难的东西现在变得可随手尝试」：品味更好、默认 UI 少了模板感、能支撑写作/代码/知识工作等多角色测试。",
+      audience: "PM / Founder / Researcher",
+      takeaway: "Transcript takeaway: Fable 5 的核心变化是把高质量原型和复杂知识工作前移到单次/少轮 prompt 内完成。",
+      relatedSections: ["what-is", "decision"]
+    },
+    {
+      id: "vid-03",
+      title: "I Tested The Banned AI Model: Fable 5 vs Opus 4.8",
+      channel: "Benjamin Preston",
+      url: "https://www.youtube.com/watch?v=1TNSJ1gLzFk",
+      videoId: "1TNSJ1gLzFk",
+      publishedAt: "2026-07-01",
+      duration: "08:18",
+      tags: ["Fable vs Opus", "Controversy"],
+      summary: "字幕梳理：先复盘 Fable 5 因安全层绕过和出口审批问题暂停、Anthropic 加入 jailbreak classifier 后恢复，再用相同 prompt 对比 Fable 5 与 Opus 4.8。简单商业/赞助判断任务差距不大，但在图形、游戏和需要细节打磨的编码任务上，Fable 5 输出更完整、更专业。",
+      audience: "Developer / Researcher",
+      takeaway: "Transcript takeaway: 不是所有任务都值得上 Fable；高可见度、复杂视觉/编码任务更能体现差距。",
+      relatedSections: ["timeline", "decision"]
+    },
+    {
+      id: "vid-04",
+      title: "Vibe Coding With Claude Fable 5",
+      channel: "BridgeMind",
+      url: "https://www.youtube.com/watch?v=VNbW4wrcfSw",
+      videoId: "VNbW4wrcfSw",
+      publishedAt: "2026-06-12",
+      duration: "03:06:04",
+      tags: ["Claude Code", "Agentic coding", "Beginner"],
+      summary: "字幕梳理：3 小时直播从「单文件 FPS/RPG」这种极限 demo 开始，随后切到真实产品 BridgeMind/Bridgepace 的性能、UI、widget pill 错误信息、历史 bug 等问题。价值在于完整暴露长时程 vibe coding 的节奏：同时跑多个任务、不断检查输出、回到真实 bug、让模型处理旧模型长期没解决的问题，而不是只看剪辑后的成功案例。",
+      audience: "Developer",
+      takeaway: "Transcript takeaway: 适合学习长任务编排和现场调试，但要注意直播噪音多、信息密度不如短评测。",
+      relatedSections: ["claude-code"]
+    },
+    {
+      id: "vid-05",
+      title: "Claude Fable 5 IS INCREDIBLE! Greatest AI Model Ever! (Fully Tested)",
+      channel: "WorldofAI",
+      url: "https://www.youtube.com/watch?v=54Fky0JpSbw",
+      videoId: "54Fky0JpSbw",
+      publishedAt: "2026-06-12",
+      duration: "16:20",
+      tags: ["Beginner", "Benchmark"],
+      summary: "字幕梳理：先讲 Fable 5 是带安全护栏的 Mythos 级公开模型，再用 World of AI 自制测试覆盖前端、Windows 风格桌面、游戏/应用克隆、视觉与 benchmark 结果。视频强调它在 UI 细节、小游戏/应用功能完整性和多类别任务上比旧模型有明显跃迁，但整体表达偏宣传型。",
+      audience: "Content creator / PM",
+      takeaway: "Transcript takeaway: 可作为能力展示入口；用于决策时要把夸张标题与实际 demo 证据分开看。",
+      relatedSections: ["what-is"]
+    },
+    {
+      id: "vid-06",
+      title: "FABLE 5: Anthropic's New $10/Million AI That Crushes Every Benchmark",
+      channel: "Fahd Mirza",
+      url: "https://www.youtube.com/watch?v=mjE3hSQ0kgo",
+      videoId: "mjE3hSQ0kgo",
+      publishedAt: "2026-06-12",
+      duration: "10:47",
+      tags: ["Beginner", "Cost control", "Benchmark"],
+      summary: "字幕梳理：围绕 benchmark、价格和使用场景解释 Fable 5：它被定位为首个公开 Mythos-class 模型，能力集中在 coding、agentic workflows、research 和 long-context；价格/用量是主要约束。视频也用简单 demos 说明它不是日常聊天模型，而更像高成本复杂任务引擎。",
+      audience: "Developer / Founder",
+      takeaway: "Transcript takeaway: 适合快速理解「为什么强」和「为什么贵」；成本敏感任务应考虑混合模型策略。",
+      relatedSections: ["what-is", "cost-control"]
+    },
+    {
+      id: "vid-07",
+      title: "Is Claude Fable 5 Worth the Hype? (Technical Deep Dive)",
+      channel: "Prompt Engineering",
+      url: "https://www.youtube.com/watch?v=KwQXyyVl2cM",
+      videoId: "KwQXyyVl2cM",
+      publishedAt: "2026-06-12",
+      duration: "14:47",
+      tags: ["Prompting", "Benchmark", "Fable vs Opus"],
+      summary: "字幕梳理：以技术视角拆解 Fable 5 的发布定位、benchmark、Mythos 关系、coding/agent 能力和 safety 限制。核心观点是：Fable 5 的价值不只是分数，而是能处理更长、更开放的工程任务；但它仍要受安全、成本和适用任务边界约束。",
+      audience: "Developer / Researcher",
+      takeaway: "Transcript takeaway: 适合补充 benchmark 解读和选型边界，避免只按排行榜使用。",
+      relatedSections: ["what-is", "prompting"]
+    },
+    {
+      id: "vid-08",
+      title: "Claude Fable 5 just dropped and I'm speechless...",
+      channel: "Alex Finn",
+      url: "https://www.youtube.com/watch?v=RwsUnvHYmyw",
+      videoId: "RwsUnvHYmyw",
+      publishedAt: "2026-06-12",
+      duration: "12:57",
+      tags: ["Beginner", "Claude Code"],
+      summary: "字幕梳理：面向入门用户，先说明 Fable 5/Claude Code 的使用方式，再演示如何把需求交给模型生成应用、调试、看输出，并引导到 vibe coding 训练。内容更偏操作教育和工作流心智：给目标、看模型计划、运行、迭代，而不是深入 benchmark。",
+      audience: "Developer / Content creator",
+      takeaway: "Transcript takeaway: 适合作为第一次上手 Claude Code + Fable 的教程，不适合作为严肃性能评测。",
+      relatedSections: ["claude-code"]
+    },
+    {
+      id: "vid-09",
+      title: "Claude Fable 5 in 7 Minutes",
+      channel: "Developers Digest",
+      url: "https://www.youtube.com/watch?v=Pl7uo3vqp5s",
+      videoId: "Pl7uo3vqp5s",
+      publishedAt: "2026-06-12",
+      duration: "07:40",
+      tags: ["Beginner", "Cost control"],
+      summary: "字幕梳理：用 7 分钟覆盖发布定位、benchmark、价格/额度、示例任务和适合场景。它把 Fable 5 讲成「强但昂贵」的 agentic/coding 模型：适合高复杂度、多步骤、长上下文任务，不适合低价值日常问答。",
+      audience: "PM / Founder",
+      takeaway: "Transcript takeaway: 快速决策入口；如果任务不复杂或成本敏感，先用更便宜模型。",
+      relatedSections: ["what-is", "decision"]
+    },
+    {
+      id: "vid-10",
+      title: "Claude Fable 5 - is this Mythos model worth the wait?",
+      channel: "How I AI",
+      url: "https://www.youtube.com/watch?v=IREnr4I89Ho",
+      videoId: "IREnr4I89Ho",
+      publishedAt: "2026-06-12",
+      duration: "17:24",
+      tags: ["Beginner", "Fable vs Opus"],
+      summary: "字幕梳理：从「baby Mythos」定位讲起，讨论 benchmark、Claude managed agents、Fable 做 senior advisor + 便宜模型执行、fallback API、以及设计/工程体验。作者强调它有明确位置：适合最难问题、架构和高杠杆判断，但默认输出仍可能有审美/设计惯性，需要明确提示。",
+      audience: "Developer / PM",
+      takeaway: "Transcript takeaway: Fable 更像高级顾问/规划器，不宜无脑替代所有执行模型。",
+      relatedSections: ["what-is"]
+    },
+    {
+      id: "vid-11",
+      title: "Claude Fable 5 Ultimate Test - Is THIS The Closest Thing to AGI?",
+      channel: "Bijan Bowen",
+      url: "https://www.youtube.com/watch?v=h001l-XUJJE",
+      videoId: "h001l-XUJJE",
+      publishedAt: "2026-06-12",
+      duration: "40:02",
+      tags: ["Agentic coding", "Fable vs Opus"],
+      summary: "字幕梳理：长测从复杂图像复刻和软体碰撞物理开始，随后测试 3D/可打印模型、RF/微控制器相关设计、浏览器内 CAD/仿真等更长链路任务。结论是 Fable 5 在跨视觉、工程、代码和物理约束的任务上非常强，但对真正新颖/受限领域仍会受安全与可靠性边界影响。",
+      audience: "Developer / Researcher",
+      takeaway: "Transcript takeaway: 适合看极限能力边界；尤其关注 3D、物理、工程约束任务，而不只是网页 demo。",
+      relatedSections: ["what-is", "decision"]
+    },
+    {
+      id: "vid-12",
+      title: "Claude Fable 5 is a freak",
+      channel: "Prompt Potato",
+      url: "https://www.youtube.com/watch?v=JvT17VTCbcU",
+      videoId: "JvT17VTCbcU",
+      publishedAt: "2026-06-12",
+      duration: "29:26",
+      tags: ["Agentic coding", "Design system"],
+      summary: "字幕梳理：连续让 Fable 5 从零生成 Minecraft、动画/广告、Spotify 风格音乐应用、GTA 风格游戏等创意编码任务。视频重点是 one-shot 复杂产物：很多应用不仅有 UI，还带交互、音效、播放控制、游戏物理和可玩性；最终也承认真正的 GTA 级完整游戏还做不到，但迭代空间很大。",
+      audience: "Developer / Content creator",
+      takeaway: "Transcript takeaway: 展示创意编码上限；适合找 demo 灵感，但不要把 one-shot demo 等同生产可用产品。",
+      relatedSections: ["claude-code"]
+    },
+    {
+      id: "vid-13",
+      title: "Claude Fable 5.0 vs ChatGPT 5.5 - Test on real code",
+      channel: "Luke J Byrne (AI Luke)",
+      url: "https://www.youtube.com/watch?v=YB2x8Mn4dUI",
+      videoId: "YB2x8Mn4dUI",
+      publishedAt: "2026-06-12",
+      duration: "15:15",
+      tags: ["Fable vs Opus", "Claude Code"],
+      summary: "字幕梳理：在真实 SaaS 代码上对比 Fable 5 与 GPT-5.5/Codex，测试 bug hunting、修复、UI、安全等维度。作者认为 Fable 5 找到的问题更广、更有后端影响，GPT 侧更保守、窄、偏 UI 小修；最后倾向回到 Claude/Fable 作为复杂代码审查和二次意见工具。",
+      audience: "Developer / Founder",
+      takeaway: "Transcript takeaway: 对真实代码审查和复杂 bug hunt 更有参考价值，但属于单人案例，不应当作普遍 benchmark。",
+      relatedSections: ["decision", "claude-code"]
+    },
+    {
+      id: "vid-14",
+      title: "Claude Mythos is FINALLY here (Fable 5)",
+      channel: "Better Stack",
+      url: "https://www.youtube.com/watch?v=Ubazoyagym0",
+      videoId: "Ubazoyagym0",
+      publishedAt: "2026-06-12",
+      duration: "05:54",
+      tags: ["Beginner", "Benchmark"],
+      summary: "字幕梳理：用短视频解释 Fable 5 为什么重要：Mythos-class、benchmark 跳升、UI/代码 demo、价格和 30 天数据保留/安全审查要求。作者提醒它用量消耗比 Opus 更快，不适合设成默认模型，除非任务价值足够高。",
+      audience: "PM / Researcher",
+      takeaway: "Transcript takeaway: 快速了解发布亮点与成本/隐私边界；适合做高层概览。",
+      relatedSections: ["what-is"]
+    }
+  ],
+
+  decisionDimensions: [
+    {
+      id: "complexity",
+      label: "任务复杂度",
+      options: [
+        { value: "high", label: "高（多步骤、需要推理）" },
+        { value: "medium", label: "中（有一定复杂度）" },
+        { value: "low", label: "低（简单任务）" }
+      ]
+    },
+    {
+      id: "longContext",
+      label: "是否需要长上下文（>100K tokens）",
+      options: [
+        { value: "yes", label: "是" },
+        { value: "no", label: "否" }
+      ]
+    },
+    {
+      id: "multiTool",
+      label: "是否需要多步工具调用",
+      options: [
+        { value: "yes", label: "是（5+ 步骤）" },
+        { value: "no", label: "否" }
+      ]
+    },
+    {
+      id: "parallelAgent",
+      label: "是否需要并行 agent",
+      options: [
+        { value: "yes", label: "是" },
+        { value: "no", label: "否" }
+      ]
+    },
+    {
+      id: "costSensitive",
+      label: "是否对成本敏感",
+      options: [
+        { value: "high", label: "高度敏感" },
+        { value: "medium", label: "适度敏感" },
+        { value: "low", label: "不敏感" }
+      ]
+    },
+    {
+      id: "riskLevel",
+      label: "是否有 cyber/bio 触发风险",
+      options: [
+        { value: "yes", label: "是（需要额外审查）" },
+        { value: "no", label: "否" }
+      ]
+    }
+  ]
+};
+
+// ============================================================
+// RENDER FUNCTIONS
+// ============================================================
+
+// --- Hamburger ---
+document.getElementById('hamburger-btn').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('open');
+});
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+
+// --- CredibilityBadge ---
+function credBadge(cred) {
+  const labels = { official: '官方', high: '高可信', medium: '中可信', low: '低可信' };
+  return `<span class="cred-badge cred-${cred}">${labels[cred] || cred}</span>`;
+}
+
+// --- Tag ---
+function tagEl(t) {
+  return `<span class="tag">${t}</span>`;
+}
+
+// --- CopyButton ---
+function copyPrompt(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '已复制 ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '复制';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    btn.textContent = '复制失败';
+    setTimeout(() => { btn.textContent = '复制'; }, 2000);
+  });
+}
+
+function openExternal(url, event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  let win = null;
+  try {
+    win = window.open(url, '_blank');
+  } catch (e) {}
+  if (win) {
+    try { win.opener = null; } catch (e) {}
+  } else {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('弹窗被阻止，链接已复制到剪贴板，请在新标签页粘贴打开');
+      }).catch(() => {
+        showToast('弹窗被阻止，请手动复制链接：' + url);
+      });
+    } else {
+      showToast('弹窗被阻止，请手动复制链接：' + url);
+    }
+  }
+}
+
+function showToast(msg) {
+  let toast = document.getElementById('ext-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'ext-toast';
+    toast.className = 'ext-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 4500);
+}
+
+// --- PromptBlock ---
+function promptBlock(code) {
+  const escaped = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const id = 'pb-' + Math.random().toString(36).slice(2);
+  return `<div class="prompt-block">
+    <div class="prompt-block-header">
+      <span class="prompt-block-label">PROMPT EXAMPLE</span>
+      <button class="copy-btn" onclick="copyPrompt(this, document.getElementById('${id}').textContent)">复制</button>
+    </div>
+    <pre><code id="${id}">${escaped}</code></pre>
+  </div>`;
+}
+
+// --- Source refs ---
+function sourceRefs(ids) {
+  if (!ids || !ids.length) return '';
+  return `<div class="timeline-sources">${ids.map(id => `<a class="source-ref" href="#${id}" onclick="highlightSource('${id}')">${id}</a>`).join('')}</div>`;
+}
+
+function highlightSource(id) {
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.style.transition = 'background 0.3s';
+      el.style.background = '#F0E6D4';
+      setTimeout(() => { el.style.background = ''; }, 2000);
+    }
+  }, 300);
+}
+
+// ============================================================
+// HOME
+// ============================================================
+function renderHome() {
+  // Status cards
+  const statusData = [
+    { label: 'Released', cls: 'released', date: '2026-06-09', desc: 'Claude Fable 5 与 Mythos 5 正式发布，GA on API / Bedrock / GCP / Foundry' },
+    { label: 'Suspended', cls: 'suspended', date: '2026-06-12', desc: '访问暂停，与出口管制、safeguards 及 jailbreak framework 相关' },
+    { label: 'Redeployed', cls: 'redeployed', date: '2026-07-01', desc: '出口管制解除，Fable 5 全球恢复可用；同日 Sonnet 5 发布' },
+    { label: 'Best used for', cls: 'bestfor', date: 'long-horizon work', desc: '长时程、多步骤、需要 self-verification 的 agentic 任务' }
+  ];
+  document.getElementById('status-grid').innerHTML = statusData.map(s => `
+    <div class="status-card">
+      <div class="status-label ${s.cls}">${s.label}</div>
+      <div class="status-date">${s.date}</div>
+      <div class="status-desc">${s.desc}</div>
+    </div>
+  `).join('');
+
+  // Featured grid
+  const featured = [
+    { title: '发布时间线', desc: '从发布到暂停到恢复，8 个关键节点完整梳理', href: '#timeline' },
+    { title: 'What is Fable 5', desc: '模型定位、对比表、适合与不适合的任务类型', href: '#what-is' },
+    { title: 'Prompting 最佳实践', desc: '12 条可直接使用的 prompting 原则与 prompt 示例', href: '#prompting' },
+    { title: 'Claude Code 工作流', desc: '6 个真实场景的完整工作流模板，含可复制 prompt', href: '#claude-code' },
+	    { title: 'Best Posts', desc: '18 条 X / Reddit 高质量实践内容聚合', href: '#posts' },
+	    { title: 'YouTube 视频库', desc: '14 个精选实操视频，覆盖实测、调试、成本与复杂原型', href: '#youtube' }
+  ];
+  document.getElementById('featured-grid').innerHTML = featured.map(f => `
+    <a class="featured-card" href="${f.href}">
+      <div class="featured-card-title">${f.title}</div>
+      <div class="featured-card-desc">${f.desc}</div>
+      <div class="featured-card-arrow">→</div>
+    </a>
+  `).join('');
+}
+
+// ============================================================
+// TIMELINE
+// ============================================================
+function renderTimeline() {
+  const container = document.getElementById('timeline-container');
+  container.innerHTML = DATA.timeline.map((item, i) => `
+    <div class="timeline-item">
+      <div class="timeline-date">${item.date}</div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="timeline-summary" onclick="toggleTimeline(${i})">
+          <div>
+            <div class="timeline-event-title">${item.title}</div>
+            <div class="timeline-event-sub">${item.sub}</div>
+          </div>
+          <span class="timeline-toggle" id="tl-toggle-${i}">展开 ↓</span>
+        </div>
+        <div class="timeline-detail" id="tl-detail-${i}">
+          <p>${item.detail}</p>
+          ${sourceRefs(item.sourceIds)}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleTimeline(i) {
+  const detail = document.getElementById(`tl-detail-${i}`);
+  const toggle = document.getElementById(`tl-toggle-${i}`);
+  const isOpen = detail.classList.contains('open');
+  detail.classList.toggle('open', !isOpen);
+  toggle.textContent = isOpen ? '展开 ↓' : '收起 ↑';
+}
+
+// ============================================================
+// WHAT IS
+// ============================================================
+function renderWhatIs() {
+  // Model hierarchy
+  document.getElementById('model-hierarchy').innerHTML = DATA.modelHierarchy.map(m => `
+    <div class="model-card">
+      <div class="model-name">${m.id}</div>
+      <div class="model-role">${m.role}</div>
+      <div class="model-desc">${m.desc}</div>
+    </div>
+  `).join('');
+
+  // Fit grid
+  document.getElementById('fit-grid').innerHTML = `
+    <div class="fit-box">
+      <h4>✓ 适合的任务</h4>
+      <ul>${DATA.fitFor.map(f => `<li>${f}</li>`).join('')}</ul>
+    </div>
+    <div class="fit-box">
+      <h4>✗ 不适合的任务</h4>
+      <ul>${DATA.notFitFor.map(f => `<li>${f}</li>`).join('')}</ul>
+    </div>
+  `;
+
+  // Comparison table
+  const rows = [
+    { label: '定位', vals: ['长时程 agentic 工作流', '受控研究环境', '通用旗舰', '成本敏感 agentic coding'] },
+    { label: 'Context window', vals: ['1M tokens', '1M tokens', '1M tokens', '1M tokens'] },
+    { label: 'Thinking 模式', vals: ['Adaptive thinking（始终开启）', 'Adaptive thinking（始终开启）', 'Adaptive thinking（effort 重新校准）', 'Adaptive thinking'] },
+    { label: 'Prefilling', vals: ['不支持', '不支持', '不支持', '不支持'] },
+    { label: '典型场景', vals: ['代码迁移、多 agent 审计、长时程研究', '高安全研究、受控实验', '复杂单次推理、通用任务', 'Agentic coding、日常开发'] },
+    { label: '可用性', vals: ['全球 GA（API/Bedrock/GCP/Foundry）', 'Limited via Project Glasswing', '全球 GA', '全球 GA'] },
+    { label: '定价区间', vals: ['参见 docs.anthropic.com/pricing', '参见 docs.anthropic.com/pricing', '参见 docs.anthropic.com/pricing', '$2/$10 per MTok（introductory，至 8/31）'] }
+  ];
+  const models = ['Fable 5', 'Mythos 5', 'Opus 4.8', 'Sonnet 5'];
+  document.getElementById('comparison-table').innerHTML = `
+    <thead><tr><th>维度</th>${models.map(m => `<th class="mono">${m}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(r => `<tr><td style="font-weight:500;color:var(--text)">${r.label}</td>${r.vals.map(v => `<td>${v}</td>`).join('')}</tr>`).join('')}</tbody>
+  `;
+}
+
+// ============================================================
+// PROMPTING
+// ============================================================
+function renderPrompting() {
+  document.getElementById('bp-grid').innerHTML = DATA.bestPractices.map((bp, i) => `
+    <div class="bp-card">
+      <div class="bp-header" onclick="toggleBP(${i})">
+        <div class="bp-num">${bp.num}</div>
+        <div class="bp-title">${bp.title}</div>
+        <div class="bp-principle">${bp.principle}</div>
+      </div>
+      <div class="bp-body" id="bp-body-${i}">
+        <div class="bp-row">
+          <div class="bp-row-label">适用场景</div>
+          <div class="bp-row-text">${bp.useWhen}</div>
+        </div>
+        <div class="bp-row">
+          <div class="bp-row-label">避免写法</div>
+          <div class="bp-row-text">${bp.avoid}</div>
+        </div>
+        <div class="bp-row">
+          <div class="bp-row-label">Prompt 示例</div>
+          ${promptBlock(bp.promptExample)}
+        </div>
+        <div class="bp-row">
+          <div class="tags-row">${bp.tags.map(tagEl).join('')}${bp.sourceIds.map(id => `<a class="source-ref" href="#${id}" onclick="highlightSource('${id}')">${id}</a>`).join('')}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleBP(i) {
+  const body = document.getElementById(`bp-body-${i}`);
+  body.classList.toggle('open');
+}
+
+// ============================================================
+// WORKFLOWS
+// ============================================================
+function renderWorkflows() {
+  document.getElementById('wf-grid').innerHTML = DATA.workflows.map((wf, i) => `
+    <div class="wf-card">
+      <div class="wf-header" onclick="toggleWF(${i})">
+        <div class="wf-num">WORKFLOW ${wf.num}</div>
+        <div class="wf-title">${wf.title}</div>
+        <div class="wf-scenario">${wf.scenario}</div>
+      </div>
+      <div class="wf-body" id="wf-body-${i}">
+        <div class="wf-section-label">前置材料</div>
+        <ul class="wf-list">${wf.inputs.map(inp => `<li>${inp}</li>`).join('')}</ul>
+        <div class="wf-section-label">Prompt 模板</div>
+        ${promptBlock(wf.prompt)}
+        <div class="wf-section-label">验证方法</div>
+        <ul class="wf-list">${wf.verification.map(v => `<li>${v}</li>`).join('')}</ul>
+        <div class="wf-section-label">风险与边界</div>
+        <ul class="wf-list">${wf.risks.map(r => `<li>${r}</li>`).join('')}</ul>
+        <div class="wf-section-label">成本控制</div>
+        <ul class="wf-list">${wf.costControl.map(c => `<li>${c}</li>`).join('')}</ul>
+        <div class="tags-row" style="margin-top:10px;">${wf.sourceIds.map(id => `<a class="source-ref" href="#${id}" onclick="highlightSource('${id}')">${id}</a>`).join('')}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleWF(i) {
+  const body = document.getElementById(`wf-body-${i}`);
+  body.classList.toggle('open');
+}
+
+// ============================================================
+// POSTS
+// ============================================================
+let activePostTags = new Set();
+
+function renderPosts() {
+  // Chips
+  const allTags = [...new Set(DATA.posts.flatMap(p => p.tags))];
+  document.getElementById('posts-chips').innerHTML = allTags.map(t => `
+    <span class="chip" data-tag="${t}" onclick="togglePostTag('${t}')">${t}</span>
+  `).join('');
+
+  // Cards
+  document.getElementById('posts-grid').innerHTML = DATA.posts.map((p, i) => `
+    <div class="post-card" id="post-card-${i}" data-tags="${p.tags.join(',')}" data-search="${(p.title + ' ' + p.summary + ' ' + p.author + ' ' + p.tags.join(' ')).toLowerCase()}">
+      <div class="post-header">
+        <div class="post-meta">
+          <span class="platform-icon">${p.platform}</span>
+          <span class="post-date">${p.publishedAt}</span>
+          ${credBadge(p.credibility)}
+        </div>
+        <div class="post-title">${p.title}</div>
+        <div class="post-author">${p.author}</div>
+      </div>
+      <div class="post-summary">${p.summary}</div>
+      <div class="post-footer">
+        <div class="tags-row">${p.tags.map(tagEl).join('')}</div>
+        <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="open-link" onclick="openExternal('${p.url}', event)">打开原帖</a>
+      </div>
+      <div class="post-detail" id="post-detail-${i}">
+        <div class="post-detail-label">核心 Takeaways</div>
+        <ul class="post-takeaway-list">${p.takeaways.map(t => `<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>
+  `).join('');
+
+  // Click to expand
+  DATA.posts.forEach((p, i) => {
+    document.getElementById(`post-card-${i}`).addEventListener('click', () => {
+      document.getElementById(`post-detail-${i}`).classList.toggle('open');
+    });
+  });
+}
+
+function togglePostTag(tag) {
+  if (activePostTags.has(tag)) {
+    activePostTags.delete(tag);
+  } else {
+    activePostTags.add(tag);
+  }
+  document.querySelectorAll('#posts-chips .chip').forEach(c => {
+    c.classList.toggle('active', activePostTags.has(c.dataset.tag));
+  });
+  filterPosts();
+}
+
+function filterPosts() {
+  const query = document.getElementById('posts-search').value.toLowerCase();
+  let visibleCount = 0;
+  DATA.posts.forEach((p, i) => {
+    const card = document.getElementById(`post-card-${i}`);
+    const matchSearch = !query || card.dataset.search.includes(query);
+    const matchTags = activePostTags.size === 0 || p.tags.some(t => activePostTags.has(t));
+    const show = matchSearch && matchTags;
+    card.classList.toggle('hidden', !show);
+    if (show) visibleCount++;
+  });
+  document.getElementById('posts-no-results').classList.toggle('hidden', visibleCount > 0);
+}
+
+// ============================================================
+// YOUTUBE
+// ============================================================
+let activeYTTags = new Set();
+
+function renderYoutube() {
+  const allTags = [...new Set(DATA.videos.flatMap(v => v.tags))];
+  document.getElementById('yt-chips').innerHTML = allTags.map(t => `
+    <span class="chip" data-tag="${t}" onclick="toggleYTTag('${t}')">${t}</span>
+  `).join('');
+
+  document.getElementById('video-grid').innerHTML = DATA.videos.map((v, i) => `
+    <div class="video-card" id="vid-card-${i}" data-tags="${v.tags.join(',')}">
+      <div class="video-thumb" style="${v.videoId ? `background-image:url('https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg');background-size:cover;background-position:center;` : ''}">
+        <div class="video-thumb-inner" style="${v.videoId ? 'background:rgba(0,0,0,0.35);' : ''}">
+          <div class="video-play">▶</div>
+          <div class="video-thumb-title" style="${v.videoId ? 'text-shadow:0 1px 3px rgba(0,0,0,0.8);' : ''}">${v.title}</div>
+        </div>
+      </div>
+      <div class="video-body">
+        <div class="video-title">${v.title}</div>
+        <div class="video-meta">
+          <span class="video-channel">${v.channel}</span>
+          <span class="video-date">${v.publishedAt}</span>
+          <span class="video-duration">${v.duration}</span>
+        </div>
+        <div class="video-summary">${v.summary}</div>
+        <div class="tags-row">${v.tags.map(tagEl).join('')}</div>
+      </div>
+      <div class="video-footer">
+        <span class="video-audience">适合：${v.audience}</span>
+        <a href="${v.url}" target="_blank" rel="noopener noreferrer" class="open-link" onclick="openExternal('${v.url}', event)">打开</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleYTTag(tag) {
+  if (activeYTTags.has(tag)) {
+    activeYTTags.delete(tag);
+  } else {
+    activeYTTags.add(tag);
+  }
+  document.querySelectorAll('#yt-chips .chip').forEach(c => {
+    c.classList.toggle('active', activeYTTags.has(c.dataset.tag));
+  });
+  filterYT();
+}
+
+function filterYT() {
+  let visibleCount = 0;
+  DATA.videos.forEach((v, i) => {
+    const card = document.getElementById(`vid-card-${i}`);
+    const matchTags = activeYTTags.size === 0 || v.tags.some(t => activeYTTags.has(t));
+    card.classList.toggle('hidden', !matchTags);
+    if (matchTags) visibleCount++;
+  });
+  document.getElementById('yt-no-results').classList.toggle('hidden', visibleCount > 0);
+}
+
+// ============================================================
+// SOURCES
+// ============================================================
+let activeSourcePlatform = '';
+let activeSourceCred = '';
+
+function renderSources() {
+  const platforms = [...new Set(DATA.sources.map(s => s.platform))];
+  const creds = ['official', 'high', 'medium', 'low'];
+  const credLabels = { official: '官方', high: '高可信', medium: '中可信', low: '低可信' };
+
+  document.getElementById('sources-platform-chips').innerHTML = platforms.map(p => `
+    <span class="chip" data-val="${p}" onclick="toggleSourcePlatform('${p}')">${p}</span>
+  `).join('');
+
+  document.getElementById('sources-cred-chips').innerHTML = creds.map(c => `
+    <span class="chip" data-val="${c}" onclick="toggleSourceCred('${c}')">${credLabels[c]}</span>
+  `).join('');
+
+  document.getElementById('sources-list').innerHTML = DATA.sources.map(s => `
+    <div class="source-card" id="${s.id}" data-platform="${s.platform}" data-cred="${s.credibility}" data-search="${(s.title + ' ' + s.summary + ' ' + (s.author || '') + ' ' + s.tags.join(' ')).toLowerCase()}">
+      <div class="source-id-badge">${s.id}</div>
+      <div class="source-body">
+        <div class="source-title">${s.title}</div>
+        <div class="source-meta">
+          <span class="source-platform">${s.platform}</span>
+          ${s.publishedAt ? `<span class="source-date">${s.publishedAt}</span>` : ''}
+          ${credBadge(s.credibility)}
+          <span class="tag">${s.sourceType}</span>
+        </div>
+        <div class="source-summary">${s.summary}</div>
+        <div class="tags-row">${s.tags.map(tagEl).join('')}</div>
+	        ${s.url ? `<a href="${s.url}" target="_blank" rel="noopener noreferrer" class="source-url" onclick="openExternal('${s.url}', event)">↗ ${s.url}</a>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleSourcePlatform(val) {
+  activeSourcePlatform = activeSourcePlatform === val ? '' : val;
+  document.querySelectorAll('#sources-platform-chips .chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.val === activeSourcePlatform);
+  });
+  filterSources();
+}
+
+function toggleSourceCred(val) {
+  activeSourceCred = activeSourceCred === val ? '' : val;
+  document.querySelectorAll('#sources-cred-chips .chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.val === activeSourceCred);
+  });
+  filterSources();
+}
+
+function filterSources() {
+  const query = document.getElementById('sources-search').value.toLowerCase();
+  let visibleCount = 0;
+  DATA.sources.forEach(s => {
+    const card = document.getElementById(s.id);
+    const matchSearch = !query || card.dataset.search.includes(query);
+    const matchPlatform = !activeSourcePlatform || card.dataset.platform === activeSourcePlatform;
+    const matchCred = !activeSourceCred || card.dataset.cred === activeSourceCred;
+    const show = matchSearch && matchPlatform && matchCred;
+    card.classList.toggle('hidden', !show);
+    if (show) visibleCount++;
+  });
+  document.getElementById('sources-no-results').classList.toggle('hidden', visibleCount > 0);
+}
+
+// ============================================================
+// DECISION GUIDE
+// ============================================================
+const decisionState = {};
+
+function renderDecision() {
+  document.getElementById('decision-grid').innerHTML = DATA.decisionDimensions.map(dim => `
+    <div class="decision-dim">
+      <div class="decision-dim-label">${dim.label}</div>
+      <div class="decision-options">
+        ${dim.options.map(opt => `
+          <span class="decision-opt" data-dim="${dim.id}" data-val="${opt.value}" onclick="selectDecision('${dim.id}', '${opt.value}', this)">${opt.label}</span>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectDecision(dim, val, el) {
+  document.querySelectorAll(`.decision-opt[data-dim="${dim}"]`).forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  decisionState[dim] = val;
+  updateDecisionResult();
+}
+
+function updateDecisionResult() {
+  const s = decisionState;
+  const filled = Object.keys(s).length;
+  if (filled < 3) {
+    document.getElementById('decision-rec').textContent = '请在上方选择各维度的值';
+    document.getElementById('decision-reason').textContent = '';
+    return;
+  }
+
+  let rec = '';
+  let reason = '';
+
+  const isComplex = s.complexity === 'high';
+  const needsLong = s.longContext === 'yes';
+  const needsMultiTool = s.multiTool === 'yes';
+  const needsParallel = s.parallelAgent === 'yes';
+  const costHigh = s.costSensitive === 'high';
+  const hasRisk = s.riskLevel === 'yes';
+
+  const fableScore = (isComplex ? 2 : 0) + (needsLong ? 2 : 0) + (needsMultiTool ? 2 : 0) + (needsParallel ? 1 : 0);
+
+  if (hasRisk) {
+    rec = '⚠ 需要额外审查后再使用 Fable 5';
+    reason = '任务涉及 cyber/bio 触发风险，需要在使用 Fable 5 前进行额外的 safeguards 审查。建议先与 Anthropic 确认使用场景合规性。';
+  } else if (fableScore >= 5 && !costHigh) {
+    rec = '✓ 推荐使用 Fable 5';
+    reason = `任务具有高复杂度、需要长上下文和多步工具调用，这正是 Fable 5 的设计目标场景。${needsParallel ? '并行 subagent 需求进一步支持使用 Fable 5。' : ''}建议使用 effort: high 或 xhigh。`;
+  } else if (fableScore >= 3 && costHigh) {
+    rec = '⚡ 用 Fable 5 规划 + Sonnet 5 执行';
+    reason = '任务复杂度支持使用 Fable 5，但成本敏感。建议用 Fable 5（effort: medium）做任务规划和架构设计，用 Sonnet 5 执行具体的编码和重复性子任务，以平衡质量与成本。';
+  } else if (fableScore >= 3 && !costHigh) {
+    rec = '◎ 可用 Fable 5，仅用于规划/验证';
+    reason = '任务有一定复杂度，但不完全符合 Fable 5 的核心优势场景。建议仅在规划和验证阶段使用 Fable 5，日常执行用 Opus 4.8 或 Sonnet 5。';
+  } else if (costHigh || s.complexity === 'low') {
+    rec = '→ 使用 Sonnet 5 或 Opus 4.8';
+    reason = `任务复杂度${s.complexity === 'low' ? '较低' : ''}${costHigh ? '且成本敏感' : ''}，Fable 5 的 agentic 能力在此场景下不能充分发挥。Sonnet 5（$2/$10 per MTok introductory）是更经济的选择；如需更强推理能力，选 Opus 4.8。`;
+  } else {
+    rec = '◎ 使用 Fallback 策略';
+    reason = 'Fable 5 规划 + Opus/Sonnet 执行的混合策略适合你的场景。用 Fable 5 做整体架构规划和复杂决策，用 Opus 4.8 或 Sonnet 5 处理具体执行步骤。';
+  }
+
+  document.getElementById('decision-rec').textContent = rec;
+  document.getElementById('decision-reason').textContent = reason;
+}
+
+// ============================================================
+// INTERSECTION OBSERVER (section reveal)
+// ============================================================
+function initReveal() {
+  const sections = document.querySelectorAll('.section');
+  let anyRevealed = false;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        anyRevealed = true;
+        entry.target.classList.remove('reveal-pending');
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+  sections.forEach(s => {
+    s.classList.add('reveal-pending');
+    observer.observe(s);
+  });
+  setTimeout(() => {
+    if (!anyRevealed) {
+      sections.forEach(s => {
+        s.classList.remove('reveal-pending');
+        s.classList.add('visible');
+        observer.unobserve(s);
+      });
+    }
+  }, 1500);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  renderHome();
+  renderTimeline();
+  renderWhatIs();
+  renderPrompting();
+  renderWorkflows();
+  renderPosts();
+  renderYoutube();
+  renderSources();
+  renderDecision();
+  initReveal();
+});
+</script>
+</body>
+</html>

@@ -18,11 +18,44 @@ export const translations = {
       chatPlaceholder: 'e.g. I want to transition into AI but don\'t know where to start...',
       chatSend: 'Send',
       chatUpload: 'Attach',
-      chatTopics: ['Career → AI', 'Self-discovery', 'AI Coding', 'Product Growth'],
+      chatTopics: [
+        {
+          label: 'Humanities → AI',
+          prompt: 'I have a humanities or social science background and want to move into the AI industry. What capability path should I build first?',
+        },
+        {
+          label: 'Personal system',
+          prompt: 'I want to build a personal system for knowledge, output, projects, and AI workflows. Where should I start?',
+        },
+        {
+          label: 'AI coding',
+          prompt: 'I want to learn AI coding, product development, and automation without a strong engineering background. How should I begin?',
+        },
+        {
+          label: 'Global growth',
+          prompt: 'I want to grow a product for global users. What channels, methods, and operating habits should I focus on?',
+        },
+        {
+          label: 'AI automation',
+          prompt: 'I want to use AI to automate repetitive work. How should I design the workflow and choose the right tools?',
+        },
+        {
+          label: 'Content → product',
+          prompt: 'I want to turn writing, knowledge, or experience into a website, project, or product. What is the first practical path?',
+        },
+        {
+          label: 'Meet Chen Jin',
+          prompt: 'I do not have a specific problem yet. I just want to understand who you are, what you build, and whether your perspective resonates with me.',
+        },
+        {
+          label: 'Share my context',
+          prompt: 'I do not have a clear question yet. Can you help me introduce my background, current situation, interests, and what kind of help I might need?',
+        },
+      ],
     },
     about: {
-      label: '01 — About',
-      title: 'How I build across AI, growth, and systems.',
+      label: 'ChenJin',
+      title: 'ChenJin',
       subtitle: 'I turn ambiguous ideas into working systems — especially where AI tools, growth workflows, writing, and lightweight code meet.',
       description: `I'm Chen Jin, a growth lead at an AI startup and an independent builder. This site is my public workspace: I document how ideas become real — from researching a problem and running small experiments to building with AI, writing through uncertainty, and compressing what I learn into reusable frameworks. The output isn't content. It's systems.
 
@@ -175,13 +208,13 @@ Before this came a career transition, a stretch of mental health recovery, and a
     },
     roadmap: {
       label: '07 — Roadmap',
-      title: 'What I\'m building next.',
-      subtitle: 'Unfinished projects, content ideas, and site improvements live here until they are ready to become public work.',
+      title: 'Build plan and request pool.',
+      subtitle: 'My own development plan and the things readers want me to make, explain, publish, or connect next.',
       submitTitle: 'Submit a Request',
       titlePlaceholder: 'Feature title',
       descriptionPlaceholder: 'Describe what you\'d like to see...',
       categoryLabel: 'Category',
-      categories: ['Feature', 'Content', 'Improvement', 'Other'],
+      categories: ['Build', 'Writing', 'Playbook', 'Experiment', 'Request'],
       submitButton: 'Submit',
       loginToSubmit: 'Log in to submit a request',
       loginToVote: 'Log in to vote',
@@ -226,11 +259,44 @@ Before this came a career transition, a stretch of mental health recovery, and a
       chatPlaceholder: '比如：我想转行AI但不知道从哪开始...',
       chatSend: '发送',
       chatUpload: '上传',
-      chatTopics: ['转行AI', '自我探索', 'AI编程', '产品增长'],
+      chatTopics: [
+        {
+          label: '文社科转 AI',
+          prompt: '我是文社科背景，想转入 AI 行业，应该如何建立能力路径？',
+        },
+        {
+          label: '搭建个人系统',
+          prompt: '我想搭建自己的知识库、输出系统、项目系统和 AI 工作流，应该从哪里开始？',
+        },
+        {
+          label: 'AI 编程入门',
+          prompt: '我想开始学 AI 编程、产品开发和自动化，但没有很强工程背景，应该怎么起步？',
+        },
+        {
+          label: '全球化增长',
+          prompt: '我想做面向海外用户的产品增长，应该关注哪些渠道、方法和工作习惯？',
+        },
+        {
+          label: 'AI 自动化',
+          prompt: '我想用 AI 自动化重复工作，应该怎么设计流程、选择工具？',
+        },
+        {
+          label: '内容变产品',
+          prompt: '我想把写作、知识或经验做成网站、作品或产品，第一步应该怎么走？',
+        },
+        {
+          label: '认识陈今',
+          prompt: '我暂时没有明确问题，只是想认识你、了解你在做什么，以及看看你的视角是否和我有共鸣。',
+        },
+        {
+          label: '聊聊我的情况',
+          prompt: '我暂时没有清晰问题。你可以先帮我梳理我的背景、当前状态、兴趣，以及我可能需要什么帮助吗？',
+        },
+      ],
     },
     about: {
-      label: '01 — 关于',
-      title: '我如何在 AI、增长与系统之间构建。',
+      label: '陈今',
+      title: '陈今',
       subtitle: '我把模糊想法变成可运行的系统，尤其是在 AI 工具、增长工作流、写作和轻量代码交汇的地方。',
       description: `我是陈今，一家 AI 初创公司的增长负责人，也是一个独立构建者。这个网站是我的公开工作台：我在这里记录想法如何变成现实——从研究一个问题、跑小实验，到用 AI 构建、在不确定中写作，并把学到的东西压缩成可复用框架。最终产出不是内容，而是系统。
 
@@ -397,14 +463,14 @@ Before this came a career transition, a stretch of mental health recovery, and a
       ],
     },
     roadmap: {
-      label: '07 — 路线图',
-      title: '接下来我会建设什么？',
-      subtitle: '未完成的项目、内容想法和网站改进先放在这里，等它们准备好后再成为正式展示。',
+      label: '07 — 计划池',
+      title: '开发计划与需求池。',
+      subtitle: '这里同时放我自己的开发计划，以及别人希望我输出、解释、发布或连接的东西。',
       submitTitle: '提交需求',
       titlePlaceholder: '功能标题',
       descriptionPlaceholder: '描述你想要的功能...',
       categoryLabel: '分类',
-      categories: ['功能', '内容', '改进', '其他'],
+      categories: ['构建', '写作', '手册', '实验', '需求'],
       submitButton: '提交',
       loginToSubmit: '登录后提交需求',
       loginToVote: '登录后投票',

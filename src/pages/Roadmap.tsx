@@ -2,120 +2,23 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import LoginModal from '@/components/LoginModal';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getRoadmapDisplayItems, roadmapCategoryLabels, roadmapStatusConfig } from '@/features/roadmap/roadmapData';
+import type { RoadmapCategory, RoadmapDisplayItem, RoadmapFilter, RoadmapStatus } from '@/features/roadmap/roadmapTypes';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { ChevronUp, Plus, MessageSquare } from 'lucide-react';
-
-type Status = 'open' | 'planned' | 'in_progress' | 'completed';
-type FilterStatus = 'all' | Status;
-
-interface RoadmapItem {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  status: Status;
-  votes: number;
-  voted: boolean;
-}
-
-const initialItems: (lang: 'en' | 'zh') => RoadmapItem[] = (lang) => [
-  {
-    id: 1,
-    title: lang === 'en' ? 'Game Hub — Puzzle Game Aggregator' : 'Game Hub — 益智游戏聚合器',
-    description: lang === 'en'
-      ? 'A collection of classic puzzle games with login, leaderboards, and social sharing. Keep it on the roadmap until the product direction is clearer.'
-      : '经典益智游戏合集，计划支持登录、排行榜和社交分享。先放在路线图中，等产品方向更清晰后再公开展示。',
-    category: lang === 'en' ? 'Project' : '项目',
-    status: 'in_progress',
-    votes: 31,
-    voted: false,
-  },
-  {
-    id: 2,
-    title: lang === 'en' ? 'Vibe Coding Learning Log' : 'Vibe Coding 学习日志',
-    description: lang === 'en'
-      ? 'A build-in-public tutorial series documenting the path from product operator to independent developer with AI coding tools.'
-      : '一个公开构建的教程系列，记录我如何用 AI 编程工具从产品运营走向独立开发。',
-    category: lang === 'en' ? 'Content' : '内容',
-    status: 'in_progress',
-    votes: 27,
-    voted: false,
-  },
-  {
-    id: 3,
-    title: lang === 'en' ? 'Developer Growth Channel Map' : '开发者增长渠道地图',
-    description: lang === 'en'
-      ? 'An interactive map of channels that work for developer-facing products, combining research, real data, and personal notes.'
-      : '面向开发者产品的增长渠道地图，整合调研、真实数据和个人笔记。',
-    category: lang === 'en' ? 'Resource' : '资源',
-    status: 'planned',
-    votes: 22,
-    voted: false,
-  },
-  {
-    id: 4,
-    title: lang === 'en' ? 'AI Chat Backend Integration' : 'AI 对话后端接入',
-    description: lang === 'en'
-      ? 'Connect the Hero and floating chat to a real AI backend for live conversations.'
-      : '将 Hero 和悬浮对话连接到真实 AI 后端，实现实时对话。',
-    category: lang === 'en' ? 'Feature' : '功能',
-    status: 'planned',
-    votes: 24,
-    voted: false,
-  },
-  {
-    id: 5,
-    title: lang === 'en' ? 'Dark Mode Color Refinement' : '暗色模式配色优化',
-    description: lang === 'en'
-      ? 'Improve contrast and readability in dark mode across all pages.'
-      : '改善所有页面在暗色模式下的对比度和可读性。',
-    category: lang === 'en' ? 'Improvement' : '改进',
-    status: 'in_progress',
-    votes: 18,
-    voted: false,
-  },
-  {
-    id: 6,
-    title: lang === 'en' ? 'RSS Feed for Blog' : '博客 RSS 订阅',
-    description: lang === 'en'
-      ? 'Add RSS feed support so readers can subscribe via their preferred reader.'
-      : '添加 RSS 订阅支持，方便读者使用喜欢的阅读器订阅。',
-    category: lang === 'en' ? 'Feature' : '功能',
-    status: 'open',
-    votes: 15,
-    voted: false,
-  },
-  {
-    id: 7,
-    title: lang === 'en' ? 'Newsletter Archive Page' : '邮件通讯归档页',
-    description: lang === 'en'
-      ? 'A page to browse past newsletter issues with search functionality.'
-      : '一个可以浏览和搜索过往邮件通讯的页面。',
-    category: lang === 'en' ? 'Content' : '内容',
-    status: 'completed',
-    votes: 12,
-    voted: false,
-  },
-];
-
-const statusConfig: Record<Status, { color: string; labelEn: string; labelZh: string }> = {
-  open: { color: 'bg-muted text-muted-foreground', labelEn: 'Open', labelZh: '待定' },
-  planned: { color: 'bg-accent/15 text-accent', labelEn: 'Planned', labelZh: '已规划' },
-  in_progress: { color: 'bg-yellow-500/15 text-yellow-700 dark:text-yellow-400', labelEn: 'In Progress', labelZh: '进行中' },
-  completed: { color: 'bg-green-500/15 text-green-700 dark:text-green-400', labelEn: 'Completed', labelZh: '已完成' },
-};
+import { ArrowRight, ChevronUp, MessageSquare, Plus } from 'lucide-react';
 
 const Roadmap = () => {
   const { t, language } = useLanguage();
   const isZh = language === 'zh';
 
-  const [items, setItems] = useState<RoadmapItem[]>(initialItems(language));
-  const [filter, setFilter] = useState<FilterStatus>('all');
+  const [items, setItems] = useState<RoadmapDisplayItem[]>(() => getRoadmapDisplayItems(language));
+  const [filter, setFilter] = useState<RoadmapFilter>('all');
   const [showForm, setShowForm] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
 
@@ -125,9 +28,13 @@ const Roadmap = () => {
   // Form state
   const [newTitle, setNewTitle] = useState('');
   const [newDesc, setNewDesc] = useState('');
-  const [newCategory, setNewCategory] = useState(t.roadmap.categories[0]);
+  const [newCategory, setNewCategory] = useState<RoadmapCategory>('request');
 
-  const handleVote = (id: number) => {
+  useEffect(() => {
+    setItems(getRoadmapDisplayItems(language));
+  }, [language]);
+
+  const handleVote = (id: string) => {
     if (!isLoggedIn) {
       setLoginOpen(true);
       return;
@@ -141,21 +48,27 @@ const Roadmap = () => {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!isLoggedIn) {
       setLoginOpen(true);
       return;
     }
     if (!newTitle.trim()) return;
-    const newItem: RoadmapItem = {
-      id: Date.now(),
+    const status: RoadmapStatus = 'open';
+    const newItem: RoadmapDisplayItem = {
+      id: `request-${Date.now()}`,
       title: newTitle,
       description: newDesc,
       category: newCategory,
-      status: 'open',
+      categoryLabel: roadmapCategoryLabels[newCategory][language],
+      status,
+      statusLabel: roadmapStatusConfig[status][language],
+      statusColor: roadmapStatusConfig[status].color,
       votes: 1,
       voted: true,
+      tags: ['reader request'],
+      route: '/roadmap',
     };
     setItems((prev) => [newItem, ...prev]);
     setNewTitle('');
@@ -163,13 +76,19 @@ const Roadmap = () => {
     setShowForm(false);
   };
 
-  const filters: { key: FilterStatus; label: string }[] = [
+  const filters: { key: RoadmapFilter; label: string }[] = [
     { key: 'all', label: t.roadmap.statusAll },
-    { key: 'open', label: t.roadmap.statusOpen },
-    { key: 'planned', label: t.roadmap.statusPlanned },
-    { key: 'in_progress', label: t.roadmap.statusInProgress },
-    { key: 'completed', label: t.roadmap.statusCompleted },
+    { key: 'open', label: roadmapStatusConfig.open[language] },
+    { key: 'considering', label: roadmapStatusConfig.considering[language] },
+    { key: 'planned', label: roadmapStatusConfig.planned[language] },
+    { key: 'building', label: roadmapStatusConfig.building[language] },
+    { key: 'shipped', label: roadmapStatusConfig.shipped[language] },
   ];
+
+  const categoryOptions = (Object.keys(roadmapCategoryLabels) as RoadmapCategory[]).map((category) => ({
+    key: category,
+    label: roadmapCategoryLabels[category][language],
+  }));
 
   const filtered = items
     .filter((item) => filter === 'all' || item.status === filter)
@@ -276,18 +195,18 @@ const Roadmap = () => {
                   <div className="flex items-center gap-4">
                     <span className="text-sm text-muted-foreground">{t.roadmap.categoryLabel}</span>
                     <div className="flex gap-2">
-                      {t.roadmap.categories.map((cat) => (
+                      {categoryOptions.map((cat) => (
                         <button
-                          key={cat}
+                          key={cat.key}
                           type="button"
-                          onClick={() => setNewCategory(cat)}
+                          onClick={() => setNewCategory(cat.key)}
                           className={`px-3 py-1 rounded-full text-xs transition-colors ${
-                            newCategory === cat
+                            newCategory === cat.key
                               ? 'bg-accent text-white'
                               : 'bg-muted text-muted-foreground hover:bg-accent/10'
                           }`}
                         >
-                          {cat}
+                          {cat.label}
                         </button>
                       ))}
                     </div>
@@ -348,17 +267,26 @@ const Roadmap = () => {
                     </h3>
                     <Badge
                       variant="secondary"
-                      className={`text-[11px] font-normal ${statusConfig[item.status].color}`}
+                      className={`text-[11px] font-normal ${item.statusColor}`}
                     >
-                      {isZh ? statusConfig[item.status].labelZh : statusConfig[item.status].labelEn}
+                      {item.statusLabel}
                     </Badge>
                     <Badge variant="outline" className="text-[11px] font-normal">
-                      {item.category}
+                      {item.categoryLabel}
                     </Badge>
                   </div>
                   <p className="text-sm text-muted-foreground font-light leading-relaxed">
                     {item.description}
                   </p>
+                  {item.route && item.route !== '/roadmap' && (
+                    <Link
+                      to={item.route}
+                      className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"
+                    >
+                      {isZh ? '查看入口' : 'Open'}
+                      <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  )}
                 </div>
               </motion.div>
             ))}

@@ -15,6 +15,7 @@ import WorkWithMe from "./pages/WorkWithMe";
 import Experience from "./pages/Experience";
 import ExperienceDetail from "./pages/ExperienceDetail";
 import Roadmap from "./pages/Roadmap";
+import Projects from "./pages/Projects";
 import JikeBestIn2025 from "./pages/projects/JikeBestIn2025";
 import NotFound from "./pages/NotFound";
 import FloatingChat from "./components/FloatingChat";
@@ -32,10 +33,15 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/playbooks" element={<Playbooks />} />
+              <Route path="/writing" element={<Blog />} />
+              <Route path="/writing/bookshelf" element={<Bookshelf />} />
+              <Route path="/writing/:id" element={<BlogPost />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/bookshelf" element={<Bookshelf />} />
               <Route path="/blog/:id" element={<BlogPost />} />
+              <Route path="/workbench" element={<Stack />} />
               <Route path="/stack" element={<Stack />} />
+              <Route path="/projects" element={<Projects />} />
               <Route path="/work-with-me" element={<WorkWithMe />} />
               <Route path="/experience" element={<Experience />} />
               <Route path="/experience/:id" element={<ExperienceDetail />} />

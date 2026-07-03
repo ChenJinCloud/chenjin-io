@@ -2231,10 +2231,10 @@ const JikeBestIn2025 = () => {
                 </div>
               </div>
               <Link
-                to="/stack"
+                to="/workbench"
                 className="inline-flex items-center justify-center gap-2 rounded-[6px] bg-background px-5 py-3 text-sm font-medium text-foreground transition-transform hover:-translate-y-0.5 md:col-span-2"
               >
-                查看工具栈
+                查看工作台
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

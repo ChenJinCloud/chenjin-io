@@ -25,7 +25,7 @@ const BlogContent = () => {
             animate={{ opacity: 1, y: 0 }}
             className="font-serif text-4xl md:text-5xl font-light mb-6"
           >
-            {isZh ? '认知提升' : 'Cognitive Blog'}
+            {isZh ? '写作' : 'Writing'}
           </motion.h1>
           
           <motion.p
@@ -34,7 +34,7 @@ const BlogContent = () => {
             transition={{ delay: 0.1 }}
             className="text-muted-foreground mb-10"
           >
-            {isZh ? '关于认知、思维与成长的思考' : 'Thoughts on cognition, thinking, and growth'}
+            {isZh ? '关于 AI-native 工作、个人系统、增长、认知与真实表达的文章。' : 'Essays on AI-native work, personal systems, growth, cognition, and honest creation.'}
           </motion.p>
 
           <motion.div
@@ -43,7 +43,7 @@ const BlogContent = () => {
             transition={{ delay: 0.15 }}
             className="mb-10"
           >
-            <Link to="/blog/bookshelf" className="group flex items-start gap-4 p-6 border border-border rounded-lg hover:border-accent transition-colors">
+            <Link to="/writing/bookshelf" className="group flex items-start gap-4 p-6 border border-border rounded-lg hover:border-accent transition-colors">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md border border-border text-accent">
                 <BookOpen className="w-4 h-4" />
               </div>
@@ -67,7 +67,7 @@ const BlogContent = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + i * 0.05 }}
               >
-                <Link to={`/blog/${post.id}`} className="block p-6 border border-border rounded-lg hover:border-accent transition-colors">
+                <Link to={`/writing/${post.id}`} className="block p-6 border border-border rounded-lg hover:border-accent transition-colors">
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="font-medium text-foreground">{post.title}</h3>
                   </div>

@@ -13,21 +13,26 @@ const Navigation = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const homeNavItems = [
-    { href: '#featured-projects', label: isZh ? '项目' : 'Projects' },
     { href: '#about', label: t.nav.about },
     { href: '#journey', label: t.nav.journey },
     { href: '#contact', label: t.nav.contact },
   ];
 
   const pageNavItems = [
-    { href: '/playbooks', label: isZh ? '方法手册' : 'Playbooks' },
-    { href: '/blog', label: isZh ? '博客' : 'Blog' },
-    { href: '/stack', label: isZh ? '技术栈' : 'Stack' },
-    { href: '/work-with-me', label: isZh ? '合作' : 'Work with me' },
-    { href: '/roadmap', label: isZh ? '路线图' : 'Roadmap' },
+    { href: '/writing', label: isZh ? '写作' : 'Writing', aliases: ['/blog'] },
+    { href: '/projects', label: isZh ? '作品' : 'Projects' },
+    { href: '/playbooks', label: isZh ? '手册' : 'Playbooks' },
+    { href: '/workbench', label: isZh ? '工作台' : 'Workbench', aliases: ['/stack'] },
+    { href: '/roadmap', label: isZh ? '计划池' : 'Roadmap' },
+    { href: '/work-with-me', label: isZh ? '合作' : 'Work' },
   ];
 
   const handleMobileLink = () => setMobileOpen(false);
+  const isActivePath = (item: (typeof pageNavItems)[number]) => (
+    location.pathname === item.href ||
+    location.pathname.startsWith(`${item.href}/`) ||
+    item.aliases?.some((alias) => location.pathname === alias || location.pathname.startsWith(`${alias}/`))
+  );
 
   return (
     <>
@@ -61,7 +66,7 @@ const Navigation = () => {
                 </li>
               ))}
               {pageNavItems.map((item) => {
-                const active = location.pathname === item.href;
+                const active = isActivePath(item);
                 return (
                   <li key={item.href} className="relative">
                     {active && (
