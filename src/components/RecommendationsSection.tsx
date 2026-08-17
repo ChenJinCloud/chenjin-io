@@ -7,16 +7,6 @@ const RecommendationsSection = () => {
   return (
     <section id="recommendations" className="py-24 md:py-32 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="text-xs font-medium tracking-widest uppercase text-accent mb-12 block"
-        >
-          {t.recommendations.label}
-        </motion.span>
-
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-start mb-14">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -51,7 +41,9 @@ const RecommendationsSection = () => {
                 delay: 0.08 * i,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="group min-h-[18rem] p-6 md:p-7 rounded-2xl border border-border bg-card flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)]"
+              className={`group p-6 md:p-7 rounded-2xl border border-border bg-card flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)] ${
+                item.story.trim() ? 'min-h-[18rem]' : 'min-h-[12rem]'
+              }`}
             >
               <span className="w-fit px-3 py-1 rounded-full bg-accent/8 text-accent text-[11px] font-medium tracking-widest uppercase mb-5">
                 {item.type}
@@ -69,9 +61,7 @@ const RecommendationsSection = () => {
                 <p className="text-[15px] font-light text-muted-foreground leading-relaxed">
                   {item.story}
                 </p>
-              ) : (
-                <div className="min-h-[5.5rem]" aria-hidden="true" />
-              )}
+              ) : null}
 
               <div className="mt-auto pt-6">
                 <div className="w-8 h-px bg-accent/30 group-hover:w-14 transition-all duration-300" />

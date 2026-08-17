@@ -2,7 +2,21 @@
 
 All notable changes to chenjin.io are documented in this file.
 
+## [Unreleased] - 2026-07-27
+
+### Codex Thread Closeout — MVP Positioning And Local Preview
+
+- Added `chenjin-io-mvp-positioning-and-local-preview__codex-process-asset__2026-07-27.md` to preserve the chenjin.io MVP positioning discussion, local preview status, growth lead roadmap artifact, and closeout evidence paths.
+- Recorded the key correction that "becoming the operator who understands development best" is a professional-development direction, not the whole personal-brand identity.
+- Noted the closeout-time path mismatch: current local project is `/Users/jinchen/Documents/Projects/chenjin.io`, while earlier thread context referenced `/Users/jinchen/Documents/Projects/chenjin-io`.
+
 ## [Unreleased] - 2026-05-22
+
+### Codex Thread Closeout — Personal Site And Claude Fable 5
+
+- Added `personal-site-and-fable5__codex-process-asset__2026-07-09.md` to preserve the personal-site architecture, user corrections, Fable 5 deployment boundary, and current evidence paths from the Codex thread.
+- Recorded the key homepage decisions: chat-first entry, roadmap as both build plan and reader-request pool, no silent hero/tagline edits, homepage Projects removal, and final removal of decorative section labels.
+- Linked the public child-artifact path for `claude-fable5.chenjin.io` and the local static deployment wrapper at `/Users/jinchen/Documents/Projects/claude-fable5-newshub`.
 
 ### Jike Best in 2025 Report Closeout
 

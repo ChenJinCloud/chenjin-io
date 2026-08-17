@@ -7,16 +7,6 @@ const TrustSection = () => {
   return (
     <section id="trust" className="py-24 md:py-32 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="text-xs font-medium tracking-widest uppercase text-accent mb-12 block"
-        >
-          {t.trust.label}
-        </motion.span>
-
         {/* Testimonials */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -36,16 +26,18 @@ const TrustSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.6, delay: 0.1 * i }}
-              className="p-6 md:p-8 rounded-2xl border border-border bg-card min-h-[17rem] flex flex-col"
+              className={`p-6 md:p-8 rounded-2xl border border-border bg-card flex flex-col ${
+                item.quote.trim() ? 'min-h-[17rem]' : 'min-h-[10rem]'
+              }`}
             >
-              <span className="text-4xl font-display text-accent/40 leading-none block mb-4">"</span>
               {item.quote.trim() ? (
-                <p className="text-base font-display italic text-foreground/90 leading-relaxed mb-6">
-                  {item.quote}
-                </p>
-              ) : (
-                <div className="min-h-[7.5rem] mb-6" aria-hidden="true" />
-              )}
+                <>
+                  <span className="text-4xl font-display text-accent/40 leading-none block mb-4">"</span>
+                  <p className="text-base font-display italic text-foreground/90 leading-relaxed mb-6">
+                    {item.quote}
+                  </p>
+                </>
+              ) : null}
               <div className="mt-auto">
                 <span className="text-sm font-medium text-foreground block">{item.name}</span>
                 {item.context ? (

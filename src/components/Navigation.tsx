@@ -65,6 +65,9 @@ const Navigation = () => {
                   </a>
                 </li>
               ))}
+              {isHome && (
+                <li className="hidden xl:block h-5 w-px bg-border/70 mx-1" aria-hidden="true" />
+              )}
               {pageNavItems.map((item) => {
                 const active = isActivePath(item);
                 return (

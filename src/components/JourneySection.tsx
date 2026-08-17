@@ -7,16 +7,6 @@ const JourneySection = () => {
   return (
     <section id="journey" className="py-24 md:py-32 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="text-xs font-medium tracking-widest uppercase text-accent mb-12 block"
-        >
-          {t.journey.label}
-        </motion.span>
-
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

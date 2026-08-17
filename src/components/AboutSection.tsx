@@ -90,16 +90,6 @@ const AboutSection = () => {
   return (
     <section id="about" className="py-24 md:py-32 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="text-xs font-medium tracking-widest uppercase text-accent mb-12 block"
-        >
-          {t.about.label}
-        </motion.span>
-
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
           {/* Text — left column */}
           <div className="lg:col-span-3">

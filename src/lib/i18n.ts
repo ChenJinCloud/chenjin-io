@@ -54,7 +54,6 @@ export const translations = {
       ],
     },
     about: {
-      label: 'ChenJin',
       title: 'ChenJin',
       subtitle: 'I turn ambiguous ideas into working systems — especially where AI tools, growth workflows, writing, and lightweight code meet.',
       description: `I'm Chen Jin, a growth lead at an AI startup and an independent builder. This site is my public workspace: I document how ideas become real — from researching a problem and running small experiments to building with AI, writing through uncertainty, and compressing what I learn into reusable frameworks. The output isn't content. It's systems.
@@ -64,7 +63,7 @@ Over the past two years, I've worked across 0→1 growth, launch planning, conte
 Before this came a career transition, a stretch of mental health recovery, and a full reset on how I want to work and live. That shaped how I build today: less performance, more process; visible thinking over polished takes; honest iteration over clean narratives — and why I document not only outcomes, but the systems, tradeoffs, and messy middle behind them.`,
     },
     works: {
-      label: '02 — Featured Work',
+      label: 'Featured work',
       title: 'Things I\'ve built and shared.',
       items: [
         {
@@ -101,7 +100,6 @@ Before this came a career transition, a stretch of mental health recovery, and a
       subscribe: 'Subscribe',
     },
     journey: {
-      label: '03 — Journey',
       title: 'Where I\'ve been.',
       items: [
         {
@@ -131,7 +129,6 @@ Before this came a career transition, a stretch of mental health recovery, and a
       ],
     },
     recommendations: {
-      label: '04 — Recommendations',
       title: 'People I would seriously recommend.',
       subtitle: 'Some are services I have used myself. Some are communities or professional support that shaped how I think and work. The longer stories and links will be added as this section becomes ready.',
       items: [
@@ -168,8 +165,7 @@ Before this came a career transition, a stretch of mental health recovery, and a
       ],
     },
     trust: {
-      label: '05 — Trust',
-      testimonialsTitle: 'What others say.',
+      testimonialsTitle: 'What people notice.',
       testimonials: [
         {
           quote: 'She has an incredible ability to take a chaotic situation and make it completely clear. Every conversation leaves me with a concrete next step.',
@@ -191,7 +187,6 @@ Before this came a career transition, a stretch of mental health recovery, and a
       partners: ['InsForge', 'Atoms.dev', 'YC-backed'],
     },
     contact: {
-      label: '06 — Work With Me',
       title: 'Let\'s work together.',
       description: 'Sponsor my continued work, or bring me into your project. I take on 1-on-1 consulting, growth engagements, and select collaborations.',
       email: 'hello@chenjin.io',
@@ -207,7 +202,7 @@ Before this came a career transition, a stretch of mental health recovery, and a
       ],
     },
     roadmap: {
-      label: '07 — Roadmap',
+      label: 'Roadmap',
       title: 'Build plan and request pool.',
       subtitle: 'My own development plan and the things readers want me to make, explain, publish, or connect next.',
       submitTitle: 'Submit a Request',
@@ -295,7 +290,6 @@ Before this came a career transition, a stretch of mental health recovery, and a
       ],
     },
     about: {
-      label: '陈今',
       title: '陈今',
       subtitle: '我把模糊想法变成可运行的系统，尤其是在 AI 工具、增长工作流、写作和轻量代码交汇的地方。',
       description: `我是陈今，一家 AI 初创公司的增长负责人，也是一个独立构建者。这个网站是我的公开工作台：我在这里记录想法如何变成现实——从研究一个问题、跑小实验，到用 AI 构建、在不确定中写作，并把学到的东西压缩成可复用框架。最终产出不是内容，而是系统。
@@ -305,7 +299,7 @@ Before this came a career transition, a stretch of mental health recovery, and a
 在这之前，是一次职业转型、一段心理健康恢复期，以及对自己想如何工作和生活的完整重置。这塑造了我今天的构建方式：少一点表演，多一点过程；让思考可见，而不是只留下漂亮观点；接受诚实的迭代，而不是追求干净的叙事——也因此，我记录的不只是结果，也包括结果背后的系统、取舍和混乱中段。`,
     },
     works: {
-      label: '02 — 精选作品',
+      label: '精选作品',
       title: '我构建和分享过的东西。',
       items: [
         {
@@ -342,7 +336,6 @@ Before this came a career transition, a stretch of mental health recovery, and a
       subscribe: '订阅',
     },
     journey: {
-      label: '03 — 旅程',
       title: '我走过的路。',
       items: [
         {
@@ -372,7 +365,6 @@ Before this came a career transition, a stretch of mental health recovery, and a
       ],
     },
     recommendations: {
-      label: '04 — 推荐',
       title: '我想认真推荐的人。',
       subtitle: '有些是我亲自使用过的服务，有些是社群、专业支持或关键关系。这里会逐步补上我自己的 story、推荐理由和服务入口。',
       items: [
@@ -409,8 +401,7 @@ Before this came a career transition, a stretch of mental health recovery, and a
       ],
     },
     trust: {
-      label: '05 — 信任',
-      testimonialsTitle: '别人怎么说。',
+      testimonialsTitle: '连接与反馈。',
       testimonials: [
         {
           quote: '',
@@ -447,7 +438,6 @@ Before this came a career transition, a stretch of mental health recovery, and a
       partners: ['InsForge', 'Atoms.dev', 'YC-backed'],
     },
     contact: {
-      label: '06 — 合作',
       title: '一起做点事。',
       description: '赞助我持续输出，或邀请我参与你的项目。我接 1v1 咨询、增长合作、和精选项目的联合创作。',
       email: 'hello@chenjin.io',
@@ -463,7 +453,7 @@ Before this came a career transition, a stretch of mental health recovery, and a
       ],
     },
     roadmap: {
-      label: '07 — 计划池',
+      label: '计划池',
       title: '开发计划与需求池。',
       subtitle: '这里同时放我自己的开发计划，以及别人希望我输出、解释、发布或连接的东西。',
       submitTitle: '提交需求',
