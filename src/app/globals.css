@@ -136,4 +136,20 @@
   .line-reveal:hover {
     background-size: 100% 1px;
   }
+
+  /* Frosted-glass card — restored from the pre-AlphaHome design (git history:
+     Index.tsx @ 2104c3d). Semi-transparent card surface + blur so panels read
+     as floating above the gradient mesh rather than sitting on flat color. */
+  .glass-card {
+    @apply relative rounded-2xl border border-border/60 bg-card/70 backdrop-blur-md transition-colors duration-300;
+    box-shadow: 0 8px 28px -12px hsl(var(--foreground) / 0.12);
+  }
+
+  .glass-card:hover {
+    @apply border-accent/30 bg-card/80;
+  }
+
+  .dark .glass-card {
+    box-shadow: 0 8px 28px -12px hsl(0 0% 0% / 0.35);
+  }
 }

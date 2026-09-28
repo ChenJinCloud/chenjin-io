@@ -2,6 +2,8 @@
 
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import GradientMesh from '@/components/GradientMesh';
+import ChatGateway from '@/features/chat/ChatGateway';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { trackEvent, trackOutboundClick } from '@/lib/analytics';
@@ -61,8 +63,8 @@ const HomeClient = () => {
       <Navigation />
 
       <main id="main">
-        <section className="relative flex min-h-[92svh] items-end border-b border-border/70 px-5 pb-14 pt-32 md:px-10 md:pb-20 md:pt-40">
-          <div className="pointer-events-none absolute -right-40 top-12 h-[28rem] w-[28rem] rounded-full bg-accent/10 blur-3xl md:h-[42rem] md:w-[42rem]" aria-hidden="true" />
+        <section className="relative flex min-h-[92svh] flex-col justify-end overflow-hidden border-b border-border/70 px-5 pb-14 pt-32 md:px-10 md:pb-20 md:pt-40">
+          <GradientMesh />
           <div className="relative mx-auto w-full max-w-7xl">
             <div className="grid items-end gap-10 md:grid-cols-[minmax(0,1.2fr)_minmax(16rem,0.8fr)] md:gap-12 lg:gap-20">
               <div>
@@ -93,7 +95,7 @@ const HomeClient = () => {
               </div>
 
               <div className="mx-auto w-full max-w-sm md:mx-0 md:ml-auto md:max-w-md">
-                <div className="aspect-square overflow-hidden border border-border bg-secondary">
+                <div className="aspect-square overflow-hidden rounded-2xl border border-border/60 bg-secondary shadow-[0_20px_60px_-24px_hsl(var(--foreground)/0.25)]">
                   <img
                     src="/chen-jin-portrait.webp"
                     alt="陈今的个人照片"
@@ -104,6 +106,10 @@ const HomeClient = () => {
                   />
                 </div>
               </div>
+            </div>
+
+            <div className="relative mt-14 md:mt-20">
+              <ChatGateway variant="hero" />
             </div>
           </div>
         </section>
