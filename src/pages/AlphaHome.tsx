@@ -1,4 +1,5 @@
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 import Seo from '@/components/Seo';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -129,7 +130,13 @@ const AlphaHome = () => {
 
         <section id="work" className="scroll-mt-20 border-b border-border/70 px-5 py-20 md:px-10 md:py-28">
           <div className="mx-auto max-w-7xl">
-            <h2 className="mb-12 font-display text-4xl font-medium tracking-tight md:mb-16 md:text-5xl">正在形成的作品</h2>
+            <div className="mb-12 flex flex-wrap items-end justify-between gap-x-8 gap-y-3 md:mb-16">
+              <h2 className="font-display text-4xl font-medium tracking-tight md:text-5xl">正在形成的作品</h2>
+              <Link to="/projects" className="inline-flex items-center gap-2 text-sm font-medium text-foreground line-reveal">
+                查看全部项目
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
 
             <div className="grid border-t border-border md:grid-cols-3">
               {selectedWork.map((item) => {
@@ -220,11 +227,7 @@ const AlphaHome = () => {
         </section>
       </main>
 
-      <footer className="border-t border-border/70 px-5 py-7 md:px-10">
-        <div className="mx-auto max-w-7xl text-sm text-muted-foreground">
-          <p>© 2026 Chen Jin</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

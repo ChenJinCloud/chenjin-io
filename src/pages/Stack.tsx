@@ -263,25 +263,25 @@ const Stack = () => {
         trackEvent('tool_card_open', { name: tool.name, status: tool.status });
         setSelectedTool(tool);
       }}
-      className={`group flex min-h-[150px] flex-col justify-between rounded-lg border p-4 text-left transition-all ${
+      className={`group flex min-h-[150px] flex-col justify-between rounded-lg border bg-card p-4 text-left transition-colors ${
         featured
-          ? 'border-primary/25 hover:border-primary/55 hover:bg-primary/5'
-          : 'border-border hover:border-foreground/30 hover:bg-muted/30'
+          ? 'border-accent/25 hover:border-accent/55'
+          : 'border-border hover:border-foreground/30'
       }`}
     >
       <div>
         <div className="mb-2 flex items-center justify-between gap-3">
-          <span className={`text-eyebrow font-medium uppercase tracking-wider ${featured ? 'text-primary/75' : 'text-muted-foreground'}`}>
+          <span className={`text-eyebrow font-medium uppercase tracking-wider ${featured ? 'text-accent/75' : 'text-muted-foreground'}`}>
             {pick(isZh, tool.role)}
           </span>
-          <span className={`rounded-full px-2 py-0.5 text-xs ${tool.status === 'saved' ? 'bg-muted text-muted-foreground' : 'bg-primary/10 text-primary'}`}>
+          <span className={`rounded-full px-2 py-0.5 text-xs ${tool.status === 'saved' ? 'bg-muted text-muted-foreground' : 'bg-accent/10 text-accent'}`}>
             {statusLabel(tool.status, isZh)}
           </span>
         </div>
         <h3 className="text-sm font-medium text-foreground">{tool.name}</h3>
         <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{pick(isZh, tool.why)}</p>
       </div>
-      <div className={`mt-4 flex items-center gap-1.5 text-xs ${featured ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'}`}>
+      <div className={`mt-4 flex items-center gap-1.5 text-xs ${featured ? 'text-accent' : 'text-muted-foreground group-hover:text-foreground'}`}>
         {t.stack.viewWorkflowRole}
         <ExternalLink className="h-3.5 w-3.5" />
       </div>
@@ -307,8 +307,8 @@ const Stack = () => {
             transition={{ delay: 0.12 }}
             className="mb-16"
           >
-            <div className="mb-4 border-b border-primary/30 pb-3">
-              <h2 className="text-lg font-medium text-primary">{t.stack.coreStack.heading}</h2>
+            <div className="mb-4 border-b border-accent/30 pb-3">
+              <h2 className="text-lg font-medium text-accent">{t.stack.coreStack.heading}</h2>
               <p className="mt-1 text-xs text-muted-foreground">
                 {t.stack.coreStack.desc}
               </p>
@@ -344,8 +344,8 @@ const Stack = () => {
               viewport={VIEWPORT}
               className="mt-20"
             >
-              <div className="mb-4 border-b border-primary/30 pb-3">
-                <h2 className="text-lg font-medium text-primary">{t.stack.toolsIBuild.heading}</h2>
+              <div className="mb-4 border-b border-accent/30 pb-3">
+                <h2 className="text-lg font-medium text-accent">{t.stack.toolsIBuild.heading}</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
                   {t.stack.toolsIBuild.desc}
                 </p>
@@ -358,20 +358,20 @@ const Stack = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackOutboundClick(tool.url, { source: 'stack_my_tools', name: tool.name })}
-                    className="group flex items-center justify-between rounded-lg border border-primary/20 p-4 text-left transition-all hover:border-primary/50 hover:bg-primary/5"
+                    className="group flex items-center justify-between rounded-lg border border-accent/20 bg-card p-4 text-left transition-colors hover:border-accent/50"
                   >
                     <div>
                       <div className="flex items-center gap-2">
                         <h3 className="text-sm font-medium text-foreground">{tool.name}</h3>
                         {tool.status === 'live' && (
-                          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-xs font-medium text-primary">
+                          <span className="rounded bg-accent/10 px-1.5 py-0.5 text-xs font-medium text-accent">
                             Live
                           </span>
                         )}
                       </div>
                       <p className="text-xs text-muted-foreground">{pick(isZh, tool.desc)}</p>
                     </div>
-                    <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 text-primary/50 transition-colors group-hover:text-primary" />
+                    <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 text-accent/50 transition-colors group-hover:text-accent" />
                   </a>
                 ))}
               </div>
@@ -402,7 +402,7 @@ const Stack = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={VIEWPORT}
                   transition={{ delay: i * 0.04 }}
-                  className="group flex items-center justify-between rounded-lg border border-border p-5 transition-colors hover:border-foreground/30"
+                  className="group flex items-center justify-between rounded-lg border border-border bg-card p-5 transition-colors hover:border-foreground/30"
                 >
                   <div>
                     <h3 className="font-medium text-foreground">{source.name}</h3>
@@ -441,7 +441,7 @@ const Stack = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackOutboundClick(selectedTool.url, { source: 'stack_dialog', name: selectedTool.name })}
-                className="inline-flex items-center gap-2 text-sm text-foreground transition-colors hover:text-primary"
+                className="inline-flex items-center gap-2 text-sm text-foreground transition-colors hover:text-accent"
               >
                 {t.stack.visitWebsite}
                 <ExternalLink className="h-3.5 w-3.5" />

@@ -32,35 +32,33 @@ const Navigation = () => {
 
         <div className="flex items-center gap-1 md:gap-4">
           <nav aria-label="网站导航" className="flex items-center gap-1">
-            {isHome && (
+            {isHome ? (
               <>
                 <a href="#now" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">现在</a>
                 <a href="#work" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">作品</a>
                 <a href="#writing" className="hidden px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline-block md:px-3">写作</a>
                 <a href="#contact" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">联系</a>
-                <span className="hidden h-5 w-px bg-border sm:block" aria-hidden="true" />
               </>
-            )}
-            {!isHome && (
-              <Link to="/" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">
-                {language === 'zh' ? '首页' : 'Home'}
-              </Link>
-            )}
-            {pageNavItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`hidden px-2.5 py-2 text-sm transition-colors hover:text-foreground sm:inline-block md:px-3 ${
-                  isActive(item) ? 'text-foreground' : 'text-muted-foreground'
-                }`}
-              >
-                {item.label[language]}
-              </Link>
-            ))}
-            {!isHome && (
-              <a href="/#contact" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">
-                {language === 'zh' ? '联系' : 'Contact'}
-              </a>
+            ) : (
+              <>
+                <Link to="/" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">
+                  {language === 'zh' ? '首页' : 'Home'}
+                </Link>
+                {pageNavItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className={`hidden px-2.5 py-2 text-sm transition-colors hover:text-foreground sm:inline-block md:px-3 ${
+                      isActive(item) ? 'text-foreground' : 'text-muted-foreground'
+                    }`}
+                  >
+                    {item.label[language]}
+                  </Link>
+                ))}
+                <a href="/#contact" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">
+                  {language === 'zh' ? '联系' : 'Contact'}
+                </a>
+              </>
             )}
           </nav>
           <span className="hidden h-5 w-px bg-border sm:block" aria-hidden="true" />

@@ -60,7 +60,7 @@ const Playbooks = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + i * 0.05 }}
-                className="p-6 border border-border rounded-lg hover:border-foreground/30 transition-colors"
+                className="p-6 border border-border rounded-lg bg-card hover:border-foreground/30 transition-colors"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
