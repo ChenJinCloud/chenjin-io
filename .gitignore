@@ -15,6 +15,9 @@ dist-ssr
 # Vite dependency cache
 .vite-cache
 
+# Reference material (large downloaded pages, not part of the site)
+refer
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

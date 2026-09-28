@@ -1,0 +1,10 @@
+/blog /writing 301
+/blog/* /writing/:splat 301
+/writing/bookshelf /writing 301
+/projects/* / 301
+/playbooks / 301
+/workbench / 301
+/stack / 301
+/roadmap / 301
+/work-with-me / 301
+/experience/* / 301

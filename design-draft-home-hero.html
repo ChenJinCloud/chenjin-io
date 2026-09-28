@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chen Jin — Homepage Hero Draft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#eef5f0; --ink:#263b37; --muted:#657773; --line:#d5e3db; --mint:#2f8f70; --panel:#f7fbf8; --warm:#e7d8c9; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:radial-gradient(ellipse 70% 55% at 18% 12%, rgba(118,190,164,.22), transparent 62%), radial-gradient(ellipse 55% 48% at 82% 30%, rgba(226,196,167,.22), transparent 64%), var(--bg); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans SC", sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    .page { min-height:100vh; width:min(1240px, calc(100% - 48px)); margin:auto; padding:28px 0 56px; }
+    header { display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--muted); }
+    .brand { color:var(--ink); font-weight:760; letter-spacing:.08em; }
+    nav { display:flex; gap:24px; }
+    nav a:hover { color:var(--ink); }
+    main { padding-top:clamp(72px, 13vh, 150px); }
+    .hero { display:grid; grid-template-columns:minmax(0, 1.12fr) minmax(330px, .88fr); gap:clamp(48px, 8vw, 120px); align-items:center; }
+    .eyebrow { margin:0 0 24px; color:var(--mint); font-size:14px; font-weight:740; letter-spacing:.12em; text-transform:uppercase; }
+    h1 { max-width:760px; margin:0; font-family:"Playfair Display", Georgia, serif; font-size:clamp(58px, 8vw, 108px); line-height:.94; letter-spacing:-.055em; font-weight:500; }
+    .identity { margin:22px 0 0; font-size:clamp(21px, 2.4vw, 30px); line-height:1.25; letter-spacing:-.025em; }
+    .summary { max-width:620px; margin:22px 0 0; color:var(--muted); font-size:clamp(18px, 2vw, 22px); line-height:1.55; }
+    .proof { display:flex; flex-wrap:wrap; gap:9px 18px; max-width:660px; margin-top:30px; padding-top:18px; border-top:1px solid var(--line); color:#536761; font-size:14px; line-height:1.5; }
+    .proof strong { color:var(--ink); font-weight:750; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:34px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 18px; border:1px solid rgba(47,143,112,.55); border-radius:999px; font-size:14px; font-weight:650; }
+    .button.primary { color:#f7fbf8; background:var(--mint); border-color:var(--mint); }
+    .button.secondary { background:rgba(247,251,248,.58); }
+    .portrait { position:relative; aspect-ratio:4/5; max-width:430px; justify-self:end; overflow:hidden; border-radius:48% 48% 14px 14px; background:linear-gradient(145deg, #d6e6dc, var(--warm)); border:1px solid #c7d9cf; box-shadow:0 22px 48px rgba(38,59,55,.12); }
+    .portrait::before { content:"PHOTO"; position:absolute; inset:0; display:grid; place-items:center; color:#718078; font-size:13px; letter-spacing:.22em; font-weight:760; }
+    .portrait::after { content:"Replace with Chen Jin's portrait"; position:absolute; left:18px; right:18px; bottom:16px; padding:10px 12px; color:#53625a; background:rgba(247,251,248,.8); border-radius:999px; font-size:12px; text-align:center; }
+    .chat { margin-top:clamp(72px, 12vh, 132px); padding:22px; border:1px solid rgba(47,143,112,.24); border-radius:28px; background:rgba(247,251,248,.76); box-shadow:0 8px 28px rgba(47,143,112,.08); }
+    .chat-label { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:12px; color:var(--muted); font-size:13px; }
+    .status { color:var(--mint); font-weight:700; }
+    .chat-row { display:flex; gap:12px; align-items:center; }
+    input { flex:1; min-width:0; height:52px; padding:0 16px; border:1px solid var(--line); border-radius:7px; color:var(--ink); background:#fff; font:inherit; }
+    .send { height:52px; padding:0 20px; border:0; border-radius:999px; color:#fff; background:var(--mint); font:inherit; font-weight:700; }
+    .note { margin:12px 0 0; color:#829087; font-size:12px; }
+    @media (max-width:760px) { .page { width:min(100% - 32px, 600px); padding-top:20px; } nav { display:none; } main { padding-top:72px; } .hero { grid-template-columns:1fr; gap:42px; } .portrait { width:100%; max-width:none; justify-self:stretch; aspect-ratio:16/10; } .chat-row { align-items:stretch; flex-direction:column; } .send { width:100%; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="brand" href="#">CHENJIN</a>
+      <nav><a href="#chat">Chat</a><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+    </header>
+    <main>
+      <section class="hero" aria-label="Chen Jin introduction">
+        <div>
+          <p class="eyebrow">AI 产品全球化增长</p>
+          <h1>陈今</h1>
+          <p class="identity">InsForge 增长负责人</p>
+          <p class="summary">让 AI Coding 产品被全球开发者发现、使用并持续增长。</p>
+          <div class="proof" id="work">
+            <span><strong>InsForge Launch Week</strong></span>
+            <span>Product Hunt 周榜 #1</span>
+            <span>GitHub Trending #1</span>
+            <span>X 曝光 150 万+</span>
+            <span>7 天新增 3K+ GitHub Stars</span>
+          </div>
+          <div class="actions"><a class="button primary" href="#chat">和我聊聊</a><a class="button secondary" href="#work">查看发布实践</a></div>
+        </div>
+        <div class="portrait" role="img" aria-label="个人照片占位区域"></div>
+      </section>
+      <section class="chat" id="chat" aria-label="Chat with Chen Jin">
+        <div class="chat-label"><span>你正在做什么？</span><span class="status">● 在线交流</span></div>
+        <div class="chat-row"><input placeholder="告诉我你的产品、增长问题或正在构建的东西…" /><button class="send">开始聊天 →</button></div>
+        <p class="note">从产品定位、全球分发到 AI Coding 工作流，我们可以从一个具体问题开始。</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

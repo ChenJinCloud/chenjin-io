@@ -119,8 +119,8 @@ export function getKnowledgeRegistry(language: Language): KnowledgeItem[] {
   const writingItems = blogPosts.map((post) => ({
     id: `writing:${post.id}`,
     type: 'writing' as const,
-    title: post.title,
-    excerpt: post.excerpt,
+    title: post.title[language],
+    excerpt: post.excerpt[language],
     route: `/writing/${post.id}`,
     tags: [post.category, post.sourceAccount, post.id],
     priority: post.featured ? 6 : 3,

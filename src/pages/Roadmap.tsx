@@ -1,10 +1,11 @@
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import PageLayout from '@/components/PageLayout';
+import Heading from '@/components/Heading';
 import LoginModal from '@/components/LoginModal';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getRoadmapDisplayItems, roadmapCategoryLabels, roadmapStatusConfig } from '@/features/roadmap/roadmapData';
 import type { RoadmapCategory, RoadmapDisplayItem, RoadmapFilter, RoadmapStatus } from '@/features/roadmap/roadmapTypes';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DURATION, EASE } from '@/lib/motion';
 import { useEffect, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -95,33 +96,25 @@ const Roadmap = () => {
     .sort((a, b) => b.votes - a.votes);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <main className="pt-28 pb-24 px-6 md:px-12">
-        <div className="max-w-3xl mx-auto">
-          {/* Header */}
+    <PageLayout containerSize="narrow" spacing="compact">
+      {/* Header */}
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: DURATION.base }}
             className="text-xs font-medium tracking-widest uppercase text-accent mb-6 block"
           >
             {t.roadmap.label}
           </motion.span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-display font-medium text-foreground leading-tight mb-4"
-          >
+          <Heading delay={0.1} className="mb-4 leading-tight text-foreground">
             {t.roadmap.title}
-          </motion.h1>
+          </Heading>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: DURATION.hero, delay: 0.2 }}
             className="text-muted-foreground font-light mb-10"
           >
             {t.roadmap.subtitle}
@@ -131,7 +124,7 @@ const Roadmap = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: DURATION.base, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8"
           >
             {/* Filters */}
@@ -175,7 +168,7 @@ const Roadmap = () => {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: DURATION.fast }}
                 onSubmit={handleSubmit}
                 className="overflow-hidden mb-8"
               >
@@ -240,11 +233,11 @@ const Roadmap = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 0.4,
+                  duration: DURATION.stagger,
                   delay: 0.05 * i,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: EASE,
                 }}
-                className="group flex gap-4 p-5 rounded-2xl border border-border bg-card hover:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.06)] transition-shadow duration-300"
+                className="group flex gap-4 p-5 rounded-2xl border border-border bg-card hover:shadow-card transition-shadow duration-300"
               >
                 {/* Vote button */}
                 <button
@@ -267,11 +260,11 @@ const Roadmap = () => {
                     </h3>
                     <Badge
                       variant="secondary"
-                      className={`text-[11px] font-normal ${item.statusColor}`}
+                      className={`text-eyebrow font-normal ${item.statusColor}`}
                     >
                       {item.statusLabel}
                     </Badge>
-                    <Badge variant="outline" className="text-[11px] font-normal">
+                    <Badge variant="outline" className="text-eyebrow font-normal">
                       {item.categoryLabel}
                     </Badge>
                   </div>
@@ -291,11 +284,8 @@ const Roadmap = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-      </main>
-      <Footer />
       <LoginModal open={loginOpen} onOpenChange={setLoginOpen} />
-    </div>
+    </PageLayout>
   );
 };
 

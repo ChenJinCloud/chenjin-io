@@ -10,7 +10,7 @@ const JikeLogoMark = ({ compact = false, className = '' }: JikeLogoMarkProps) =>
   if (compact) {
     return (
       <span
-        className={`inline-grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-[18px] bg-[#ffdf00] shadow-[0_14px_36px_-18px_rgba(0,0,0,0.55)] ring-1 ring-black/10 ${className}`}
+        className={`inline-grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-[18px] bg-brand-jike shadow-[0_14px_36px_-18px_rgba(0,0,0,0.55)] ring-1 ring-black/10 ${className}`}
         aria-label="即刻官方 app 图标"
       >
         <img

@@ -1,6 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import ChatGateway from '@/features/chat/ChatGateway';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DURATION, EASE } from '@/lib/motion';
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 const ROTATION_INTERVAL = 2500;
@@ -81,7 +82,7 @@ const HeroSection = () => {
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: DURATION.hero, delay: 0.3, ease: EASE }}
           className="text-5xl md:text-6xl lg:text-[5.5rem] 2xl:text-[6.5rem] [@media(min-width:2400px)]:text-[8rem] font-display font-medium leading-[0.95] tracking-tight mb-6 md:mb-8 2xl:mb-10"
           style={{ color: 'hsl(var(--headline))' }}
         >
@@ -92,14 +93,14 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-2xl md:text-4xl lg:text-5xl 2xl:text-[3.5rem] [@media(min-width:2400px)]:text-[4.5rem] font-display font-light text-foreground/80 leading-tight mb-10 md:mb-14 2xl:mb-16 flex items-baseline justify-center flex-wrap gap-x-[0.3em]"
+          transition={{ duration: DURATION.hero, delay: 0.8 }}
+          className="text-2xl md:text-4xl lg:text-5xl 2xl:text-hero-sub [@media(min-width:2400px)]:text-hero-sub-xl font-display font-light text-foreground/80 leading-tight mb-10 md:mb-14 2xl:mb-16 flex items-baseline justify-center flex-wrap gap-x-[0.3em]"
         >
           <span>{t.hero.rotatingPrefix}</span>
 
           <span
             aria-hidden="true"
-            className="absolute invisible pointer-events-none text-2xl md:text-4xl lg:text-5xl 2xl:text-[3.5rem] [@media(min-width:2400px)]:text-[4.5rem] italic font-bold"
+            className="absolute invisible pointer-events-none text-2xl md:text-4xl lg:text-5xl 2xl:text-hero-sub [@media(min-width:2400px)]:text-hero-sub-xl italic font-bold"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             {words.map((word, i) => (
@@ -128,10 +129,10 @@ const HeroSection = () => {
                 style={{ fontFamily: "'Playfair Display', serif" }}
                 initial={{ y: '100%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
-                exit={{ y: '-100%', opacity: 0, transition: { duration: 0.25 } }}
+                exit={{ y: '-100%', opacity: 0, transition: { duration: DURATION.fast } }}
                 transition={{
                   y: { type: 'spring', stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
+                  opacity: { duration: DURATION.instant },
                 }}
               >
                 {words[currentIndex]}
@@ -146,7 +147,7 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.3 }}
+          transition={{ duration: DURATION.hero, delay: 1.3 }}
           className="w-full"
         >
           <ChatGateway variant="hero" />

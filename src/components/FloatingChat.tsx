@@ -1,6 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import ChatGateway from '@/features/chat/ChatGateway';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DURATION, EASE } from '@/lib/motion';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -37,7 +38,7 @@ const FloatingChat = () => {
           opacity: showButton && !open ? 1 : 0,
           scale: showButton && !open ? 1 : 0.8,
         }}
-        transition={{ duration: 0.25 }}
+        transition={{ duration: DURATION.fast }}
         onClick={() => setOpen(true)}
         className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-accent text-accent-foreground shadow-lg shadow-accent/20 flex items-center justify-center hover:scale-110 transition-transform ${!showButton || open ? 'pointer-events-none' : ''}`}
         aria-label="Open chat"
@@ -56,7 +57,7 @@ const FloatingChat = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: DURATION.instant }}
               onClick={() => setOpen(false)}
               className="fixed inset-0 z-50 bg-foreground/5 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:pointer-events-none"
             />
@@ -65,7 +66,7 @@ const FloatingChat = () => {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: DURATION.fast, ease: EASE }}
               className="fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] max-w-lg"
             >
               <div className="rounded-2xl border-2 border-accent/30 bg-card shadow-2xl shadow-accent/10 overflow-hidden">

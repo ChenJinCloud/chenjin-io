@@ -20,7 +20,7 @@ const variantClasses = {
   hero: {
     shell: 'w-full max-w-2xl 2xl:max-w-3xl [@media(min-width:2400px)]:max-w-4xl mx-auto',
     form: 'relative rounded-[28px] border border-accent/25 bg-card/90 backdrop-blur-sm shadow-[0_8px_28px_-8px_hsl(var(--accent)/0.18)] focus-within:border-accent/50 focus-within:shadow-[0_10px_36px_-6px_hsl(var(--accent)/0.28)] transition-all duration-300',
-    textarea: 'min-h-[40px] max-h-[200px] py-2 text-[15px]',
+    textarea: 'min-h-[40px] max-h-[200px] py-2 text-body',
     topicWrap: 'justify-center mt-5',
     result: 'mt-5 rounded-2xl border border-border bg-card/85 p-4 text-left shadow-sm',
     topicButton: 'px-4 py-1.5',
@@ -177,7 +177,7 @@ const ChatGateway = ({ variant = 'hero', autoFocus = false }: ChatGatewayProps) 
 
       {result && (
         <div className={classes.result}>
-          <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.16em] text-accent">
+          <p className="mb-2 text-eyebrow font-medium uppercase tracking-[0.16em] text-accent">
             {isZh ? '站内知识路由' : 'Site Knowledge Router'}
           </p>
           <p className="text-sm leading-relaxed text-muted-foreground">

@@ -16,7 +16,14 @@ export default {
     extend: {
       fontFamily: {
         sans: ["DM Sans", "sans-serif"],
+        serif: ["Playfair Display", "serif"],
         display: ["Playfair Display", "serif"],
+      },
+      fontSize: {
+        eyebrow: ["0.6875rem", { lineHeight: "1.4" }], // 11px — uppercase tracked labels/badges
+        body: ["0.9375rem", { lineHeight: "1.6" }], // 15px — this project's reading copy size
+        "hero-sub": "3.5rem",
+        "hero-sub-xl": "4.5rem",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -52,6 +59,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "brand-jike": "hsl(var(--brand-jike))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -67,6 +75,10 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        card: "0 8px 24px -4px hsl(var(--foreground) / 0.08)",
+        float: "0 4px 28px -10px hsl(var(--foreground) / 0.14)",
       },
       keyframes: {
         "accordion-down": {

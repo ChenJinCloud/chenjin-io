@@ -1,9 +1,9 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import PageLayout from '@/components/PageLayout';
+import Heading from '@/components/Heading';
 import { motion } from 'framer-motion';
-import { Link, useParams, Navigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, Building2, GraduationCap } from 'lucide-react';
+import { useParams, Navigate } from 'react-router-dom';
+import { Calendar, Building2, GraduationCap } from 'lucide-react';
 
 interface ExperienceItem {
   id: string;
@@ -115,17 +115,10 @@ const ExperienceDetailContent = () => {
     (isZh ? experience.highlights.zh : experience.highlights.en).length > 0;
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <main className="pt-32 pb-20 px-6 md:px-12">
-        <div className="max-w-3xl mx-auto">
-          <Link
-            to="/#experience"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            {isZh ? '返回首页' : 'Back to Home'}
-          </Link>
+    <PageLayout
+      containerSize="narrow"
+      back={{ to: '/#experience', label: { zh: '返回首页', en: 'Back to Home' } }}
+    >
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -149,9 +142,9 @@ const ExperienceDetailContent = () => {
               </span>
             </div>
 
-            <h1 className="font-serif text-3xl md:text-4xl font-light mb-4">
+            <Heading level="detail" animate={false} className="mb-4">
               {isZh ? experience.title.zh : experience.title.en}
-            </h1>
+            </Heading>
 
             <p className="text-lg text-muted-foreground mb-4">
               {isZh ? experience.subtitle.zh : experience.subtitle.en}
@@ -211,10 +204,7 @@ const ExperienceDetailContent = () => {
               </div>
             )}
           </motion.div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 

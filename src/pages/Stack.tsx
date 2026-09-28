@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import { translations } from '@/lib/i18n';
+import PageLayout from '@/components/PageLayout';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { VIEWPORT } from '@/lib/motion';
+import Heading from '@/components/Heading';
+import { ExternalLink } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -38,7 +39,7 @@ interface MyTool {
   status?: 'live' | 'beta' | 'coming';
 }
 
-const t = (isZh: boolean, text: { zh: string; en: string }) => (isZh ? text.zh : text.en);
+const pick = (isZh: boolean, text: { zh: string; en: string }) => (isZh ? text.zh : text.en);
 
 const createTool = (
   name: string,
@@ -51,13 +52,14 @@ const createTool = (
 ): StackTool => ({ name, url, status, role, what, why, workflow });
 
 const statusLabel = (status: ToolStatus, isZh: boolean) => {
-  if (status === 'core') return isZh ? '核心' : 'Core';
-  if (status === 'saved') return isZh ? '待评估' : 'Saved';
-  return isZh ? '在用' : 'Using';
+  const labels = translations[isZh ? 'zh' : 'en'].stack.statusLabels;
+  if (status === 'core') return labels.core;
+  if (status === 'saved') return labels.saved;
+  return labels.using;
 };
 
 const Stack = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const isZh = language === 'zh';
   const [selectedTool, setSelectedTool] = useState<StackTool | null>(null);
 
@@ -265,40 +267,26 @@ const Stack = () => {
     >
       <div>
         <div className="mb-2 flex items-center justify-between gap-3">
-          <span className={`text-[11px] font-medium uppercase tracking-wider ${featured ? 'text-primary/75' : 'text-muted-foreground'}`}>
-            {t(isZh, tool.role)}
+          <span className={`text-eyebrow font-medium uppercase tracking-wider ${featured ? 'text-primary/75' : 'text-muted-foreground'}`}>
+            {pick(isZh, tool.role)}
           </span>
-          <span className={`rounded-full px-2 py-0.5 text-[10px] ${tool.status === 'saved' ? 'bg-muted text-muted-foreground' : 'bg-primary/10 text-primary'}`}>
+          <span className={`rounded-full px-2 py-0.5 text-xs ${tool.status === 'saved' ? 'bg-muted text-muted-foreground' : 'bg-primary/10 text-primary'}`}>
             {statusLabel(tool.status, isZh)}
           </span>
         </div>
         <h3 className="text-sm font-medium text-foreground">{tool.name}</h3>
-        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(isZh, tool.why)}</p>
+        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{pick(isZh, tool.why)}</p>
       </div>
       <div className={`mt-4 flex items-center gap-1.5 text-xs ${featured ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'}`}>
-        {isZh ? '查看工作流角色' : 'View workflow role'}
+        {t.stack.viewWorkflowRole}
         <ExternalLink className="h-3.5 w-3.5" />
       </div>
     </button>
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <main className="px-6 pb-20 pt-32 md:px-12">
-        <div className="mx-auto max-w-6xl">
-          <Link to="/" className="mb-8 inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" />
-            {isZh ? '返回首页' : 'Back to Home'}
-          </Link>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6 font-serif text-4xl font-light md:text-5xl"
-          >
-            {isZh ? '我的工作台地图' : 'My Workbench Map'}
-          </motion.h1>
+    <PageLayout containerSize="wide" back={{ to: '/', label: { zh: '返回首页', en: 'Back to Home' } }}>
+      <Heading className="mb-6">{t.stack.title}</Heading>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -306,9 +294,7 @@ const Stack = () => {
             transition={{ delay: 0.1 }}
             className="mb-12 max-w-2xl text-muted-foreground"
           >
-            {isZh
-              ? '不是工具榜单，而是我如何构建、增长、分发、管理基础设施的个人操作系统。'
-              : 'Not a tool directory, but a map of how I build, grow, distribute, and maintain my personal operating system.'}
+            {t.stack.intro}
           </motion.p>
 
           <motion.section
@@ -318,9 +304,9 @@ const Stack = () => {
             className="mb-16"
           >
             <div className="mb-4 border-b border-primary/30 pb-3">
-              <h2 className="text-lg font-medium text-primary">{isZh ? 'Core Stack / 核心工作台' : 'Core Stack'}</h2>
+              <h2 className="text-lg font-medium text-primary">{t.stack.coreStack.heading}</h2>
               <p className="mt-1 text-xs text-muted-foreground">
-                {isZh ? '我当前最常使用、最能解释工作方式的高价值工具。' : 'The high-value tools that best explain how I currently work.'}
+                {t.stack.coreStack.desc}
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -337,8 +323,8 @@ const Stack = () => {
                 transition={{ delay: 0.16 + index * 0.04 }}
               >
                 <div className="mb-4 border-b border-border pb-3">
-                  <h2 className="text-lg font-medium text-foreground">{t(isZh, section.title)}</h2>
-                  <p className="mt-1 text-xs text-muted-foreground">{t(isZh, section.desc)}</p>
+                  <h2 className="text-lg font-medium text-foreground">{pick(isZh, section.title)}</h2>
+                  <p className="mt-1 text-xs text-muted-foreground">{pick(isZh, section.desc)}</p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {section.tools.map((tool) => renderToolCard(tool))}
@@ -351,13 +337,13 @@ const Stack = () => {
             <motion.section
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={VIEWPORT}
               className="mt-20"
             >
               <div className="mb-4 border-b border-primary/30 pb-3">
-                <h2 className="text-lg font-medium text-primary">{isZh ? 'Tools I Build / 我开发的工具' : 'Tools I Build'}</h2>
+                <h2 className="text-lg font-medium text-primary">{t.stack.toolsIBuild.heading}</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  {isZh ? '我自己做出来，并准备继续迭代的小工具。' : 'Small tools I have built and intend to keep iterating.'}
+                  {t.stack.toolsIBuild.desc}
                 </p>
               </div>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -373,12 +359,12 @@ const Stack = () => {
                       <div className="flex items-center gap-2">
                         <h3 className="text-sm font-medium text-foreground">{tool.name}</h3>
                         {tool.status === 'live' && (
-                          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">
+                          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-xs font-medium text-primary">
                             Live
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-muted-foreground">{t(isZh, tool.desc)}</p>
+                      <p className="text-xs text-muted-foreground">{pick(isZh, tool.desc)}</p>
                     </div>
                     <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 text-primary/50 transition-colors group-hover:text-primary" />
                   </a>
@@ -390,13 +376,13 @@ const Stack = () => {
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={VIEWPORT}
             className="mt-20"
           >
             <div className="mb-4 border-b border-border pb-3">
-              <h2 className="text-lg font-medium text-foreground">{isZh ? 'Sources I Follow / 我关注的信息源' : 'Sources I Follow'}</h2>
+              <h2 className="text-lg font-medium text-foreground">{t.stack.sourcesIFollow.heading}</h2>
               <p className="mt-1 text-xs text-muted-foreground">
-                {isZh ? '只保留真正的信息源，不再混入社交渠道和生产工具。' : 'Actual information sources, separated from social channels and production tools.'}
+                {t.stack.sourcesIFollow.desc}
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -408,22 +394,19 @@ const Stack = () => {
                   rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={VIEWPORT}
                   transition={{ delay: i * 0.04 }}
                   className="group flex items-center justify-between rounded-lg border border-border p-5 transition-colors hover:border-foreground/30"
                 >
                   <div>
                     <h3 className="font-medium text-foreground">{source.name}</h3>
-                    <p className="text-sm text-muted-foreground">{t(isZh, source.desc)}</p>
+                    <p className="text-sm text-muted-foreground">{pick(isZh, source.desc)}</p>
                   </div>
                   <ExternalLink className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
                 </motion.a>
               ))}
             </div>
           </motion.section>
-        </div>
-      </main>
-      <Footer />
 
       <Dialog open={!!selectedTool} onOpenChange={(open) => !open && setSelectedTool(null)}>
         <DialogContent className="sm:max-w-lg">
@@ -435,16 +418,16 @@ const Stack = () => {
 
           {selectedTool && (
             <div className="space-y-6">
-              <p className="text-sm text-muted-foreground">{t(isZh, selectedTool.what)}</p>
+              <p className="text-sm text-muted-foreground">{pick(isZh, selectedTool.what)}</p>
 
               <div>
-                <h4 className="mb-2 text-sm font-medium text-foreground">{isZh ? '为什么放在这里' : 'Why it belongs here'}</h4>
-                <p className="text-sm leading-relaxed text-muted-foreground">{t(isZh, selectedTool.why)}</p>
+                <h4 className="mb-2 text-sm font-medium text-foreground">{t.stack.whyItBelongsHere}</h4>
+                <p className="text-sm leading-relaxed text-muted-foreground">{pick(isZh, selectedTool.why)}</p>
               </div>
 
               <div>
-                <h4 className="mb-2 text-sm font-medium text-foreground">{isZh ? '工作流角色' : 'Role in my workflow'}</h4>
-                <p className="text-sm leading-relaxed text-muted-foreground">{t(isZh, selectedTool.workflow)}</p>
+                <h4 className="mb-2 text-sm font-medium text-foreground">{t.stack.roleInWorkflow}</h4>
+                <p className="text-sm leading-relaxed text-muted-foreground">{pick(isZh, selectedTool.workflow)}</p>
               </div>
 
               <a
@@ -453,14 +436,14 @@ const Stack = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-foreground transition-colors hover:text-primary"
               >
-                {isZh ? '访问网站' : 'Visit Website'}
+                {t.stack.visitWebsite}
                 <ExternalLink className="h-3.5 w-3.5" />
               </a>
             </div>
           )}
         </DialogContent>
       </Dialog>
-    </div>
+    </PageLayout>
   );
 };
 

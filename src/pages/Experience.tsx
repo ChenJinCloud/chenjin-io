@@ -1,9 +1,9 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import PageLayout from '@/components/PageLayout';
+import Heading from '@/components/Heading';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const Experience = () => {
   const { language, t } = useLanguage();
@@ -12,22 +12,8 @@ const Experience = () => {
   const items = t.journey.items;
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <main className="pt-32 pb-20 px-6 md:px-12">
-        <div className="max-w-4xl mx-auto">
-          <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8">
-            <ArrowLeft className="w-4 h-4" />
-            {isZh ? '返回首页' : 'Back to Home'}
-          </Link>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="font-serif text-4xl md:text-5xl font-light mb-6"
-          >
-            {isZh ? '经历' : 'Experience'}
-          </motion.h1>
+    <PageLayout back={{ to: '/', label: { zh: '返回首页', en: 'Back to Home' } }}>
+      <Heading className="mb-6">{isZh ? '经历' : 'Experience'}</Heading>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -67,10 +53,7 @@ const Experience = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 

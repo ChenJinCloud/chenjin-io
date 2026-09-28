@@ -2,6 +2,7 @@ import Footer from '@/components/Footer';
 import JikeLogoMark from '@/components/JikeLogoMark';
 import Navigation from '@/components/Navigation';
 import { motion } from 'framer-motion';
+import { DURATION, EASE } from '@/lib/motion';
 import {
   ArrowLeft,
   ArrowRight,
@@ -182,7 +183,7 @@ const themeInsights = [
   {
     name: '个体处境 / 生活策略',
     count: 401,
-    color: '#FFE411',
+    color: 'hsl(var(--brand-jike))',
     summary: '把身体、欲望、关系、行动和人生选择这类私人困境，整理成能复述和能行动的判断。',
     topics: ['浴室沉思', '一个想法不一定对', '今日金句', '中年互助会'],
     representative: '只会刷短视频的人，感知力已经低到惨不忍睹',
@@ -266,7 +267,7 @@ const themeInsights = [
 ];
 
 const legacyThemeCounts = [
-  { name: '思辨 / 金句观点', count: 353, color: '#FFE411' },
+  { name: '思辨 / 金句观点', count: 353, color: 'hsl(var(--brand-jike))' },
   { name: 'AI / 技术工具', count: 351, color: 'hsl(170 50% 37%)' },
   { name: '出海 / 创业商业', count: 185, color: 'hsl(28 70% 65%)' },
   { name: '读书 / 知识学习', count: 171, color: 'hsl(195 45% 58%)' },
@@ -281,7 +282,7 @@ const themeDeepDives = [
     name: '思辨 / 金句观点',
     count: 353,
     share: '25.2%',
-    color: '#FFE411',
+    color: 'hsl(var(--brand-jike))',
     thesis: '这个主题解决的是“模糊感受如何变成可讨论的问题”。高价值内容往往先替读者命名处境，再把命名推进到行动选择。',
     essence: [
       '被收录的强思辨内容，常常从一个很具体的生活切口进入：约会、刷短视频、拖延、离职、赚钱、幸福感。',
@@ -564,7 +565,7 @@ const themeEssenceReports = [
     name: '思辨 / 金句观点',
     count: 353,
     share: '25.2%',
-    color: '#FFE411',
+    color: 'hsl(var(--brand-jike))',
     thesis: '这一组内容沉淀出的长期命题是：现代人的很多困境来自感知力、行动力、欲望和关系边界的错位。它们把日常焦虑压缩成更清楚的生活判断。',
     knowledgeMap: ['信息感知', '欲望管理', '行动启动', '关系边界'],
     essence: [
@@ -855,7 +856,7 @@ const contentDomainReports = [
     name: '个体处境 / 生活策略',
     count: 401,
     share: '28.6%',
-    color: '#FFE411',
+    color: 'hsl(var(--brand-jike))',
     centralQuestion: '人在信息过载、欲望膨胀、关系摩擦和行动迟滞里，怎样保留主动权？',
     boundary: '收录身体、情绪、欲望、亲密关系、行动启动、生活优先级和人生选择；把原“思辨 / 金句观点”和“生活 / 关系故事”合并到同一内容域。',
     knowledgeMap: ['信息感知', '欲望管理', '行动启动', '关系边界', '身体与时间'],
@@ -1438,7 +1439,7 @@ const JikeBestIn2025 = () => {
               <motion.div
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: DURATION.hero, ease: EASE }}
                 className="min-w-0"
               >
                 <JikeLogoMark className="mb-8" />
@@ -1493,7 +1494,7 @@ const JikeBestIn2025 = () => {
               <motion.aside
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: DURATION.hero, delay: 0.12, ease: EASE }}
                 className="border border-border/80 bg-card/72 p-5 shadow-[0_24px_90px_-58px_hsl(var(--foreground)/0.55)]"
               >
                 <div className="flex items-start justify-between gap-4 border-b border-border/70 pb-6">

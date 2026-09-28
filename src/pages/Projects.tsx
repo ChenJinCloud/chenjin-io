@@ -1,9 +1,9 @@
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import PageLayout from '@/components/PageLayout';
+import Heading from '@/components/Heading';
 import { projects } from '@/content/projects';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Projects = () => {
@@ -57,16 +57,8 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <main className="px-6 pb-20 pt-32 md:px-12">
-        <div className="mx-auto max-w-5xl">
-          <Link to="/" className="mb-8 inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" />
-            {isZh ? '返回首页' : 'Back to Home'}
-          </Link>
-
-          <motion.span
+    <PageLayout containerSize="wide" back={{ to: '/', label: { zh: '返回首页', en: 'Back to Home' } }}>
+      <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="mb-6 block text-xs font-medium uppercase tracking-widest text-accent"
@@ -74,13 +66,9 @@ const Projects = () => {
             {isZh ? '作品与载体' : 'Projects and Carriers'}
           </motion.span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-5 font-display text-4xl font-medium leading-tight text-foreground md:text-5xl"
-          >
+          <Heading className="mb-5 leading-tight text-foreground">
             {isZh ? '我正在把想法做成可访问的东西。' : 'Ideas turned into things people can visit.'}
-          </motion.h1>
+          </Heading>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -105,10 +93,7 @@ const Projects = () => {
               </motion.article>
             ))}
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 

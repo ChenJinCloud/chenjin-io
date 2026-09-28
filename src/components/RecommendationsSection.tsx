@@ -1,5 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
+import { DURATION, EASE, VIEWPORT } from '@/lib/motion';
 
 const RecommendationsSection = () => {
   const { t } = useLanguage();
@@ -11,8 +12,8 @@ const RecommendationsSection = () => {
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            viewport={VIEWPORT}
+            transition={{ duration: DURATION.hero, delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-display font-medium text-foreground leading-tight"
           >
             {t.recommendations.title}
@@ -21,8 +22,8 @@ const RecommendationsSection = () => {
           <motion.p
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.7, delay: 0.18 }}
+            viewport={VIEWPORT}
+            transition={{ duration: DURATION.slow, delay: 0.18 }}
             className="text-base md:text-lg font-light text-muted-foreground leading-relaxed"
           >
             {t.recommendations.subtitle}
@@ -35,17 +36,17 @@ const RecommendationsSection = () => {
               key={item.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={VIEWPORT}
               transition={{
-                duration: 0.45,
+                duration: DURATION.stagger,
                 delay: 0.08 * i,
-                ease: [0.22, 1, 0.36, 1],
+                ease: EASE,
               }}
-              className={`group p-6 md:p-7 rounded-2xl border border-border bg-card flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)] ${
+              className={`group p-6 md:p-7 rounded-2xl border border-border bg-card flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-card ${
                 item.story.trim() ? 'min-h-[18rem]' : 'min-h-[12rem]'
               }`}
             >
-              <span className="w-fit px-3 py-1 rounded-full bg-accent/8 text-accent text-[11px] font-medium tracking-widest uppercase mb-5">
+              <span className="w-fit px-3 py-1 rounded-full bg-accent/8 text-accent text-eyebrow font-medium tracking-widest uppercase mb-5">
                 {item.type}
               </span>
 
@@ -58,7 +59,7 @@ const RecommendationsSection = () => {
               </p>
 
               {item.story.trim() ? (
-                <p className="text-[15px] font-light text-muted-foreground leading-relaxed">
+                <p className="text-body font-light text-muted-foreground leading-relaxed">
                   {item.story}
                 </p>
               ) : null}

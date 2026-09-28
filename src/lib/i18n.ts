@@ -189,7 +189,7 @@ Before this came a career transition, a stretch of mental health recovery, and a
     contact: {
       title: 'Let\'s work together.',
       description: 'Sponsor my continued work, or bring me into your project. I take on 1-on-1 consulting, growth engagements, and select collaborations.',
-      email: 'hello@chenjin.io',
+      email: 'jiaqichen6252@gmail.com',
       socials: [
         { name: 'Twitter / X', link: 'https://x.com/jinchen_ai' },
         { name: 'LinkedIn', link: 'https://www.linkedin.com/in/jiaqi-chen-b414582aa/' },
@@ -231,6 +231,53 @@ Before this came a career transition, a stretch of mental health recovery, and a
       or: 'or',
       terms: 'By continuing, you agree to our Terms of Service.',
       comingSoon: 'Login coming soon — stay tuned!',
+    },
+    stack: {
+      title: 'My Workbench Map',
+      intro: 'Not a tool directory, but a map of how I build, grow, distribute, and maintain my personal operating system.',
+      statusLabels: { core: 'Core', saved: 'Saved', using: 'Using' },
+      coreStack: { heading: 'Core Stack', desc: 'The high-value tools that best explain how I currently work.' },
+      toolsIBuild: { heading: 'Tools I Build', desc: 'Small tools I have built and intend to keep iterating.' },
+      sourcesIFollow: {
+        heading: 'Sources I Follow',
+        desc: 'Actual information sources, separated from social channels and production tools.',
+      },
+      viewWorkflowRole: 'View workflow role',
+      whyItBelongsHere: 'Why it belongs here',
+      roleInWorkflow: 'Role in my workflow',
+      visitWebsite: 'Visit Website',
+    },
+    workWithMe: {
+      title: 'Work With Me',
+      intro: "Sponsor my continued output, or bring me into your project. Here's what I currently take on and how to reach me.",
+      sponsor: {
+        heading: 'Sponsor My Ongoing Work',
+        description: 'Sponsorships go directly into content creation, tool research, and open-source side projects. Every dollar is publicly accounted for.',
+        wechatLabel: 'WeChat Pay',
+        alipayLabel: 'Alipay',
+        qrPlaceholder: 'QR Code TBD',
+      },
+      servicesHeading: 'Engagement Types',
+      services: [
+        {
+          title: '1-on-1 Consulting',
+          desc: 'Personal growth, AI tooling, AI coding onboarding, career transition — deep conversation with concrete next steps',
+        },
+        {
+          title: 'Growth Engagement / Project Collab',
+          desc: 'Growth strategy for AI-native products, content matrix, cold start, distribution design; select projects for joint creation',
+        },
+        {
+          title: 'Content Licensing / Speaking',
+          desc: 'Article reprinting, content citation, community / podcast / public-event speaking invitations',
+        },
+      ],
+      contactHeading: 'Get in Touch',
+      contactMethods: {
+        wechat: { name: 'WeChat', value: 'Add WeChat to connect', action: 'Scan to add' },
+        email: { name: 'Email', action: 'Send email' },
+      },
+      contactNote: "When you reach out, drop a line about who you are, what you're trying to do, and rough timeline — helps me respond usefully faster.",
     },
     footer: {
       rights: '© 2026 Chen Jin',
@@ -440,7 +487,7 @@ Before this came a career transition, a stretch of mental health recovery, and a
     contact: {
       title: '一起做点事。',
       description: '赞助我持续输出，或邀请我参与你的项目。我接 1v1 咨询、增长合作、和精选项目的联合创作。',
-      email: 'hello@chenjin.io',
+      email: 'jiaqichen6252@gmail.com',
       socials: [
         { name: 'Twitter / X', link: 'https://x.com/jinchen_ai' },
         { name: 'LinkedIn', link: 'https://www.linkedin.com/in/jiaqi-chen-b414582aa/' },
@@ -482,6 +529,53 @@ Before this came a career transition, a stretch of mental health recovery, and a
       or: '或',
       terms: '继续即表示你同意我们的服务条款。',
       comingSoon: '登录功能即将上线——敬请期待！',
+    },
+    stack: {
+      title: '我的工作台地图',
+      intro: '不是工具榜单，而是我如何构建、增长、分发、管理基础设施的个人操作系统。',
+      statusLabels: { core: '核心', saved: '待评估', using: '在用' },
+      coreStack: { heading: 'Core Stack / 核心工作台', desc: '我当前最常使用、最能解释工作方式的高价值工具。' },
+      toolsIBuild: { heading: 'Tools I Build / 我开发的工具', desc: '我自己做出来，并准备继续迭代的小工具。' },
+      sourcesIFollow: {
+        heading: 'Sources I Follow / 我关注的信息源',
+        desc: '只保留真正的信息源，不再混入社交渠道和生产工具。',
+      },
+      viewWorkflowRole: '查看工作流角色',
+      whyItBelongsHere: '为什么放在这里',
+      roleInWorkflow: '工作流角色',
+      visitWebsite: '访问网站',
+    },
+    workWithMe: {
+      title: '与我合作',
+      intro: '你可以通过赞助支持我持续输出，也可以把我请进你的项目。下面是我当前接的合作类型和联系方式。',
+      sponsor: {
+        heading: '赞助我的持续输出',
+        description: '你的赞助会直接投入到内容创作、工具研究和开源小工具的开发上。每一笔都公开去向。',
+        wechatLabel: '微信赞赏',
+        alipayLabel: '支付宝',
+        qrPlaceholder: '二维码待添加',
+      },
+      servicesHeading: '合作类型',
+      services: [
+        {
+          title: '1v1 咨询',
+          desc: '个人成长、AI 工具使用、AI 编程入门、职业转型——深度交流 + 可执行的下一步',
+        },
+        {
+          title: '增长合作 / 项目联合',
+          desc: 'AI 原生产品的增长策略、内容矩阵、冷启动、分发设计；精选项目的联合创作',
+        },
+        {
+          title: '内容授权 / 分享嘉宾',
+          desc: '文章转载、内容引用、社群/播客/公开活动的分享邀请',
+        },
+      ],
+      contactHeading: '联系我',
+      contactMethods: {
+        wechat: { name: '微信', value: '添加微信交流', action: '扫码添加' },
+        email: { name: '邮箱', action: '发送邮件' },
+      },
+      contactNote: '联系时简短说一下你是谁、想做什么、预期时间线——能帮我更快给出有用的回应。',
     },
     footer: {
       rights: '© 2026 陈今',

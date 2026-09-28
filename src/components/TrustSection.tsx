@@ -1,5 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
+import { DURATION, VIEWPORT } from '@/lib/motion';
 
 const TrustSection = () => {
   const { t } = useLanguage();
@@ -11,8 +12,8 @@ const TrustSection = () => {
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+          viewport={VIEWPORT}
+          transition={{ duration: DURATION.hero, delay: 0.1 }}
           className="text-3xl md:text-4xl lg:text-5xl font-display font-medium text-foreground leading-tight mb-14"
         >
           {t.trust.testimonialsTitle}
@@ -24,8 +25,8 @@ const TrustSection = () => {
               key={item.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.6, delay: 0.1 * i }}
+              viewport={VIEWPORT}
+              transition={{ duration: DURATION.base, delay: 0.1 * i }}
               className={`p-6 md:p-8 rounded-2xl border border-border bg-card flex flex-col ${
                 item.quote.trim() ? 'min-h-[17rem]' : 'min-h-[10rem]'
               }`}
@@ -52,8 +53,8 @@ const TrustSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={VIEWPORT}
+          transition={{ duration: DURATION.hero, delay: 0.2 }}
           className="text-center"
         >
           <h3 className="text-sm font-light tracking-widest uppercase text-muted-foreground mb-6">

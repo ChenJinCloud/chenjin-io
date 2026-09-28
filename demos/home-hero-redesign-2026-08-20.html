@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="陈今个人网站首页 Hero 改版视觉 Demo" />
+  <title>陈今 — 首页改版 Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: light;
+      --moon: #f3f7f3;
+      --paper: rgba(251, 253, 251, 0.82);
+      --ink: #18322e;
+      --muted: #667a74;
+      --line: rgba(37, 83, 72, 0.14);
+      --jade: #247b5f;
+      --jade-deep: #175a45;
+      --jade-soft: #deeee7;
+      --warm: #e8d8ca;
+      --shadow: 0 28px 80px rgba(24, 50, 46, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 64% 60% at 13% 17%, rgba(94, 179, 149, 0.23), transparent 66%),
+        radial-gradient(ellipse 48% 50% at 88% 14%, rgba(225, 190, 159, 0.24), transparent 64%),
+        linear-gradient(180deg, #f7faf7 0%, var(--moon) 100%);
+      font-family: "Noto Sans SC", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    button, input { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    .shell {
+      width: min(1400px, calc(100% - 64px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      min-height: 48px;
+      animation: enter-down 0.7s ease both;
+    }
+
+    .brand {
+      justify-self: start;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      padding: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.52);
+      box-shadow: 0 8px 28px rgba(31, 70, 60, 0.06);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav a {
+      padding: 9px 15px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+      transition: color 160ms ease, background 160ms ease;
+    }
+
+    .nav a:hover { color: var(--ink); background: rgba(36, 123, 95, 0.08); }
+
+    .language {
+      justify-self: end;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.26fr) minmax(340px, 0.74fr);
+      gap: clamp(48px, 7vw, 112px);
+      align-items: center;
+      min-height: calc(100vh - 124px);
+      padding: clamp(62px, 9vh, 120px) 0 56px;
+    }
+
+    .copy {
+      position: relative;
+      z-index: 2;
+      animation: enter-up 0.9s 0.08s cubic-bezier(.2,.75,.2,1) both;
+    }
+
+    .identity-badge,
+    .case-badge,
+    .portrait-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .identity-badge {
+      margin: 0 0 30px;
+      padding: 8px 13px;
+      color: var(--jade-deep);
+      background: rgba(222, 238, 231, 0.78);
+      border: 1px solid rgba(36, 123, 95, 0.1);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+    }
+
+    .identity-badge::before {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--jade);
+      content: "";
+      box-shadow: 0 0 0 4px rgba(36, 123, 95, 0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Playfair Display", "Noto Serif SC", Georgia, serif;
+      font-size: clamp(76px, 9.4vw, 142px);
+      font-weight: 500;
+      line-height: 0.84;
+      letter-spacing: -0.075em;
+    }
+
+    .promise {
+      max-width: 830px;
+      margin: 38px 0 0;
+      font-size: clamp(24px, 3.05vw, 43px);
+      font-weight: 500;
+      line-height: 1.38;
+      letter-spacing: -0.045em;
+    }
+
+    .promise strong {
+      position: relative;
+      color: var(--jade-deep);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .promise strong::after {
+      position: absolute;
+      right: 0;
+      bottom: -5px;
+      left: 0;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(70, 154, 122, 0.17);
+      content: "";
+      transform: rotate(-1.2deg);
+    }
+
+    .evidence {
+      margin-top: 40px;
+      padding: 18px 20px 20px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--paper);
+      box-shadow: 0 16px 50px rgba(24, 50, 46, 0.06);
+      backdrop-filter: blur(18px);
+    }
+
+    .case-badge {
+      margin-bottom: 16px;
+      padding: 6px 10px;
+      color: var(--jade);
+      background: var(--jade-soft);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      padding-top: 17px;
+    }
+
+    .metric {
+      min-width: 0;
+      padding: 0 18px;
+      border-right: 1px solid var(--line);
+    }
+
+    .metric:first-child { padding-left: 0; }
+    .metric:last-child { padding-right: 0; border-right: 0; }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--ink);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(23px, 2.3vw, 34px);
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.035em;
+      white-space: nowrap;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-top: 32px;
+    }
+
+    .primary {
+      min-height: 54px;
+      padding: 0 27px;
+      border: 0;
+      border-radius: 999px;
+      color: #f9fcfa;
+      background: var(--jade-deep);
+      box-shadow: 0 12px 26px rgba(23, 90, 69, 0.22);
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .primary:hover {
+      background: #104f3b;
+      box-shadow: 0 16px 32px rgba(23, 90, 69, 0.28);
+      transform: translateY(-2px);
+    }
+
+    .secondary {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 160ms ease, transform 160ms ease;
+    }
+
+    .secondary:hover { color: var(--jade-deep); transform: translateX(3px); }
+
+    .visual {
+      position: relative;
+      animation: enter-up 1s 0.22s cubic-bezier(.2,.75,.2,1) both;
+    }
+
+    .portrait-frame {
+      position: relative;
+      isolation: isolate;
+      width: min(100%, 440px);
+      aspect-ratio: 4 / 5.15;
+      margin-left: auto;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.76);
+      border-radius: 48% 48% 26px 26px;
+      background: linear-gradient(150deg, #cbe1d6 0%, #e5efe9 42%, #e7d3c0 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .portrait-frame::before {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 68%, rgba(20, 54, 47, 0.16) 100%),
+        radial-gradient(circle at 82% 8%, rgba(255, 248, 237, 0.18), transparent 30%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .portrait-frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 42%;
+    }
+
+    .portrait-badge {
+      position: absolute;
+      right: -18px;
+      bottom: 98px;
+      z-index: 2;
+      padding: 10px 15px;
+      border: 1px solid rgba(36, 123, 95, 0.14);
+      color: var(--jade-deep);
+      background: rgba(249, 252, 250, 0.9);
+      box-shadow: 0 14px 34px rgba(24, 50, 46, 0.12);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 15px;
+      letter-spacing: 0.05em;
+      backdrop-filter: blur(18px);
+    }
+
+    .orbit-note {
+      position: absolute;
+      top: 11%;
+      left: -42px;
+      max-width: 142px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+      letter-spacing: 0.06em;
+      writing-mode: vertical-rl;
+    }
+
+    dialog {
+      width: min(680px, calc(100% - 32px));
+      padding: 0;
+      border: 1px solid rgba(36, 123, 95, 0.18);
+      border-radius: 28px;
+      color: var(--ink);
+      background: rgba(250, 253, 251, 0.95);
+      box-shadow: 0 40px 120px rgba(18, 52, 43, 0.28);
+      backdrop-filter: blur(24px);
+    }
+
+    dialog::backdrop { background: rgba(17, 43, 36, 0.26); backdrop-filter: blur(6px); }
+
+    .chat-panel { padding: 26px; }
+    .chat-head { display: flex; align-items: start; justify-content: space-between; gap: 24px; }
+    .chat-kicker { margin: 0 0 7px; color: var(--jade); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+    .chat-head h2 { margin: 0; font-family: "Playfair Display", "Noto Serif SC", serif; font-size: 28px; font-weight: 500; }
+    .close { width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; color: var(--muted); background: transparent; cursor: pointer; }
+    .chat-copy { margin: 18px 0 20px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .chat-input { display: flex; align-items: center; gap: 10px; padding: 8px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+    .chat-input input { flex: 1; min-width: 0; height: 46px; padding: 0 12px; border: 0; outline: 0; color: var(--ink); background: transparent; }
+    .chat-input button { height: 44px; padding: 0 17px; border: 0; border-radius: 14px; color: #fff; background: var(--jade-deep); cursor: pointer; }
+    .prototype-note { margin: 12px 3px 0; color: #8a9994; font-size: 11px; }
+
+    @keyframes enter-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes enter-down {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 1060px) {
+      .shell { width: min(100% - 40px, 900px); }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 88px; }
+      .copy { max-width: 820px; }
+      .visual { width: min(76vw, 500px); margin: 20px auto 0; }
+      .portrait-frame { width: 100%; margin: 0; }
+      .orbit-note { display: none; }
+    }
+
+    @media (max-width: 720px) {
+      .shell { width: min(100% - 32px, 560px); padding-top: 18px; }
+      .topbar { grid-template-columns: 1fr auto; }
+      .nav { display: none; }
+      .hero { gap: 40px; padding-top: 76px; }
+      .identity-badge { margin-bottom: 24px; }
+      h1 { font-size: clamp(72px, 24vw, 104px); }
+      .promise { margin-top: 30px; font-size: clamp(24px, 7vw, 32px); }
+      .evidence { margin-top: 32px; padding: 16px; }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding-top: 8px; }
+      .metric { padding: 15px 13px; border-bottom: 1px solid var(--line); }
+      .metric:first-child { padding-left: 0; }
+      .metric:nth-child(2) { padding-right: 0; border-right: 0; }
+      .metric:nth-child(3) { padding-left: 0; border-bottom: 0; }
+      .metric:nth-child(4) { padding-right: 0; border-right: 0; border-bottom: 0; }
+      .metric strong { font-size: 27px; }
+      .actions { align-items: flex-start; flex-direction: column; gap: 14px; }
+      .primary { width: 100%; }
+      .secondary { padding-left: 4px; }
+      .visual { width: 100%; }
+      .portrait-frame { aspect-ratio: 4 / 4.6; border-radius: 42% 42% 22px 22px; }
+      .portrait-badge { right: 12px; bottom: 72px; }
+      .chat-input { align-items: stretch; flex-direction: column; }
+      .chat-input button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="返回首页顶部">CHENJIN</a>
+      <nav class="nav" aria-label="主导航">
+        <a href="#work">实践</a>
+        <a href="#writing">写作</a>
+        <a href="#about">关于</a>
+      </nav>
+      <span class="language">中文&nbsp; / &nbsp;EN</span>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="copy">
+          <p class="identity-badge">YC P26 · InsForge AI 增长负责人</p>
+          <h1 id="hero-title">陈今</h1>
+          <p class="promise">
+            帮 AI 开发者产品从 0 冲到<strong>全球第一</strong>—— Product Hunt 榜首、GitHub Trending 榜首，一周斩获 3000+ Star
+          </p>
+
+          <section class="evidence" id="work" aria-label="InsForge Launch Week 数据">
+            <span class="case-badge">案例：InsForge Launch Week</span>
+            <div class="metrics">
+              <div class="metric"><strong>#1</strong><span>Product Hunt</span></div>
+              <div class="metric"><strong>#1</strong><span>GitHub Trending</span></div>
+              <div class="metric"><strong>1.5M+</strong><span>X 曝光</span></div>
+              <div class="metric"><strong>3K+</strong><span>一周 GitHub Star</span></div>
+            </div>
+          </section>
+
+          <div class="actions">
+            <button class="primary" type="button" data-open-chat>跟我聊聊</button>
+            <a class="secondary" href="https://insforge.dev" target="_blank" rel="noreferrer">了解 InsForge&nbsp; →</a>
+          </div>
+        </div>
+
+        <aside class="visual" aria-label="个人照片展示区域">
+          <p class="orbit-note">Turn chaos into clarity · Build in public</p>
+          <div class="portrait-frame">
+            <img src="/demos/chenjin-ip-portrait.jpg" alt="陈今个人肖像" />
+          </div>
+          <span class="portrait-badge">YC P26</span>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="chat-dialog" aria-labelledby="chat-title">
+    <div class="chat-panel">
+      <div class="chat-head">
+        <div>
+          <p class="chat-kicker">Chat with Chen Jin</p>
+          <h2 id="chat-title">你正在把什么推向全球？</h2>
+        </div>
+        <button class="close" type="button" data-close-chat aria-label="关闭聊天">×</button>
+      </div>
+      <p class="chat-copy">告诉我你的产品、现在所处的阶段和最卡住的问题。我会先从增长案例、方法和工具中帮你找到一条可行动的路径。</p>
+      <form class="chat-input" method="dialog">
+        <input aria-label="聊天内容" placeholder="比如：产品已经上线，但一直找不到第一批海外用户……" />
+        <button type="submit">开始对话 →</button>
+      </form>
+      <p class="prototype-note">Demo 交互：当前只展示首页入口，正式版本再连接公开知识库。</p>
+    </div>
+  </dialog>
+
+  <script>
+    const dialog = document.querySelector('#chat-dialog');
+    document.querySelector('[data-open-chat]').addEventListener('click', () => dialog.showModal());
+    document.querySelector('[data-close-chat]').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  </script>
+</body>
+</html>

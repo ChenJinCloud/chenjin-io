@@ -1,5 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
+import { DURATION, EASE, VIEWPORT } from '@/lib/motion';
 
 const JourneySection = () => {
   const { t } = useLanguage();
@@ -10,8 +11,8 @@ const JourneySection = () => {
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+          viewport={VIEWPORT}
+          transition={{ duration: DURATION.hero, delay: 0.1 }}
           className="text-3xl md:text-4xl lg:text-5xl font-display font-medium text-foreground leading-tight mb-16"
         >
           {t.journey.title}
@@ -24,20 +25,20 @@ const JourneySection = () => {
               key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={VIEWPORT}
               transition={{
-                duration: 0.4,
+                duration: DURATION.stagger,
                 delay: 0.15 * i,
-                ease: [0.22, 1, 0.36, 1],
+                ease: EASE,
               }}
               whileHover={{ scale: 1.02 }}
-              className="group relative p-8 rounded-3xl border border-border bg-card overflow-hidden transition-shadow duration-400 hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.08)]"
+              className="group relative p-8 rounded-3xl border border-border bg-card overflow-hidden transition-shadow duration-400 hover:shadow-card"
             >
               {/* Accent gradient top edge */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
 
               {/* Period badge */}
-              <span className="inline-block px-3 py-1 text-[11px] font-medium tracking-widest uppercase rounded-full bg-accent/8 text-accent mb-5">
+              <span className="inline-block px-3 py-1 text-eyebrow font-medium tracking-widest uppercase rounded-full bg-accent/8 text-accent mb-5">
                 {item.period}
               </span>
 
@@ -55,7 +56,7 @@ const JourneySection = () => {
               <div className="w-8 h-px bg-accent/30 mb-5 group-hover:w-16 transition-all duration-400" />
 
               {/* Description */}
-              <p className="text-[15px] font-light text-muted-foreground leading-relaxed">
+              <p className="text-body font-light text-muted-foreground leading-relaxed">
                 {item.description}
               </p>
             </motion.div>

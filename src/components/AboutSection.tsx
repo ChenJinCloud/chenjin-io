@@ -1,5 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
+import { DURATION, VIEWPORT } from '@/lib/motion';
 import { BrainCircuit, Compass, Layers3 } from 'lucide-react';
 
 const aboutSignals = {
@@ -96,8 +97,8 @@ const AboutSection = () => {
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.8, delay: 0.1 }}
+              viewport={VIEWPORT}
+              transition={{ duration: DURATION.hero, delay: 0.1 }}
               className="text-3xl md:text-4xl lg:text-5xl font-display font-medium text-foreground leading-tight mb-8"
             >
               {t.about.title}
@@ -106,8 +107,8 @@ const AboutSection = () => {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.8, delay: 0.15 }}
+              viewport={VIEWPORT}
+              transition={{ duration: DURATION.hero, delay: 0.15 }}
               className="text-lg md:text-xl font-display italic text-accent/80 leading-relaxed mb-6"
             >
               {t.about.subtitle}
@@ -116,8 +117,8 @@ const AboutSection = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.97 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={VIEWPORT}
+              transition={{ duration: DURATION.hero, delay: 0.2 }}
               className="mb-10 lg:hidden"
             >
               {modelCard}
@@ -126,8 +127,8 @@ const AboutSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.8, delay: 0.25 }}
+              viewport={VIEWPORT}
+              transition={{ duration: DURATION.hero, delay: 0.25 }}
               className="space-y-5"
             >
               {t.about.description.split('\n\n').map((paragraph, i) => (
@@ -142,8 +143,8 @@ const AboutSection = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={VIEWPORT}
+            transition={{ duration: DURATION.hero, delay: 0.3 }}
             className="hidden lg:col-span-2 lg:block"
           >
             {modelCard}

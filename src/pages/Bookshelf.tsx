@@ -1,10 +1,9 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import PageLayout from '@/components/PageLayout';
+import Heading from '@/components/Heading';
 import { readingNotes } from '@/content/bookshelf/notes';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, BookOpen, Calendar } from 'lucide-react';
+import { BookOpen, Calendar } from 'lucide-react';
 
 const emptyShelfSlots = [0, 1, 2, 3];
 
@@ -13,22 +12,8 @@ const Bookshelf = () => {
   const isZh = language === 'zh';
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <main className="pt-32 pb-20 px-6 md:px-12">
-        <div className="max-w-5xl mx-auto">
-          <Link to="/writing" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8">
-            <ArrowLeft className="w-4 h-4" />
-            {isZh ? '返回写作' : 'Back to Writing'}
-          </Link>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="font-serif text-4xl md:text-5xl font-light mb-6"
-          >
-            {isZh ? '书架' : 'Bookshelf'}
-          </motion.h1>
+    <PageLayout containerSize="wide" back={{ to: '/writing', label: { zh: '返回写作', en: 'Back to Writing' } }}>
+      <Heading className="mb-6">{isZh ? '书架' : 'Bookshelf'}</Heading>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -111,10 +96,7 @@ const Bookshelf = () => {
               </p>
             </motion.section>
           )}
-        </div>
-      </main>
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 
