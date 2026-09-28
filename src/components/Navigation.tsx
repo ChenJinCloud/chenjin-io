@@ -1,165 +1,74 @@
+import ThemeToggle from '@/components/ThemeToggle';
+import LanguageToggle from '@/components/LanguageToggle';
 import { useLanguage } from '@/contexts/LanguageContext';
-import LanguageToggle from './LanguageToggle';
-import ThemeToggle from './ThemeToggle';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+
+const pageNavItems = [
+  { href: '/writing', label: { zh: '写作', en: 'Writing' }, aliases: ['/blog'] },
+  { href: '/projects', label: { zh: '项目', en: 'Projects' } },
+  { href: '/workbench', label: { zh: '工具清单', en: 'Workbench' }, aliases: ['/stack'] },
+  { href: '/playbooks', label: { zh: '方法手册', en: 'Playbooks' } },
+];
 
 const Navigation = () => {
-  const { t, language } = useLanguage();
-  const location = useLocation();
-  const isHome = location.pathname === '/';
-  const isZh = language === 'zh';
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const { pathname } = useLocation();
+  const { language } = useLanguage();
+  const isHome = pathname === '/';
 
-  const homeNavItems = [
-    { href: '#about', label: t.nav.about },
-    { href: '#journey', label: t.nav.journey },
-    { href: '#contact', label: t.nav.contact },
-  ];
-
-  const pageNavItems = [
-    { href: '/writing', label: isZh ? '写作' : 'Writing', aliases: ['/blog'] },
-    { href: '/projects', label: isZh ? '作品' : 'Projects' },
-    { href: '/playbooks', label: isZh ? '手册' : 'Playbooks' },
-    { href: '/workbench', label: isZh ? '工作台' : 'Workbench', aliases: ['/stack'] },
-    { href: '/roadmap', label: isZh ? '计划池' : 'Roadmap' },
-    { href: '/work-with-me', label: isZh ? '合作' : 'Work' },
-  ];
-
-  const handleMobileLink = () => setMobileOpen(false);
-  const isActivePath = (item: (typeof pageNavItems)[number]) => (
-    location.pathname === item.href ||
-    location.pathname.startsWith(`${item.href}/`) ||
-    item.aliases?.some((alias) => location.pathname === alias || location.pathname.startsWith(`${alias}/`))
-  );
+  const isActive = (item: (typeof pageNavItems)[number]) =>
+    pathname === item.href ||
+    pathname.startsWith(`${item.href}/`) ||
+    item.aliases?.some((alias) => pathname === alias || pathname.startsWith(`${alias}/`));
 
   return (
-    <>
-      <motion.header
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-5 2xl:top-7 left-0 right-0 z-50 px-4 md:px-6 2xl:px-10"
-      >
-        <nav className="max-w-6xl 2xl:max-w-7xl [@media(min-width:2400px)]:max-w-[110rem] mx-auto grid grid-cols-[auto_1fr_auto] items-center gap-3 2xl:gap-5">
-          {/* Left — logo (outside capsule) */}
-          <Link
-            to="/"
-            className="text-[15px] 2xl:text-base [@media(min-width:2400px)]:text-lg font-sans font-semibold tracking-[0.14em] uppercase text-foreground hover:text-accent transition-colors duration-200"
-          >
-            ChenJin
-          </Link>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-20 md:px-10">
+        <Link
+          to="/"
+          className="font-sans text-sm font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:text-accent"
+        >
+          Chen Jin
+        </Link>
 
-          {/* Center — floating capsule with nav links */}
-          <div className="hidden md:flex justify-center">
-            <ul className="flex items-center gap-0.5 px-3 py-2 2xl:px-4 2xl:py-2.5 rounded-full bg-background/65 backdrop-blur-xl border border-border/50 shadow-[0_4px_28px_-10px_hsl(var(--foreground)/0.14)]">
-              {/* Home anchor links — only on xl+ to avoid crowding at 1024-1279 */}
-              {isHome && homeNavItems.map((item) => (
-                <li key={item.href} className="hidden xl:block">
-                  <a
-                    href={item.href}
-                    className="block px-4 py-1.5 2xl:px-5 2xl:py-2 rounded-full text-sm 2xl:text-[15px] [@media(min-width:2400px)]:text-base font-normal text-muted-foreground hover:text-foreground transition-colors duration-200"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-              {isHome && (
-                <li className="hidden xl:block h-5 w-px bg-border/70 mx-1" aria-hidden="true" />
-              )}
-              {pageNavItems.map((item) => {
-                const active = isActivePath(item);
-                return (
-                  <li key={item.href} className="relative">
-                    {active && (
-                      <motion.span
-                        layoutId="nav-active-pill"
-                        className="absolute inset-0 rounded-full bg-accent/12"
-                        transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                      />
-                    )}
-                    <Link
-                      to={item.href}
-                      className={`relative block px-4 py-1.5 2xl:px-5 2xl:py-2 rounded-full text-sm 2xl:text-[15px] [@media(min-width:2400px)]:text-base font-normal transition-colors duration-200 ${
-                        active ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          {/* Right — toggles (outside capsule) + mobile hamburger */}
-          <div className="flex items-center gap-1 justify-end">
-            <div className="hidden md:flex items-center gap-0.5 px-1.5 py-1.5 2xl:px-2 2xl:py-2 rounded-full bg-background/65 backdrop-blur-xl border border-border/50 shadow-[0_4px_28px_-10px_hsl(var(--foreground)/0.14)]">
-              <ThemeToggle />
-              <LanguageToggle />
-            </div>
-
-            {/* Hamburger button — mobile only */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden flex flex-col gap-1.5 p-2.5 rounded-full bg-background/65 backdrop-blur-xl border border-border/50"
-              aria-label="Toggle menu"
-            >
-              <motion.span
-                animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                className="block w-5 h-px bg-foreground origin-center"
-              />
-              <motion.span
-                animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-                className="block w-5 h-px bg-foreground"
-              />
-              <motion.span
-                animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                className="block w-5 h-px bg-foreground origin-center"
-              />
-            </button>
-          </div>
-        </nav>
-      </motion.header>
-
-      {/* Mobile menu overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md pt-24 px-6 md:hidden"
-          >
-            <nav className="flex flex-col gap-6">
-              {isHome && homeNavItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={handleMobileLink}
-                  className="text-2xl font-display font-light text-foreground"
-                >
-                  {item.label}
-                </a>
-              ))}
-              <div className="h-px bg-border my-2" />
-              {pageNavItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  onClick={handleMobileLink}
-                  className="text-lg font-light text-muted-foreground"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        <div className="flex items-center gap-1 md:gap-4">
+          <nav aria-label="网站导航" className="flex items-center gap-1">
+            {isHome && (
+              <>
+                <a href="#now" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">现在</a>
+                <a href="#work" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">作品</a>
+                <a href="#writing" className="hidden px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline-block md:px-3">写作</a>
+                <a href="#contact" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">联系</a>
+                <span className="hidden h-5 w-px bg-border sm:block" aria-hidden="true" />
+              </>
+            )}
+            {!isHome && (
+              <Link to="/" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">
+                {language === 'zh' ? '首页' : 'Home'}
+              </Link>
+            )}
+            {pageNavItems.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={`hidden px-2.5 py-2 text-sm transition-colors hover:text-foreground sm:inline-block md:px-3 ${
+                  isActive(item) ? 'text-foreground' : 'text-muted-foreground'
+                }`}
+              >
+                {item.label[language]}
+              </Link>
+            ))}
+            {!isHome && (
+              <a href="/#contact" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">
+                {language === 'zh' ? '联系' : 'Contact'}
+              </a>
+            )}
+          </nav>
+          <span className="hidden h-5 w-px bg-border sm:block" aria-hidden="true" />
+          <LanguageToggle />
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
   );
 };
 
