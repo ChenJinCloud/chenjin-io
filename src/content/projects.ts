@@ -18,13 +18,13 @@ export const projects: ProjectEntry[] = [
       zh: 'InsForge Launch Week 1',
     },
     excerpt: {
-      en: 'POC for InsForge’s Launch Week 1 — positioning, release, and global distribution for an AI-native backend product.',
-      zh: '担任 InsForge Launch Week 1 的 POC，推动这场发布从定位、上线到全球传播与用户采用。',
+      en: 'Ran InsForge’s Launch Week 1 — positioning, release, and global distribution for an AI-native backend product.',
+      zh: '操盘 InsForge Launch Week 1，推动这场发布从定位、上线到全球传播与用户采用。',
     },
     route: '/projects/insforge-launch-week',
     kind: { en: 'Evidence', zh: '证据' },
     status: { en: 'Shipped', zh: '已发布' },
-    tags: ['insforge', 'launch week', 'growth', 'poc'],
+    tags: ['insforge', 'launch week', 'growth'],
   },
   {
     id: 'instacloud',
