@@ -5,6 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { trackEvent, trackOutboundClick } from '@/lib/analytics';
 
 const Projects = () => {
   const { language } = useLanguage();
@@ -46,11 +47,21 @@ const Projects = () => {
     const className = 'group block h-full rounded-lg border border-border bg-card p-6 transition-colors hover:border-accent/50';
 
     return isExternal ? (
-      <a href={project.route} target="_blank" rel="noreferrer" className={className}>
+      <a
+        href={project.route}
+        target="_blank"
+        rel="noreferrer"
+        onClick={() => trackOutboundClick(project.route, { source: 'projects', id: project.id })}
+        className={className}
+      >
         {cardContent}
       </a>
     ) : (
-      <Link to={project.route} className={className}>
+      <Link
+        to={project.route}
+        onClick={() => trackEvent('project_click', { id: project.id, route: project.route })}
+        className={className}
+      >
         {cardContent}
       </Link>
     );

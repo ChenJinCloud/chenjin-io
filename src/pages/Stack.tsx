@@ -12,6 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { trackEvent, trackOutboundClick } from '@/lib/analytics';
 
 type ToolStatus = 'core' | 'using' | 'saved';
 
@@ -258,7 +259,10 @@ const Stack = () => {
   const renderToolCard = (tool: StackTool, featured = false) => (
     <button
       key={tool.name}
-      onClick={() => setSelectedTool(tool)}
+      onClick={() => {
+        trackEvent('tool_card_open', { name: tool.name, status: tool.status });
+        setSelectedTool(tool);
+      }}
       className={`group flex min-h-[150px] flex-col justify-between rounded-lg border p-4 text-left transition-all ${
         featured
           ? 'border-primary/25 hover:border-primary/55 hover:bg-primary/5'
@@ -353,6 +357,7 @@ const Stack = () => {
                     href={tool.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackOutboundClick(tool.url, { source: 'stack_my_tools', name: tool.name })}
                     className="group flex items-center justify-between rounded-lg border border-primary/20 p-4 text-left transition-all hover:border-primary/50 hover:bg-primary/5"
                   >
                     <div>
@@ -392,6 +397,7 @@ const Stack = () => {
                   href={source.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackOutboundClick(source.url, { source: 'stack_sources', name: source.name })}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={VIEWPORT}
@@ -434,6 +440,7 @@ const Stack = () => {
                 href={selectedTool.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackOutboundClick(selectedTool.url, { source: 'stack_dialog', name: selectedTool.name })}
                 className="inline-flex items-center gap-2 text-sm text-foreground transition-colors hover:text-primary"
               >
                 {t.stack.visitWebsite}

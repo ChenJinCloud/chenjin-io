@@ -2,6 +2,7 @@ import Navigation from '@/components/Navigation';
 import Seo from '@/components/Seo';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { trackEvent, trackOutboundClick } from '@/lib/analytics';
 
 const currentFocus = [
   'AI 产品如何被全球用户发现与采用',
@@ -76,6 +77,7 @@ const AlphaHome = () => {
                 <div className="mt-9 flex flex-wrap items-center gap-4 md:mt-12">
                   <a
                     href="#now"
+                    onClick={() => trackEvent('hero_cta_click', { cta: 'see_what_im_doing' })}
                     className="inline-flex min-h-12 items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
                   >
                     看我正在做什么
@@ -83,6 +85,7 @@ const AlphaHome = () => {
                   </a>
                   <Link
                     to="/writing"
+                    onClick={() => trackEvent('hero_cta_click', { cta: 'read_writing' })}
                     className="inline-flex min-h-12 items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-foreground/30 hover:bg-secondary"
                   >
                     阅读文章
@@ -142,11 +145,23 @@ const AlphaHome = () => {
                 const classes = 'group block min-h-36 border-b border-border px-0 py-8 transition-colors hover:bg-secondary/40 md:min-h-48 md:border-b-0 md:border-r md:px-8 md:py-10 first:md:pl-0 last:md:border-r-0 last:md:pr-0';
 
                 return item.external ? (
-                  <a key={item.title} href={item.href} target="_blank" rel="noreferrer" className={classes}>
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackOutboundClick(item.href, { source: 'home_work', title: item.title })}
+                    className={classes}
+                  >
                     {content}
                   </a>
                 ) : (
-                  <a key={item.title} href={item.href} className={classes}>
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    onClick={() => trackEvent('home_work_click', { title: item.title, href: item.href })}
+                    className={classes}
+                  >
                     {content}
                   </a>
                 );
@@ -187,13 +202,17 @@ const AlphaHome = () => {
             <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
               <h2 className="font-display text-5xl font-medium leading-none tracking-[-0.035em] md:text-7xl lg:col-span-8">CONTACT</h2>
               <div className="lg:col-span-4 lg:text-right">
-                <a href="mailto:jiaqichen6252@gmail.com" className="text-lg font-medium text-foreground line-reveal">
+                <a
+                  href="mailto:jiaqichen6252@gmail.com"
+                  onClick={() => trackEvent('contact_click', { channel: 'email' })}
+                  className="text-lg font-medium text-foreground line-reveal"
+                >
                   jiaqichen6252@gmail.com
                 </a>
                 <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 lg:justify-end">
-                  <a href="https://github.com/ChenJinCloud" target="_blank" rel="noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-foreground">GitHub</a>
-                  <a href="https://x.com/jinchen_ai" target="_blank" rel="noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-foreground">X</a>
-                  <a href="https://www.linkedin.com/in/jiaqi-chen-b414582aa/" target="_blank" rel="noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-foreground">LinkedIn</a>
+                  <a href="https://github.com/ChenJinCloud" target="_blank" rel="noreferrer" onClick={() => trackOutboundClick('https://github.com/ChenJinCloud', { source: 'contact', channel: 'github' })} className="text-sm text-muted-foreground transition-colors hover:text-foreground">GitHub</a>
+                  <a href="https://x.com/jinchen_ai" target="_blank" rel="noreferrer" onClick={() => trackOutboundClick('https://x.com/jinchen_ai', { source: 'contact', channel: 'x' })} className="text-sm text-muted-foreground transition-colors hover:text-foreground">X</a>
+                  <a href="https://www.linkedin.com/in/jiaqi-chen-b414582aa/" target="_blank" rel="noreferrer" onClick={() => trackOutboundClick('https://www.linkedin.com/in/jiaqi-chen-b414582aa/', { source: 'contact', channel: 'linkedin' })} className="text-sm text-muted-foreground transition-colors hover:text-foreground">LinkedIn</a>
                 </div>
               </div>
             </div>
