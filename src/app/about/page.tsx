@@ -78,9 +78,9 @@ export default function Page() {
 
       <section className="mb-16">
         <h2 className="mb-6 text-xl font-medium text-foreground">经历</h2>
-        <div className="space-y-4">
+        <div className="space-y-3">
           {timeline.map((item) => (
-            <div key={`${item.period}-${item.title}`} className="flex items-start gap-4 border-b border-border pb-4">
+            <div key={`${item.period}-${item.title}`} className="glass-card flex items-start gap-4 p-5">
               <div className="mt-1 text-muted-foreground">
                 {item.type === 'work' ? <Building2 className="h-4 w-4" /> : <GraduationCap className="h-4 w-4" />}
               </div>
@@ -94,7 +94,7 @@ export default function Page() {
         </div>
       </section>
 
-      <div className="rounded-lg border border-dashed border-border p-6">
+      <div className="glass-card border-dashed p-6">
         <p className="text-sm text-muted-foreground">
           这里是持续更新的经历记录——完整履历会随着新的项目和判断陆续补充。
         </p>

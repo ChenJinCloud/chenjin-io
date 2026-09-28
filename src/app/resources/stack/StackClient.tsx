@@ -264,7 +264,7 @@ const StackClient = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEWPORT}
               transition={{ delay: i * 0.04 }}
-              className="group flex items-center justify-between rounded-lg border border-border bg-card p-5 transition-colors hover:border-foreground/30"
+              className="group glass-card flex items-center justify-between p-5"
             >
               <div>
                 <h3 className="font-medium text-foreground">{source.name}</h3>

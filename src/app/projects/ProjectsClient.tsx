@@ -46,7 +46,7 @@ const ProjectsClient = () => {
       </>
     );
 
-    const className = 'group block h-full rounded-lg border border-border bg-card p-6 transition-colors hover:border-accent/50';
+    const className = 'group block h-full glass-card p-6 hover:border-accent/50';
 
     return isExternal ? (
       <a

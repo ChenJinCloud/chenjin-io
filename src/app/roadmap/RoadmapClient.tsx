@@ -165,7 +165,7 @@ const RoadmapClient = () => {
             onSubmit={handleSubmit}
             className="overflow-hidden mb-8"
           >
-            <div className="p-6 rounded-2xl border border-border bg-card space-y-4">
+            <div className="glass-card p-6 space-y-4">
               <Input
                 placeholder={t.roadmap.titlePlaceholder}
                 value={newTitle}
@@ -219,7 +219,7 @@ const RoadmapClient = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: DURATION.stagger, delay: 0.05 * i, ease: EASE }}
-            className="group flex gap-4 p-5 rounded-2xl border border-border bg-card hover:shadow-card transition-shadow duration-300"
+            className="group glass-card flex gap-4 p-5 hover:shadow-card transition-shadow duration-300"
           >
             <button
               onClick={() => handleVote(item.id)}

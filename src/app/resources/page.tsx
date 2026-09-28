@@ -29,7 +29,7 @@ export default function Page() {
           <Link
             key={entry.href}
             href={entry.href}
-            className="group block rounded-lg border border-border bg-card p-6 transition-colors hover:border-accent/50"
+            className="group block glass-card p-6 hover:border-accent/50"
           >
             <div className="mb-3 flex items-start justify-between gap-3">
               <h2 className="font-display text-xl font-medium text-foreground">{entry.title}</h2>

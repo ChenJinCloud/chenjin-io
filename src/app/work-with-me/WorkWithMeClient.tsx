@@ -68,7 +68,7 @@ const WorkWithMeClient = () => {
         <h2 className="mb-6 text-xl font-medium text-foreground">服务与定价</h2>
         <div className="grid gap-4">
           {offers.map((offer) => (
-            <div key={offer.title} className="rounded-lg border border-border p-6 transition-colors hover:border-foreground/30">
+            <div key={offer.title} className="glass-card p-6">
               <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                 <h3 className="font-display text-lg font-medium text-foreground">{offer.title}</h3>
                 <span className="whitespace-nowrap font-display text-lg text-accent">
@@ -91,7 +91,7 @@ const WorkWithMeClient = () => {
         <h2 className="mb-6 text-xl font-medium text-foreground">现阶段免费</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {freeOffers.map((offer) => (
-            <div key={offer.title} className="rounded-lg border border-dashed border-border p-6">
+            <div key={offer.title} className="glass-card border-dashed p-6">
               <h3 className="mb-1 font-medium text-foreground">{offer.title}</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">{offer.desc}</p>
             </div>
@@ -109,7 +109,7 @@ const WorkWithMeClient = () => {
           <a
             href="mailto:jiaqichen6252@gmail.com"
             onClick={() => trackOutboundClick('mailto:jiaqichen6252@gmail.com', { source: 'work_with_me' })}
-            className="flex items-center justify-between rounded-lg border border-border p-6 transition-colors hover:border-foreground/30"
+            className="glass-card flex items-center justify-between p-6"
           >
             <div>
               <h3 className="mb-1 font-medium text-foreground">邮箱</h3>
@@ -117,7 +117,7 @@ const WorkWithMeClient = () => {
             </div>
             <Mail className="h-4 w-4 text-muted-foreground" />
           </a>
-          <div className="flex items-center justify-between rounded-lg border border-border p-6">
+          <div className="glass-card flex items-center justify-between p-6">
             <div>
               <h3 className="mb-1 font-medium text-foreground">微信</h3>
               <p className="text-sm text-muted-foreground">添加微信交流</p>
@@ -126,7 +126,7 @@ const WorkWithMeClient = () => {
           </div>
         </div>
 
-        <div className="mt-6 rounded-lg border border-border bg-muted/20 p-6">
+        <div className="glass-card mt-6 p-6">
           <p className="text-sm text-muted-foreground">
             联系时简短说一下你是谁、想做什么、预期时间线——能帮我更快给出有用的回应。
           </p>

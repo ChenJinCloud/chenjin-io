@@ -53,7 +53,7 @@ export default function Page() {
 
       <div className="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
         {evidence.map((item) => (
-          <div key={item.label} className="rounded-lg border border-border p-4 text-center">
+          <div key={item.label} className="glass-card p-4 text-center">
             <div className="font-display text-2xl font-medium text-foreground">{item.value}</div>
             <div className="mt-1 text-xs text-muted-foreground">{item.label}</div>
           </div>
@@ -75,7 +75,7 @@ export default function Page() {
         <h2 className="font-medium text-foreground">渠道打法</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {channels.map((channel) => (
-            <div key={channel.name} className="rounded-lg border border-border p-5">
+            <div key={channel.name} className="glass-card p-5">
               <h3 className="mb-2 font-medium text-foreground">{channel.name}</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">{channel.detail}</p>
             </div>
@@ -83,7 +83,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="mt-12 rounded-lg border border-border bg-muted/20 p-6">
+      <div className="glass-card mt-12 p-6">
         <p className="text-sm text-muted-foreground">
           我的角色：操盘从产品定位、发布节奏到全球传播与用户采用的完整周期。
           专注 AI Coding、Agent 工作流与开发者工具的增长实践。一个更成熟的判断：越基础的产品，
