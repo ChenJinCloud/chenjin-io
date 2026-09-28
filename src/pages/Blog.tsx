@@ -12,7 +12,19 @@ const BlogContent = () => (
       path="/writing"
     />
 
-    <h1 className="mb-14 font-display text-5xl font-medium tracking-tight md:mb-20 md:text-7xl">写作</h1>
+    <div className="mb-14 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 md:mb-20">
+      <h1 className="font-display text-5xl font-medium tracking-tight md:text-7xl">写作</h1>
+      <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <Link to="/writing/picks" className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground">
+          精选
+          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+        </Link>
+        <Link to="/writing/bookshelf" className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground">
+          书架
+          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+        </Link>
+      </div>
+    </div>
 
     <div className="border-t border-border">
       {publishedBlogPosts.map((post) => (

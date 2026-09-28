@@ -12,6 +12,7 @@ import { initAnalytics, trackPageview } from '@/lib/analytics';
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Bookshelf = lazy(() => import('./pages/Bookshelf'));
+const Picks = lazy(() => import('./pages/Picks'));
 const Projects = lazy(() => import('./pages/Projects'));
 const JikeBestIn2025 = lazy(() => import('./pages/projects/JikeBestIn2025'));
 const Playbooks = lazy(() => import('./pages/Playbooks'));
@@ -56,6 +57,7 @@ const App = () => (
                 <Route path="/" element={<AlphaHome />} />
                 <Route path="/writing" element={<Blog />} />
                 <Route path="/writing/bookshelf" element={<Bookshelf />} />
+                <Route path="/writing/picks" element={<Picks />} />
                 <Route path="/writing/:id" element={<BlogPost />} />
                 <Route path="/blog" element={<Navigate to="/writing" replace />} />
                 <Route path="/blog/bookshelf" element={<Navigate to="/writing/bookshelf" replace />} />
