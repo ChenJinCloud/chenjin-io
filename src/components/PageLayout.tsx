@@ -1,5 +1,7 @@
+'use client';
+
 import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -59,7 +61,7 @@ const PageLayout = ({
           <Container size={containerSize}>
             {back && (
               <Link
-                to={back.to}
+                href={back.to}
                 className="mb-8 inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
               >
                 <ArrowLeft className="h-4 w-4" />

@@ -15,9 +15,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["DM Sans", "sans-serif"],
-        serif: ["Playfair Display", "serif"],
-        display: ["Playfair Display", "serif"],
+        sans: ["var(--font-dm-sans)", "sans-serif"],
+        serif: ["var(--font-playfair-display)", "serif"],
+        display: ["var(--font-playfair-display)", "serif"],
       },
       fontSize: {
         eyebrow: ["0.6875rem", { lineHeight: "1.4" }], // 11px — uppercase tracked labels/badges

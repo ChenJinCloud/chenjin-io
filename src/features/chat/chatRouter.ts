@@ -68,10 +68,10 @@ function buildActions(intent: ChatIntent, language: Language): ChatAction[] {
 
   if (intent === 'project') return [{ label: labels.projects, route: '/projects' }, { label: labels.contact, route: '/work-with-me' }];
   if (intent === 'writing') return [{ label: labels.writing, route: '/writing' }, ...shared];
-  if (intent === 'workbench') return [{ label: labels.workbench, route: '/workbench' }, ...shared];
+  if (intent === 'workbench') return [{ label: labels.workbench, route: '/resources/stack' }, ...shared];
   if (intent === 'service') return [{ label: labels.contact, route: '/work-with-me' }, { label: labels.projects, route: '/projects' }];
   if (intent === 'mutual') return [{ label: labels.about, route: '/#about' }, { label: labels.writing, route: '/writing' }, { label: labels.contact, route: '/work-with-me' }];
-  if (intent === 'roadmap') return [{ label: labels.roadmap, route: '/roadmap' }, { label: labels.workbench, route: '/workbench' }];
+  if (intent === 'roadmap') return [{ label: labels.roadmap, route: '/roadmap' }, { label: labels.workbench, route: '/resources/stack' }];
   return [{ label: labels.projects, route: '/projects' }, { label: labels.writing, route: '/writing' }, ...shared];
 }
 

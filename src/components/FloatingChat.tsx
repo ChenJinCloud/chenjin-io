@@ -1,16 +1,18 @@
+'use client';
+
 import { useLanguage } from '@/contexts/LanguageContext';
 import ChatGateway from '@/features/chat/ChatGateway';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DURATION, EASE } from '@/lib/motion';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 
 const FloatingChat = () => {
   const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
-  const location = useLocation();
-  const isHome = location.pathname === '/';
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   // Hide button when Hero chat input is visible on home page
   useEffect(() => {

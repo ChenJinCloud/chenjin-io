@@ -84,7 +84,7 @@ export const roadmapItems: RoadmapItem[] = [
     votes: 31,
     voted: false,
     tags: ['workbench', 'tools', 'shipany', 'idoubi', 'insforge', 'growth'],
-    route: '/workbench',
+    route: '/resources/stack',
   },
   {
     id: 'vibe-coding-learning-log',
@@ -118,7 +118,7 @@ export const roadmapItems: RoadmapItem[] = [
     votes: 27,
     voted: false,
     tags: ['growth', 'developer tools', 'channels', 'playbook'],
-    route: '/playbooks',
+    route: '/writing/tag/playbook',
   },
   {
     id: 'game-hub-puzzle-aggregator',

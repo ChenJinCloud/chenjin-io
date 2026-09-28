@@ -12,8 +12,9 @@ dist
 dist-ssr
 *.local
 
-# Vite dependency cache
-.vite-cache
+# Next.js
+.next
+next-env.d.ts
 
 # Reference material (large downloaded pages, not part of the site)
 refer

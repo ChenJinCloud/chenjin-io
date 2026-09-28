@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -6,11 +6,12 @@ const Footer = () => {
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-3 text-sm">
         <p className="text-muted-foreground">© 2026 Chen Jin</p>
         <nav aria-label="更多入口" className="flex flex-wrap gap-x-6 gap-y-2">
-          <Link to="/writing" className="text-muted-foreground transition-colors hover:text-foreground">写作</Link>
-          <Link to="/writing/picks" className="text-muted-foreground transition-colors hover:text-foreground">精选</Link>
-          <Link to="/projects" className="text-muted-foreground transition-colors hover:text-foreground">项目</Link>
-          <Link to="/workbench" className="text-muted-foreground transition-colors hover:text-foreground">工具清单</Link>
-          <Link to="/playbooks" className="text-muted-foreground transition-colors hover:text-foreground">方法手册</Link>
+          <Link href="/writing" className="text-muted-foreground transition-colors hover:text-foreground">写作</Link>
+          <Link href="/projects" className="text-muted-foreground transition-colors hover:text-foreground">项目</Link>
+          <Link href="/resources/stack" className="text-muted-foreground transition-colors hover:text-foreground">工具清单</Link>
+          <Link href="/work-with-me" className="text-muted-foreground transition-colors hover:text-foreground">合作</Link>
+          <Link href="/about" className="text-muted-foreground transition-colors hover:text-foreground">关于</Link>
+          <Link href="/roadmap" className="text-muted-foreground transition-colors hover:text-foreground">计划池</Link>
         </nav>
       </div>
     </footer>

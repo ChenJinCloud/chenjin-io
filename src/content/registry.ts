@@ -35,7 +35,7 @@ const staticKnowledge = [
   {
     id: 'workbench-home',
     type: 'workbench' as const,
-    route: '/workbench',
+    route: '/resources/stack',
     priority: 7,
     tags: ['workbench', 'stack', 'tools', 'ai tools', 'backend', 'shipany', 'idoubi', 'insforge'],
     title: {
@@ -80,7 +80,7 @@ const staticKnowledge = [
   {
     id: 'youmind-network-reference',
     type: 'workbench' as const,
-    route: '/workbench',
+    route: '/resources/stack',
     priority: 4,
     tags: ['youmind', 'prompts', 'skills', 'content network', 'sub-sites'],
     title: {

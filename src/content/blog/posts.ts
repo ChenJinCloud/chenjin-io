@@ -319,3 +319,22 @@ export const blogCategories: BlogCategory[] = ['精选', 'AI-native', '方法论
 export function getBlogPost(id?: string) {
   return publishedBlogPosts.find((post) => post.id === id);
 }
+
+/** Category → URL-safe slug for /writing/tag/[tag]. A post's category is its
+ * tag for now; there is no separate free-form tags field yet. */
+export const categorySlugs: Record<BlogCategory, string> = {
+  '精选': 'featured',
+  'AI-native': 'ai-native',
+  '方法论': 'methodology',
+  '产品增长': 'growth',
+};
+
+export const slugToCategory: Record<string, BlogCategory> = Object.fromEntries(
+  (Object.entries(categorySlugs) as [BlogCategory, string][]).map(([category, slug]) => [slug, category]),
+);
+
+export function getPostsByTagSlug(slug: string) {
+  const category = slugToCategory[slug];
+  if (!category) return [];
+  return publishedBlogPosts.filter((post) => post.category === category);
+}

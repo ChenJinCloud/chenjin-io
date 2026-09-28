@@ -1,10 +1,12 @@
+'use client';
+
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getKnowledgeRegistry } from '@/content/registry';
 import { routeChatMessage } from './chatRouter';
 import type { ChatRouteResult } from './chatTypes';
 import { ArrowRight, ArrowUp, FileText, Paperclip, Plus, Send, X } from 'lucide-react';
 import { useMemo, useRef, useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 interface ChatGatewayProps {
   variant?: 'hero' | 'floating';
@@ -189,7 +191,7 @@ const ChatGateway = ({ variant = 'hero', autoFocus = false }: ChatGatewayProps) 
               {result.recommendations.map((item) => (
                 <Link
                   key={item.id}
-                  to={item.route}
+                  href={item.route}
                   className="group block rounded-lg border border-border bg-background/70 p-3 transition-colors hover:border-accent/40"
                 >
                   <div className="mb-1 flex items-center justify-between gap-3">
@@ -208,7 +210,7 @@ const ChatGateway = ({ variant = 'hero', autoFocus = false }: ChatGatewayProps) 
             {result.actions.map((action) => (
               <Link
                 key={`${action.route}-${action.label}`}
-                to={action.route}
+                href={action.route}
                 className="rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent transition-colors hover:bg-accent/15"
               >
                 {action.label}

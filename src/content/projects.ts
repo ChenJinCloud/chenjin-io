@@ -12,6 +12,51 @@ export interface ProjectEntry {
 
 export const projects: ProjectEntry[] = [
   {
+    id: 'insforge-launch-week',
+    title: {
+      en: 'InsForge Launch Week 1',
+      zh: 'InsForge Launch Week 1',
+    },
+    excerpt: {
+      en: 'POC for InsForge’s Launch Week 1 — positioning, release, and global distribution for an AI-native backend product.',
+      zh: '担任 InsForge Launch Week 1 的 POC，推动这场发布从定位、上线到全球传播与用户采用。',
+    },
+    route: '/projects/insforge-launch-week',
+    kind: { en: 'Evidence', zh: '证据' },
+    status: { en: 'Shipped', zh: '已发布' },
+    tags: ['insforge', 'launch week', 'growth', 'poc'],
+  },
+  {
+    id: 'instacloud',
+    title: {
+      en: 'instacloud.com',
+      zh: 'instacloud.com',
+    },
+    excerpt: {
+      en: 'Currently driving instacloud.com from zero to one.',
+      zh: '目前负责 instacloud.com 从 0 到 1。',
+    },
+    route: '/projects/instacloud',
+    kind: { en: 'Evidence', zh: '证据' },
+    status: { en: 'Now', zh: '进行中' },
+    tags: ['instacloud', '0-to-1', 'growth'],
+  },
+  {
+    id: 'global-growth-os',
+    title: {
+      en: 'Global Growth OS',
+      zh: 'Global Growth OS',
+    },
+    excerpt: {
+      en: 'The core knowledge-and-productization engine behind this site’s writing and tools. Not the whole personal brand — just its strongest supporting system.',
+      zh: '支撑本站写作与工具产出的核心知识与产品化引擎。不是整个个人品牌本身，是其中最强的一段支撑系统。',
+    },
+    route: '/projects/global-growth-os',
+    kind: { en: 'Endorsed Initiative', zh: '重点项目' },
+    status: { en: 'Building', zh: '构建中' },
+    tags: ['global growth os', 'knowledge system', 'building'],
+  },
+  {
     id: 'jike-best-in-2025',
     title: {
       en: 'Jike Best in 2025',
@@ -66,7 +111,7 @@ export const projects: ProjectEntry[] = [
       en: 'A developing playbook for people who want to turn personal knowledge, projects, and AI workflows into a real site.',
       zh: '给想把个人知识、项目和 AI 工作流变成真实网站的人准备的建设手册。',
     },
-    route: '/playbooks',
+    route: '/writing/tag/playbook',
     kind: { en: 'Playbook', zh: '方法手册' },
     status: { en: 'Drafting', zh: '草稿中' },
     tags: ['personal website', 'playbook', 'ai coding', 'build in public'],

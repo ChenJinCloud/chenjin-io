@@ -1,17 +1,21 @@
+'use client';
+
 import ThemeToggle from '@/components/ThemeToggle';
 import LanguageToggle from '@/components/LanguageToggle';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const pageNavItems = [
-  { href: '/writing', label: { zh: '写作', en: 'Writing' }, aliases: ['/blog'] },
+  { href: '/writing', label: { zh: '写作', en: 'Writing' } },
   { href: '/projects', label: { zh: '项目', en: 'Projects' } },
-  { href: '/workbench', label: { zh: '工具清单', en: 'Workbench' }, aliases: ['/stack'] },
-  { href: '/playbooks', label: { zh: '方法手册', en: 'Playbooks' } },
+  { href: '/resources', label: { zh: '资源', en: 'Resources' }, aliases: ['/resources/stack', '/resources/bookshelf', '/resources/picks'] },
+  { href: '/work-with-me', label: { zh: '合作', en: 'Work with me' } },
+  { href: '/about', label: { zh: '关于', en: 'About' } },
 ];
 
 const Navigation = () => {
-  const { pathname } = useLocation();
+  const pathname = usePathname() ?? '/';
   const { language } = useLanguage();
   const isHome = pathname === '/';
 
@@ -24,7 +28,7 @@ const Navigation = () => {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-20 md:px-10">
         <Link
-          to="/"
+          href="/"
           className="font-sans text-sm font-semibold uppercase tracking-[0.18em] text-foreground transition-colors hover:text-accent"
         >
           Chen Jin
@@ -41,13 +45,13 @@ const Navigation = () => {
               </>
             ) : (
               <>
-                <Link to="/" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">
+                <Link href="/" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">
                   {language === 'zh' ? '首页' : 'Home'}
                 </Link>
                 {pageNavItems.map((item) => (
                   <Link
                     key={item.href}
-                    to={item.href}
+                    href={item.href}
                     className={`hidden px-2.5 py-2 text-sm transition-colors hover:text-foreground sm:inline-block md:px-3 ${
                       isActive(item) ? 'text-foreground' : 'text-muted-foreground'
                     }`}
@@ -55,9 +59,9 @@ const Navigation = () => {
                     {item.label[language]}
                   </Link>
                 ))}
-                <a href="/#contact" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">
+                <Link href="/#contact" className="px-2.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground md:px-3">
                   {language === 'zh' ? '联系' : 'Contact'}
-                </a>
+                </Link>
               </>
             )}
           </nav>
