@@ -1,3 +1,4 @@
+import 'server-only';
 import aiConfidenceGround from './articles/ai-confidence-ground.md?raw';
 import aiSelfInventory from './articles/ai-self-inventory.md?raw';
 import amber from './articles/amber.md?raw';

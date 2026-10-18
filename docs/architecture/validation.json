@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-07",
+  "gitBranch": "architecture-v1",
+  "status": "local-architecture-candidate",
+  "previewUrl": "http://127.0.0.1:8084/",
+  "instaProjectId": "19a8b5d7-136e-43c1-b1cf-86d9b0579384",
+  "instaBranch": "architecture-v1",
+  "cloudDeployed": false,
+  "databaseConnected": false,
+  "authenticationConnected": false,
+  "persistentChatConnected": false,
+  "checks": {
+    "productionBuild": "passed",
+    "architectureSourceFiles": 101,
+    "negativeBoundaryProbes": 2,
+    "protectedPageRedirects": "passed",
+    "draftPageStatus": 404,
+    "inputValidation": [
+      400,
+      413
+    ],
+    "uniqueSitemapUrls": 43,
+    "browserPreview": "passed",
+    "subsiteIsolationProbes": 2
+  },
+  "limitations": [
+    "No real login, database or model adapter",
+    "No persisted conversation",
+    "Git changes remain uncommitted",
+    "Existing RSS/SEO/privacy placeholders are scheduled follow-ups"
+  ],
+  "subsite": {
+    "domain": "https://insforge.chenjin.io",
+    "sourceDirectory": "sites/insforge",
+    "independentBuild": "passed",
+    "cloudDeployed": false,
+    "dnsBound": false,
+    "previewUrl": "http://127.0.0.1:8085/",
+    "httpStatus": 200,
+    "audience": "Users of instacloud.com and insforge.dev",
+    "personalGrowthCaseRemoved": true,
+    "userResourcePreviewVerified": true
+  },
+  "architectureDesignUpdate": {
+    "date": "2026-10-07",
+    "growthDomain": "https://growth.chenjin.io",
+    "growthApplicationStatus": "design-only",
+    "growthCloudDeploymentVerified": false,
+    "companyProductHierarchyDocumented": true,
+    "cloudRequeriedInThisUpdate": false,
+    "checks": {
+      "parentProductionBuild": "passed",
+      "architectureBoundaries": "passed",
+      "siblingImportNegativeProbe": "passed",
+      "markdownWhitelistReview": "completed"
+    }
+  }
+}

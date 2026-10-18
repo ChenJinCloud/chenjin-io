@@ -3,6 +3,8 @@ import type { ReactNode } from 'react';
 import { Playfair_Display, DM_Sans } from 'next/font/google';
 import { Providers } from './providers';
 import './globals.css';
+import { publicProfile } from '@/features/identity/profile';
+import { siteConfig } from '@/features/site/config';
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
@@ -19,7 +21,7 @@ const dmSans = DM_Sans({
   display: 'swap',
 });
 
-const SITE_URL = 'https://chenjin.io';
+const SITE_URL = siteConfig.canonicalOrigin;
 const SOCIAL_IMAGE = `${SITE_URL}/og-image.svg`;
 const SITE_TITLE = '陈今｜AI 产品增长、Agent 工作流与个人知识系统';
 const SITE_DESCRIPTION = '陈今的公开工作索引：AI 产品增长、Agent 工作流、个人知识系统，以及正在形成的作品与写作。';
@@ -66,16 +68,12 @@ export const viewport: Viewport = {
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Chen Jin',
-  alternateName: '陈今',
+  name: publicProfile.name.en,
+  alternateName: publicProfile.name.zh,
   url: `${SITE_URL}/`,
-  image: `${SITE_URL}/chen-jin-portrait.webp`,
-  email: 'mailto:jiaqichen6252@gmail.com',
-  sameAs: [
-    'https://github.com/ChenJinCloud',
-    'https://x.com/jinchen_ai',
-    'https://www.linkedin.com/in/jiaqi-chen-b414582aa/',
-  ],
+  image: `${SITE_URL}${publicProfile.portrait}`,
+  email: `mailto:${publicProfile.email}`,
+  sameAs: publicProfile.socialLinks.map((link) => link.href),
   knowsAbout: ['AI product growth', 'Agent workflows', 'Personal knowledge systems'],
 };
 

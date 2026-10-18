@@ -2,8 +2,9 @@ import type { MetadataRoute } from 'next';
 import { publishedBlogPosts, categorySlugs } from '@/content/blog/posts';
 import { projects } from '@/content/projects';
 import { labTools } from '@/content/lab';
+import { siteConfig } from '@/features/site/config';
 
-const SITE_URL = 'https://chenjin.io';
+const SITE_URL = siteConfig.canonicalOrigin;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -40,5 +41,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${SITE_URL}/lab/${tool.slug}`,
   }));
 
-  return [...staticRoutes, ...tagRoutes, ...postRoutes, ...projectRoutes, ...labRoutes];
+  return Array.from(new Map([...staticRoutes, ...tagRoutes, ...postRoutes, ...projectRoutes, ...labRoutes]
+    .map((route) => [route.url, route])).values());
 }

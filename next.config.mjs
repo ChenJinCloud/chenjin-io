@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
+  outputFileTracingRoot: process.cwd(),
   webpack(config) {
     // Vite supported `import x from './file.md?raw'` as a built-in asset
     // query. Webpack (Next's bundler) needs this rule to get the same

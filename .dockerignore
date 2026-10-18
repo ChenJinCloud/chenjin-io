@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.claude
+.agents
+.codex
+.insta
+.env*
+docs
+outputs
+*.tsbuildinfo
+
+# Independent sub-site app is built separately; main keeps public metadata only
+sites/insforge/**
+!sites/insforge/site.json

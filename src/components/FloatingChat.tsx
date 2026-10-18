@@ -13,6 +13,7 @@ const FloatingChat = () => {
   const [showButton, setShowButton] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const isWorkspace = pathname?.startsWith('/app') || pathname === '/login';
 
   // Hide button when Hero chat input is visible on home page
   useEffect(() => {
@@ -30,6 +31,8 @@ const FloatingChat = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHome]);
+
+  if (isWorkspace) return null;
 
   return (
     <>

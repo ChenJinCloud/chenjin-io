@@ -1,26 +1,17 @@
+import 'server-only';
 import type { Language } from '@/lib/i18n';
-import { blogPosts } from '@/content/blog/posts';
+import { publishedBlogPosts } from '@/content/blog/posts';
 import { projects } from '@/content/projects';
 import { roadmapItems, roadmapStatusConfig } from '@/features/roadmap/roadmapData';
 
-export type KnowledgeItemType = 'writing' | 'project' | 'playbook' | 'workbench' | 'roadmap' | 'service' | 'recommendation';
-
-export interface KnowledgeItem {
-  id: string;
-  type: KnowledgeItemType;
-  title: string;
-  excerpt: string;
-  route: string;
-  tags: string[];
-  priority: number;
-  status?: string;
-}
+import type { KnowledgeItem } from '@/features/content/contracts';
+export type { KnowledgeItem, KnowledgeItemType } from '@/features/content/contracts';
 
 const staticKnowledge = [
   {
     id: 'about-chenjin',
     type: 'recommendation' as const,
-    route: '/#about',
+    route: '/about',
     priority: 9,
     tags: ['about', 'chen jin', '认识陈今', '了解你', 'who you are', 'personal story', 'background', 'mutual context'],
     title: {
@@ -116,7 +107,7 @@ export function getKnowledgeRegistry(language: Language): KnowledgeItem[] {
     status: project.status[language],
   }));
 
-  const writingItems = blogPosts.map((post) => ({
+  const writingItems = publishedBlogPosts.map((post) => ({
     id: `writing:${post.id}`,
     type: 'writing' as const,
     title: post.title[language],

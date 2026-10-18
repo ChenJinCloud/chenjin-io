@@ -1,11 +1,11 @@
 'use client';
 
 import PageLayout from '@/components/PageLayout';
-import { publishedBlogPosts } from '@/content/blog/posts';
+import type { ArticleCard } from '@/features/content/contracts';
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 
-const WritingClient = () => (
+const WritingClient = ({ posts }: { posts: ArticleCard[] }) => (
   <PageLayout containerSize="wide" back={{ to: '/', label: { zh: '返回首页', en: '返回首页' } }}>
     <div className="mb-14 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 md:mb-20">
       <h1 className="font-display text-5xl font-medium tracking-tight md:text-7xl">写作</h1>
@@ -26,7 +26,7 @@ const WritingClient = () => (
     </div>
 
     <div className="border-t border-border">
-      {publishedBlogPosts.map((post) => (
+      {posts.map((post) => (
         <Link
           key={post.id}
           href={`/writing/${post.id}`}

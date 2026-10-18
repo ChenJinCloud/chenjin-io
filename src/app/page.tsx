@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import HomeClient from './HomeClient';
+import { listPublicArticles } from '@/features/content/public.server';
 
 export const metadata: Metadata = {
   title: '陈今｜AI 产品增长、Agent 工作流与个人知识系统',
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <HomeClient />;
+  return <HomeClient featuredPosts={listPublicArticles(3)} />;
 }

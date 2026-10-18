@@ -1,4 +1,4 @@
-import type { KnowledgeItem } from '@/content/registry';
+import type { KnowledgeItem } from '@/features/content/contracts';
 
 export type ChatIntent = 'roadmap' | 'project' | 'writing' | 'workbench' | 'service' | 'mutual' | 'general';
 

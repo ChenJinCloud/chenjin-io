@@ -1,5 +1,5 @@
 import type { Language } from '@/lib/i18n';
-import type { KnowledgeItem } from '@/content/registry';
+import type { KnowledgeItem } from '@/features/content/contracts';
 import type { ChatAction, ChatIntent, ChatRouteResult } from './chatTypes';
 
 const intentKeywords: Record<ChatIntent, string[]> = {
@@ -70,7 +70,7 @@ function buildActions(intent: ChatIntent, language: Language): ChatAction[] {
   if (intent === 'writing') return [{ label: labels.writing, route: '/writing' }, ...shared];
   if (intent === 'workbench') return [{ label: labels.workbench, route: '/resources/stack' }, ...shared];
   if (intent === 'service') return [{ label: labels.contact, route: '/work-with-me' }, { label: labels.projects, route: '/projects' }];
-  if (intent === 'mutual') return [{ label: labels.about, route: '/#about' }, { label: labels.writing, route: '/writing' }, { label: labels.contact, route: '/work-with-me' }];
+  if (intent === 'mutual') return [{ label: labels.about, route: '/about' }, { label: labels.writing, route: '/writing' }, { label: labels.contact, route: '/work-with-me' }];
   if (intent === 'roadmap') return [{ label: labels.roadmap, route: '/roadmap' }, { label: labels.workbench, route: '/resources/stack' }];
   return [{ label: labels.projects, route: '/projects' }, { label: labels.writing, route: '/writing' }, ...shared];
 }
@@ -79,7 +79,7 @@ function buildAnswer(intent: ChatIntent, language: Language, count: number) {
   const isZh = language === 'zh';
 
   if (isZh) {
-    const prefix = '我现在先用站内知识库做本地路由，还没有接真实 LLM。';
+    const prefix = '我现在先用公开内容做站内路由，还没有接真实 LLM。';
     const suffix = count > 0 ? '下面这些入口可能最相关。' : '我还没有找到足够匹配的内容，可以先从作品、写作或计划池进入。';
     const intentText: Record<ChatIntent, string> = {
       roadmap: '你问的是计划、需求或想让我输出什么，最适合去计划池继续。',
@@ -93,7 +93,7 @@ function buildAnswer(intent: ChatIntent, language: Language, count: number) {
     return `${prefix}${intentText[intent]}${suffix}`;
   }
 
-  const prefix = 'This is currently a local site-knowledge router, not a live LLM backend yet. ';
+  const prefix = 'This is currently a public site-knowledge router, not a live LLM backend yet. ';
   const suffix = count > 0 ? 'These are the most relevant starting points.' : 'I could not find a strong match yet, so start with projects, writing, or the roadmap.';
   const intentText: Record<ChatIntent, string> = {
     roadmap: 'Your question sounds like a plan, request, or future-output prompt. ',

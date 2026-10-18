@@ -48,8 +48,8 @@ export const projects: ProjectEntry[] = [
       zh: 'Global Growth OS',
     },
     excerpt: {
-      en: 'The core knowledge-and-productization engine behind this site’s writing and tools. Not the whole personal brand — just its strongest supporting system.',
-      zh: '支撑本站写作与工具产出的核心知识与产品化引擎。不是整个个人品牌本身，是其中最强的一段支撑系统。',
+      en: 'Growth methods, research sources, and AI workflows for global markets. An independent user site is planned at growth.chenjin.io.',
+      zh: '面向全球市场的增长方法、研究信源与 AI 工作流，独立用户站规划为 growth.chenjin.io。',
     },
     route: '/projects/global-growth-os',
     kind: { en: 'Endorsed Initiative', zh: '重点项目' },

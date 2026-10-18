@@ -1,0 +1,57 @@
+{
+  "id": "insforge",
+  "name": "InsForge 用户资源",
+  "canonicalOrigin": "https://insforge.chenjin.io",
+  "parentOrigin": "https://chenjin.io",
+  "deploymentStatus": "not-deployed",
+  "computeService": "insforge",
+  "sections": [
+    "产品与团队动态",
+    "产品用例",
+    "最新实践",
+    "最佳实践"
+  ],
+  "audience": "InstaCloud and InsForge users",
+  "purpose": "帮助用户了解产品变化、找到用例并完成实际使用",
+  "sectionDescriptions": {
+    "产品用例": "找到适合你所需场景的应用示例与实现思路。",
+    "最新实践": "跟进新的使用方式，了解具体步骤与适用条件。",
+    "最佳实践": "查找经过验证的方法，以及常见问题的处理方式。",
+    "产品与团队动态": "跟进产品更新与团队进展，了解重要变化及其对用户的影响。"
+  },
+  "contentPolicy": {
+    "allowed": [
+      "product-update",
+      "product-use-case",
+      "implementation-guide",
+      "best-practice",
+      "troubleshooting",
+      "team-update"
+    ],
+    "excluded": [
+      "personal-portfolio",
+      "growth-campaign-retrospective",
+      "personal-consulting-promotion"
+    ],
+    "publicationRequirements": [
+      "明确用户问题与用途",
+      "可核验的公开来源",
+      "标明适用版本与验证状态",
+      "明确所属产品：instacloud 或 insforge"
+    ]
+  },
+  "products": [
+    {
+      "id": "instacloud",
+      "name": "InstaCloud",
+      "domain": "instacloud.com",
+      "origin": "https://instacloud.com"
+    },
+    {
+      "id": "insforge",
+      "name": "InsForge",
+      "domain": "insforge.dev",
+      "origin": "https://insforge.dev"
+    }
+  ]
+}

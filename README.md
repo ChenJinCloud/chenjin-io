@@ -38,7 +38,7 @@ npm run start   # serve the production build
 
 | URL | Purpose |
 |-----|---------|
-| `/` | Hero, one-line identity statement, primary CTA into `/writing` |
+| `/` | Personal profile and portrait, rotating topics, Chat and Contact |
 | `/writing`, `/writing/[slug]`, `/writing/tag/[tag]` | Content — the core, continuously-updated species |
 | `/projects`, `/projects/[slug]` | Evidence layer — shipped case studies, in-progress work, independent-product links |
 | `/lab`, `/lab/[slug]` | Self-built, runnable tools |
@@ -47,12 +47,32 @@ npm run start   # serve the production build
 | `/about` | Identity, timeline, method provenance (low-frequency, fixed page) |
 | `/roadmap` | Build plan + reader request pool |
 | `/chat` | Site-knowledge chat router (local rules today, no LLM/memory backend yet) |
+| `/insforge` | Temporary noindex notice for the independent insforge.chenjin.io site |
+| `/login`, `/app`, `/app/chat` | Authentication and protected workspace scaffold; authentication is not connected yet |
 | `/account` | Placeholder for future comment/chat-history management (icon entry, not in nav) |
 | `/newsletter`, `/privacy`, `/terms` | Supporting utility pages |
 
 Legacy Vite-era paths (`/blog`, `/playbooks`, `/workbench`, `/stack`, `/experience/*`, and the pre-2026-04
 `/tools /sources /tutorials /social /support`) all 301-redirect to their new homes via `next.config.mjs` —
 `robots.txt` has allowed full crawling throughout, so these may still be indexed.
+
+## Independent sub-sites
+
+`sites/insforge` is a separate Next.js application for `insforge.chenjin.io`, with its own build and development port (8085). It is not included in the parent app build. The domain has not been deployed or bound yet. See its [README](sites/insforge/README.md).
+
+`sites/growth` records the design and public configuration for Global Growth OS at `growth.chenjin.io`. Its independent application and deployment are not implemented. The parent `/projects/global-growth-os` page remains the project overview and personal retrospective entry. See its [README](sites/growth/README.md).
+
+## Architecture baseline
+
+See [ARCHITECTURE-V1.md](docs/architecture/ARCHITECTURE-V1.md) for the current modular architecture, public/private boundary, identity and CTA policy, topic collections, authentication/chat contracts, and InstaCloud release plan.
+
+```sh
+npm run check:architecture
+```
+
+This checks transitive client imports and runtime dependencies between controlled feature domains. Public article bodies are server-only; client pages receive published card projections. `/api/public/knowledge` is stateless rule-based search, not a persistent AI chat. `/app/*` fails closed until the session adapter is connected.
+
+InstaCloud project: `chenjin-io`; development environment: `architecture-v1`. No application service or database has been deployed in this architecture phase. The Dockerfile builds Next standalone output; credentials and local agent files are excluded.
 
 ## Project docs
 

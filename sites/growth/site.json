@@ -1,0 +1,32 @@
+{
+  "id": "growth",
+  "name": "Global Growth OS",
+  "canonicalOrigin": "https://growth.chenjin.io",
+  "parentOrigin": "https://chenjin.io",
+  "deploymentStatus": "not-deployed",
+  "applicationStatus": "design-only",
+  "computeService": "growth",
+  "projectPath": "/projects/global-growth-os",
+  "audience": "Global growth practitioners and teams",
+  "purpose": "面向全球市场的增长方法、研究信源与 AI 工作流",
+  "sections": [
+    "岗位与常识",
+    "方法论与信源",
+    "Growth Toolkit",
+    "反馈与共创"
+  ],
+  "optionalAlias": {
+    "origin": "https://global-growth-os.chenjin.io",
+    "status": "not-configured"
+  },
+  "contentPolicy": {
+    "sourceAuthority": "/Users/jinchen/01-global-growth-system/projects/global-growth-os",
+    "publicationProcess": "manual-reviewed-public-export",
+    "privateSourceBuildAccess": false,
+    "excluded": [
+      "private-runtime-records",
+      "company-internal-materials",
+      "unaudited-complete-os-design"
+    ]
+  }
+}

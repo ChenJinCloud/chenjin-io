@@ -1,11 +1,9 @@
 'use client';
 
 import { useLanguage } from '@/contexts/LanguageContext';
-import { getKnowledgeRegistry } from '@/content/registry';
-import { routeChatMessage } from './chatRouter';
 import type { ChatRouteResult } from './chatTypes';
 import { ArrowRight, ArrowUp, FileText, Paperclip, Plus, Send, X } from 'lucide-react';
-import { useMemo, useRef, useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 
 interface ChatGatewayProps {
@@ -41,7 +39,8 @@ const ChatGateway = ({ variant = 'hero', autoFocus = false }: ChatGatewayProps) 
   const { t, language } = useLanguage();
   const classes = variantClasses[variant];
   const isZh = language === 'zh';
-  const registry = useMemo(() => getKnowledgeRegistry(language), [language]);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState('');
   const [fileName, setFileName] = useState('');
   const [result, setResult] = useState<ChatRouteResult | null>(null);
@@ -72,16 +71,27 @@ const ChatGateway = ({ variant = 'hero', autoFocus = false }: ChatGatewayProps) 
     });
   };
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const trimmed = message.trim();
-    if (!trimmed) return;
+    if (!trimmed || pending) return;
 
-    setResult(routeChatMessage(trimmed, registry, language));
-    setMessage('');
-    setFileName('');
-    if (fileRef.current) fileRef.current.value = '';
-    resetTextareaHeight();
+    setPending(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/public/knowledge', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: trimmed, language }),
+      });
+      if (!response.ok) throw new Error('Knowledge query failed');
+      setResult(await response.json());
+      setMessage('');
+      resetTextareaHeight();
+    } catch {
+      setError(isZh ? '暂时无法查询，请稍后重试。' : 'Unable to search right now. Please try again.');
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -117,7 +127,9 @@ const ChatGateway = ({ variant = 'hero', autoFocus = false }: ChatGatewayProps) 
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
-            aria-label={t.hero.chatUpload}
+            aria-label={isZh ? '附件功能尚未接入' : 'Attachments are not available yet'}
+            disabled
+            title={isZh ? '附件功能尚未接入' : 'Attachments are not available yet'}
             className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-accent/10 hover:text-foreground"
           >
             {variant === 'hero' ? <Plus className="h-[18px] w-[18px]" /> : <Paperclip className="h-[18px] w-[18px]" />}
@@ -147,6 +159,7 @@ const ChatGateway = ({ variant = 'hero', autoFocus = false }: ChatGatewayProps) 
             }}
             placeholder={t.hero.chatPlaceholder}
             rows={1}
+            maxLength={2000}
             autoFocus={autoFocus}
             className={`flex-1 self-center resize-none overflow-y-auto bg-transparent px-1 font-light leading-6 text-foreground placeholder:text-muted-foreground/40 focus:outline-none ${classes.textarea}`}
           />
@@ -155,12 +168,18 @@ const ChatGateway = ({ variant = 'hero', autoFocus = false }: ChatGatewayProps) 
             type="submit"
             aria-label={t.hero.chatSend}
             className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-foreground text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground/40"
-            disabled={!message.trim()}
+            disabled={!message.trim() || pending}
           >
             {variant === 'hero' ? <ArrowUp className="h-4 w-4" /> : <Send className="h-4 w-4" />}
           </button>
         </div>
       </form>
+
+      <p className="mt-3 text-center text-xs leading-6 text-muted-foreground">
+        {isZh ? '公开内容查询预览 · 当前不保存对话' : 'Public content search preview · Conversations are not saved'}
+      </p>
+      {error && <p role="alert" className="mt-3 text-sm text-destructive">{error}</p>}
+      {pending && <p role="status" className="mt-3 text-sm text-muted-foreground">{isZh ? '正在查询…' : 'Searching…'}</p>}
 
       {variant === 'floating' && (
         <div className={`flex flex-wrap gap-2 ${classes.topicWrap}`}>

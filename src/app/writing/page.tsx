@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import WritingClient from './WritingClient';
+import { listPublicArticles } from '@/features/content/public.server';
 
 export const metadata: Metadata = {
   title: '写作',
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <WritingClient />;
+  return <WritingClient posts={listPublicArticles()} />;
 }

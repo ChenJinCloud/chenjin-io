@@ -4,7 +4,10 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import GradientMesh from '@/components/GradientMesh';
 import ChatGateway from '@/features/chat/ChatGateway';
-import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import ProfileHero from '@/features/identity/ProfileHero';
+import { publicProfile } from '@/features/identity/profile';
+import type { ArticleCard } from '@/features/content/contracts';
+import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { trackEvent, trackOutboundClick } from '@/lib/analytics';
 
@@ -32,25 +35,7 @@ const selectedWork = [
   },
 ];
 
-const featuredPosts = [
-  {
-    id: 'gallup-ai-human-consulting',
-    date: '2026.06.15',
-    title: '我用AI读完了盖洛普报告，最后还是被真人咨询改变了。',
-  },
-  {
-    id: 'systematic-personal-influence',
-    date: '2026.02.03',
-    title: '如何系统化构建 IP 影响力（2025 上半年思考精华）',
-  },
-  {
-    id: 'personal-database',
-    date: '2025.02.20',
-    title: '建议大家尽早开始搭建个人数据库',
-  },
-];
-
-const HomeClient = () => {
+const HomeClient = ({ featuredPosts }: { featuredPosts: ArticleCard[] }) => {
   return (
     <div id="top" className="min-h-screen overflow-x-hidden bg-background text-foreground">
       <a
@@ -66,47 +51,7 @@ const HomeClient = () => {
         <section className="relative flex min-h-[92svh] flex-col justify-end overflow-hidden border-b border-border/70 px-5 pb-14 pt-32 md:px-10 md:pb-20 md:pt-40">
           <GradientMesh />
           <div className="relative mx-auto w-full max-w-7xl">
-            <div className="grid items-end gap-10 md:grid-cols-[minmax(0,1.2fr)_minmax(16rem,0.8fr)] md:gap-12 lg:gap-20">
-              <div>
-                <h1 className="font-display text-[clamp(4.5rem,10vw,8.5rem)] font-medium leading-[0.88] tracking-[-0.055em] text-foreground">
-                  陈今
-                </h1>
-                <p className="mt-7 max-w-xl text-lg leading-8 text-muted-foreground md:mt-9 md:text-xl md:leading-9">
-                  面向 AI / Agent / DevTool / Infra 产品与从业者，把模糊的增长、内容、合作和 AI 工作流问题拆成可执行系统，用文档、工具和实作推进落地。
-                </p>
-                <div className="mt-9 flex flex-wrap items-center gap-4 md:mt-12">
-                  <Link
-                    href="/writing"
-                    onClick={() => trackEvent('hero_cta_click', { cta: 'read_writing' })}
-                    className="inline-flex min-h-12 items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
-                  >
-                    看我怎么拆解问题
-                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                  </Link>
-                  <a
-                    href="#now"
-                    onClick={() => trackEvent('hero_cta_click', { cta: 'see_what_im_doing' })}
-                    className="inline-flex min-h-12 items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-foreground/30 hover:bg-secondary"
-                  >
-                    看我正在做什么
-                    <ArrowDown className="h-4 w-4" aria-hidden="true" />
-                  </a>
-                </div>
-              </div>
-
-              <div className="mx-auto w-full max-w-sm md:mx-0 md:ml-auto md:max-w-md">
-                <div className="aspect-square overflow-hidden rounded-2xl border border-border/60 bg-secondary shadow-[0_20px_60px_-24px_hsl(var(--foreground)/0.25)]">
-                  <img
-                    src="/chen-jin-portrait.webp"
-                    alt="陈今的个人照片"
-                    width="900"
-                    height="900"
-                    fetchPriority="high"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
-            </div>
+            <ProfileHero />
 
             <div className="relative mt-14 md:mt-20">
               <ChatGateway variant="hero" />
@@ -194,7 +139,7 @@ const HomeClient = () => {
                   className="group grid gap-3 border-t border-border py-7 transition-colors sm:grid-cols-[7rem_1fr_auto] sm:items-baseline md:py-8"
                 >
                   <span className="text-sm text-muted-foreground">{post.date}</span>
-                  <h3 className="text-xl leading-8 text-foreground transition-colors group-hover:text-accent md:text-2xl">{post.title}</h3>
+                  <h3 className="text-xl leading-8 text-foreground transition-colors group-hover:text-accent md:text-2xl">{post.title.zh}</h3>
                   <ArrowUpRight className="hidden h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 sm:block" aria-hidden="true" />
                 </Link>
               ))}
@@ -209,16 +154,18 @@ const HomeClient = () => {
               <h2 className="font-display text-5xl font-medium leading-none tracking-[-0.035em] md:text-7xl lg:col-span-8">CONTACT</h2>
               <div className="lg:col-span-4 lg:text-right">
                 <a
-                  href="mailto:jiaqichen6252@gmail.com"
+                  href={`mailto:${publicProfile.email}`}
                   onClick={() => trackEvent('contact_click', { channel: 'email' })}
                   className="text-lg font-medium text-foreground line-reveal"
                 >
-                  jiaqichen6252@gmail.com
+                  {publicProfile.email}
                 </a>
                 <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 lg:justify-end">
-                  <a href="https://github.com/ChenJinCloud" target="_blank" rel="noreferrer" onClick={() => trackOutboundClick('https://github.com/ChenJinCloud', { source: 'contact', channel: 'github' })} className="text-sm text-muted-foreground transition-colors hover:text-foreground">GitHub</a>
-                  <a href="https://x.com/jinchen_ai" target="_blank" rel="noreferrer" onClick={() => trackOutboundClick('https://x.com/jinchen_ai', { source: 'contact', channel: 'x' })} className="text-sm text-muted-foreground transition-colors hover:text-foreground">X</a>
-                  <a href="https://www.linkedin.com/in/jiaqi-chen-b414582aa/" target="_blank" rel="noreferrer" onClick={() => trackOutboundClick('https://www.linkedin.com/in/jiaqi-chen-b414582aa/', { source: 'contact', channel: 'linkedin' })} className="text-sm text-muted-foreground transition-colors hover:text-foreground">LinkedIn</a>
+                  {publicProfile.socialLinks.map((link) => (
+                    <a key={link.channel} href={link.href} target="_blank" rel="noreferrer"
+                      onClick={() => trackOutboundClick(link.href, { source: 'contact', channel: link.channel })}
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground">{link.label}</a>
+                  ))}
                 </div>
               </div>
             </div>
