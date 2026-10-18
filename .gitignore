@@ -52,3 +52,7 @@ skills-lock.json
 # Local InstaCloud agent hooks (machine-specific)
 .codex/hooks.json
 .claude/settings.json
+
+# OpenNext / Cloudflare build output
+.open-next/
+.wrangler/
