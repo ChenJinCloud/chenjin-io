@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import PageLayout from '@/components/PageLayout';
+import { phase2Enabled } from '@/features/site/flags';
 
 export const metadata: Metadata = { title: '登录', robots: { index: false, follow: false } };
 
 export default function LoginPage() {
+  if (!phase2Enabled) notFound();
   return (
     <PageLayout back={{ to: '/', label: { zh: '返回官网', en: 'Back to website' } }}>
       <h1 className="mb-6 font-display text-4xl">登录与对话记录</h1>

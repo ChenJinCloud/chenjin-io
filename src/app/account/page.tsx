@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import PageLayout from '@/components/PageLayout';
 import { UserCircle } from 'lucide-react';
+import { phase2Enabled } from '@/features/site/flags';
 
 export const metadata: Metadata = {
   title: '账号',
@@ -10,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  if (!phase2Enabled) notFound();
   return (
     <PageLayout back={{ to: '/', label: { zh: '返回首页', en: 'Back to Home' } }}>
       <div className="flex flex-col items-center py-16 text-center">

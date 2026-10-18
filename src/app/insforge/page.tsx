@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import PageLayout from '@/components/PageLayout';
+import { phase2Enabled } from '@/features/site/flags';
 import { subsites } from '@/features/site/subsites';
 
 const site = subsites[0];
@@ -10,6 +12,7 @@ export const metadata: Metadata = {
 
 /** Temporary notice; switch to a permanent redirect only after the sub-site is live. */
 export default function Page() {
+  if (!phase2Enabled) notFound();
   return <PageLayout back={{ to: '/projects', label: { zh: '返回项目', en: 'Back to projects' } }}>
     <h1 className="mb-6 font-display text-4xl">InsForge 独立专题站</h1>
     <p className="mb-6 text-xl">insforge.chenjin.io</p>
